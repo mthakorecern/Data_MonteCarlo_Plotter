@@ -74,6 +74,7 @@ variables_linear=(
     "Jet_eta[index_gJets[0]]"
 
     "ngood_Jets"
+    "ngood_LooseJets"
     "ngood_MediumJets"
     "ngood_TightJets"
 
@@ -85,9 +86,6 @@ variables_linear=(
 
     "Hbb_met_phi"
     "allTaus_decayMode"
-
- 
-
 )
 
 ############################################
@@ -103,7 +101,7 @@ for var in "${variables_log[@]}"; do
             --variables "$var" \
             --cuts "${!cut_var}" \
             --weights xsWeight \
-            --set_maximum 1e5 \
+            --set_maximum 1e6 \
             --log_scale \
             --Channel $ch \
             --dataMC \
@@ -167,3 +165,15 @@ for var in "${variables_linear[@]}"; do
         #     &> log_${ch}_${var}_SignalandBackground.txt &
     done
 done
+
+
+
+python3 norm.py \
+    --year 2024 \
+    --variables "FatJet_pt_nom[index_gFatJets[0]]" \
+    --cuts "((channel==0) && (HTTvis_deltaR<1.5) && (abs(Hbb_met_phi)>1) && (HTTvis_m>20) && (softdropmassnom>=30) && (X_m>750)&&(X_m<5500))" \
+    --weights xsWeight \
+    --set_maximum 1e6 \
+    --log_scale \
+    --Channel tt \
+    --dataMC 

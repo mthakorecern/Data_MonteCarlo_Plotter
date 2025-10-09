@@ -168,6 +168,7 @@ variableFileNameDictionary = {
     "PuppiMET_pt":"PuppiMET_pt",
     "PuppiMET_phi":"PuppiMET_phi",
     "ngood_Jets":"njets",
+    "ngood_LooseJets":"njets_loose",
     "ngood_MediumJets":"njets_medium",
     "ngood_TightJets":"njets_tight",
     "Jet_pt_nom[index_gJets[0]]":"leading_jet_pt_nom",
@@ -226,8 +227,8 @@ variableSettingDictionary = {
     "boostedTau_phi[index_gboostedTaus]":"16,-3.20,3.20",
     "MT":"15,0,150",
     "HT":"30,0,3000",
-    "FatJet_pt_nom[index_gFatJets[0]]":"37,200,2050",
-    "FatJet_pt[index_gFatJets[0]]":"37,200,2050",
+    "FatJet_pt_nom[index_gFatJets[0]]":"37,180,2050",
+    "FatJet_pt[index_gFatJets[0]]":"37,180,2050",
     "FatJet_eta[index_gFatJets[0]]":"16,-3.20,3.20",
     "FatJet_phi[index_gFatJets[0]]":"16,-3.20,3.20",
     "FatJet_eta":"16,-3.20,3.20",
@@ -243,9 +244,9 @@ variableSettingDictionary = {
     "FatJet_msoftdrop_nom[index_gFatJets[0]]":"25,0.0,250.0",
     "FatJet_msoftdrop[index_gFatJets[0]]":"25,0.0,250.0",
 
-    "PuppiMET_pt_nom":"21,180,1000",
+    "PuppiMET_pt_nom":"21,120,1000",
     "PuppiMET_phi_nom":"16,-3.20,3.20",
-    "PuppiMET_pt":"21,180,1000",
+    "PuppiMET_pt":"21,120,1000",
     "PuppiMET_phi":"16,-3.20,3.20",
     
     "allTaus_pt":"20,0.0,400.0",
@@ -258,7 +259,9 @@ variableSettingDictionary = {
     "allTaus_eta[1]":"16,-3.20,3.20",
     "allTaus_phi[1]":"16,-3.20,3.20",
     "HTT_pt":"41,0,2050",
-    "HTT_m":"25,0.0,250.0",
+#    "HTT_m":"25,0.0,250.0",
+    "HTT_m":"50,0.0,250.0", # temp
+
     "HTT_phi":"32,-3.20,3.20",
     "HTT_eta":"32,-3.20,3.20",
     "X_pt":"40,50,2050",

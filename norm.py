@@ -11,6 +11,8 @@ from observed import observed
 
 from variable_dictionaries import variableAxisTitleDictionary, variableFileNameDictionary, variableSettingDictionary
 import time
+import re
+
 
 
 def create_cut_string(weights, base_cut, additional_cuts, is_observed=False):
@@ -32,27 +34,59 @@ def create_cut_string(weights, base_cut, additional_cuts, is_observed=False):
     else:
         return f"{weights} * ({cut_expr})"
 
-def group_key_from_name(name):
-    '''
-    After reading the histogram, group them.
-    '''
-    if any(s in name for s in ["WW","WZ","ZZ"]):
+def group_key_from_name(name: str) -> str:
+    """
+    Group histograms into physics processes by substring matching.
+    Works even if hist name has _HTT_m, _0, _1, etc.
+    """
+    # Strip any trailing _<digits> or variable suffix to make matching robust
+    import re
+    name_clean = re.sub(r"_[0-9]+$", "", name)      
+    name_clean = re.sub(r"(_HTT_m.*)$", "", name_clean)  
+
+    if any(s in name_clean for s in ["WW", "WZ", "ZZ"]):
         return "DiBoson"
-    if any(s in name for s in ["TWminus","TbarWplus","TbarBQ","TBbarQ"]):
+    if any(s in name_clean for s in ["TWminus", "TbarWplus", "TbarBQ", "TBbarQ"]):
         return "STop"
-    if "TT"   in name:
+    if "TTto" in name_clean:
         return "TTbar"
-    if "QCD"  in name:
+    if "QCD" in name_clean:
         return "QCD"
-    if "Wto"  in name:
+    if "Wto" in name_clean:
         return "WJets"
-    if "DYto" in name:
+    if "DYto" in name_clean:
         return "Drell-Yan"
+    if "GluGlutoRadion" in name_clean:
+        return "Signal"
     return "Other"
 
 
+import numpy as np
+import math
+
+def format_scientific(val, err=0, sig_val=3, sig_err=2):
+    """
+    Return a nicely formatted string (value ± error)×10^exp in scientific notation.
+    Example: (1.23 ± 0.04)×10^5
+    Handles zero, inf, or nan safely.
+    """
+    if val == 0 or not np.isfinite(val):
+        return f"(0 ± {err:.{sig_err}g})"
+    exponent = int(np.floor(np.log10(abs(val))))
+    mantissa_val = val / 10 ** exponent
+    mantissa_err = err / 10 ** exponent if err else 0
+    if err:
+        return f"({mantissa_val:.{sig_val}g} ± {mantissa_err:.{sig_err}g})×10^{exponent}"
+    else:
+        return f"{mantissa_val:.{sig_val}g}×10^{exponent}"
+
+def get_integral_with_error(hist):
+    import ctypes
+    err = ctypes.c_double(0.0)
+    val = hist.IntegralAndError(0, hist.GetNbinsX() + 1, err)
+    return val, err.value
+
 def get_full_path(base_dir, path):
-    """Return full path, handling both absolute and relative cases."""
     if os.path.isabs(path):
         return path
     return os.path.join(base_dir, path)
@@ -167,8 +201,16 @@ if __name__ == "__main__":
 
         for proc_name, hlist in hists_by_proc.items():
             for h in hlist:
+                #print(f"[DEBUG] {proc_name} → {h.GetName()} integral={h.Integral()}")
                 key = group_key_from_name(h.GetName())
+                #print(f"[DEBUG] Grouped as: {key}")
+                if key not in hists:
+                    key = "Other"
                 hists[key].Add(h)
+        
+        # print("\n--- Group integrals after filling ---")
+        # for key, hist in hists.items():
+        #     print(f"{key:12} : {hist.Integral(0, hist.GetNbinsX()+1):.6f}")
 
         # styling for category-sum histograms
         hists["DiBoson"].SetLineColor(ROOT.TColor.GetColor("#9d99bd"))
@@ -214,8 +256,9 @@ if __name__ == "__main__":
             + hists["WJets"].Integral(0, hists["WJets"].GetNbinsX()+1)
             + hists["Drell-Yan"].Integral(0, hists["Drell-Yan"].GetNbinsX()+1)
         )
-
-        print(f"Sum of background Integrals is: {backgrounds_sum}")
+        # val, err = get_integral_with_error(backgrounds_sum)
+        # print(f"Total background integral = {format_scientific(val, err)}")
+        #print(f"Sum of background Integrals is: {backgrounds_sum}")
         hist_stack.Add(hists["DiBoson"])
         hist_stack.Add(hists["STop"])
         hist_stack.Add(hists["TTbar"])
@@ -434,7 +477,7 @@ if __name__ == "__main__":
         total_bkg_hist.Add(hists["QCD"])
         total_bkg_hist.Add(hists["WJets"])
         total_bkg_hist.Add(hists["Drell-Yan"])
-
+        
         # Error band
         bkg_errors = ROOT.TGraphAsymmErrors(total_bkg_hist)
         for b in range(1, total_bkg_hist.GetNbinsX() + 1):
@@ -447,6 +490,9 @@ if __name__ == "__main__":
                                     bin_error, bin_error)
         bkg_errors.SetFillStyle(3008)
         bkg_errors.SetFillColor(ROOT.TColor.GetColor("#545252"))
+
+        val, err = get_integral_with_error(total_bkg_hist)
+        print(f"Total background integral = {format_scientific(val, err)}")
 
         # Signals
         signal_1.SetLineColor(ROOT.kRed)
@@ -477,7 +523,6 @@ if __name__ == "__main__":
 
         for category, sample_type in observed.items():
             for path in sample_type["files"]:
-                # Do NOT gate on os.path.exists for remote paths (xrootd/hdfs); ROOT can still open them
                 f = ROOT.TFile.Open(path, "READ")
                 if not f or f.IsZombie():
                     print(f"Could not open {path}")
@@ -521,7 +566,8 @@ if __name__ == "__main__":
         
         data.SetMarkerStyle(20)
         data.SetLineColor(ROOT.kBlack)
-        print(f"Total Data integral={data.Integral(0, data.GetNbinsX()+1)}")
+        val, err = get_integral_with_error(data)
+        print(f"Total Data integral = {format_scientific(val, err)}")
         
         # --- Compute and set Y-axis maximum ---
         max_bkg = max(h.GetMaximum() for _, h in hists.items())
@@ -552,6 +598,7 @@ if __name__ == "__main__":
         signal_4.Draw("hist SAME")
         data.Draw("ep SAME")
 
+        
 
 
         #hist_stack.SetMaximum(set_maximum)
@@ -620,7 +667,21 @@ if __name__ == "__main__":
 
         canvas_dataMC.SaveAs(os.path.join("DataMC", f"{args.year}_{args.Channel}_{variable}_DataMC.png"))
 
+        data_val, data_err = get_integral_with_error(data)
+        mc_val, mc_err     = get_integral_with_error(total_bkg_hist)
 
+        if mc_val > 0:
+            ratio_val = data_val / mc_val
+            ratio_err = ratio_val * math.sqrt(
+                (data_err / data_val) ** 2 + (mc_err / mc_val) ** 2
+            ) if data_val > 0 else 0.0
+        else:
+            ratio_val, ratio_err = float("nan"), 0.0
+        print("\n")
+        print(f"Data Integral : {format_scientific(data_val, data_err)}")
+        print(f"MC Integral   : {format_scientific(mc_val, mc_err)}")
+        print(f"Data/MC Ratio : {format_scientific(ratio_val, ratio_err)}")
+    
     else:  
         ## Signal & Backgrounds both
 

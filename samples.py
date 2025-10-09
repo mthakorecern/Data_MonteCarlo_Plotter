@@ -1,4 +1,4 @@
-redirector_MC = "/hdfs/store/user/mithakor/2024_XsecAdded/MC_07Oct25_1025"
+redirector_MC = "/hdfs/store/user/mithakor/2024_XsecAdded/MC_MET_120_Nominal_08Oct25_1430"
 
 Signals = {
     "GluGlutoRadiontoHHto2B2Tau_M-1000": {
