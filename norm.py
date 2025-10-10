@@ -709,19 +709,23 @@ if __name__ == "__main__":
         theLegend.SetFillStyle(0)
         theLegend.SetTextFont(42)
 
+        pad1.cd()
         hist_stack.Draw("hist")
-        hist_stack.GetXaxis().SetTitle(hist_title)
-        hist_stack.GetYaxis().SetTitle("Events")
-        
+        pad1.Update()
+
         if args.set_maximum > 0:
-            hist_stack.SetMaximum(args.set_maximum)
-        else:
-            max_bkg = max(h.GetMaximum() for _, h in hists.items())
-            hist_stack.SetMaximum(1.5*max(max_bkg, signal_1.GetMaximum(), signal_2.GetMaximum(), signal_3.GetMaximum(), signal_4.GetMaximum()))
-        
+            hist_stack.GetHistogram().SetMaximum(args.set_maximum)
+        else
+            ymax = 1.5 * max(max_bkg, max_sig, max_data)
+            hist_stack.GetHistogram().SetMaximum(ymax)
+
+        hist_stack.Draw("hist same")
+
         if log_scale:
-            canvas_sb.SetLogy()
+            pad1.SetLogy()
             hist_stack.SetMinimum(1e-1)
+
+        pad1.Update()
 
         signal_1.SetLineColor(ROOT.kRed)
         signal_1.SetLineWidth(2)
