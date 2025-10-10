@@ -2,17 +2,17 @@ variableAxisTitleDictionary = {
     "PV_npvs":"Number of Primary Vertices",
     "PV_npvsGood":"Number of Primary Vertices (Good)",    
     "FatJet_pt_nom[index_gFatJets[0]]":"Leading AK8 Jet Pt (GeV)",
-    "FatJet_pt[index_gFatJets[0]]":"Uncorrected Leading AK8 Jet Pt (GeV)",
+    "FatJet_pt[index_gFatJets[0]]":"NanoAOD def Leading AK8 Jet Pt (GeV)",
 
 
-    #"FatJet_pt[index_gFatJets[0]]":"Leading AK8 Jet def Pt (GeV)",
+    #"FatJet_pt[index_gFatJets[0]]":"Leading AK8 Jet NanoAOD def Pt (GeV)",
     "FatJet_eta[index_gFatJets[0]]":"Leading AK8 Jet eta",
     "FatJet_phi[index_gFatJets[0]]":"Leading AK8 Jet Phi",
     "FatJet_mass_nom[index_gFatJets[0]]":"Leading AK8 Jet mass (GeV)",
-    "FatJet_mass[index_gFatJets[0]]":"Uncorrected Leading AK8 Jet mass (GeV)",
+    "FatJet_mass[index_gFatJets[0]]":"NanoAOD def Leading AK8 Jet mass (GeV)",
 
     "FatJet_msoftdrop_nom[index_gFatJets[0]]":"Leading AK8 Jet SoftdropMass (GeV)",
-    "FatJet_msoftdrop[index_gFatJets[0]]":"Uncorrected Leading AK8 Jet SoftdropMass (GeV)",
+    "FatJet_msoftdrop[index_gFatJets[0]]":"NanoAOD def Leading AK8 Jet SoftdropMass (GeV)",
 
 
 
@@ -45,14 +45,14 @@ variableAxisTitleDictionary = {
     "PuppiMET_pt_nom":"PuppiMET_pt (GeV)",
     "PuppiMET_phi_nom":"PuppiMET_phi",
 
-    "PuppiMET_pt":"Uncorrected PuppiMET_pt (GeV)",
-    "PuppiMET_phi":"Uncorrected PuppiMET_phi",
+    "PuppiMET_pt":"NanoAOD def PuppiMET_pt (GeV)",
+    "PuppiMET_phi":"NanoAOD def PuppiMET_phi",
 
     "ngood_Jets":"Number of AK4 jets",
     "ngood_MediumJets":"Number of Medium b-tagged AK4 jets",
     "ngood_TightJets":"Number of Tight b-tagged AK4 jets",
     "Jet_pt_nom[index_gJets[0]]":"Leading AK4 Jet Pt",
-    "Jet_pt[index_gJets[0]]":"Uncorrected Leading AK4 Jet Pt",
+    "Jet_pt[index_gJets[0]]":"NanoAOD def Leading AK4 Jet Pt",
 
     "Jet_eta[index_gJets[0]]":"Leading AK4 Jet Eta",
     "Jet_phi[index_gJets[0]]":"Leading AK4 Jet Phi",
@@ -121,7 +121,43 @@ variableAxisTitleDictionary = {
     "Tau_rawDeepTau2018v2p5VSjet[index_gTaus]":"DeepTau_Raw",
     #"Fatjet_pnet_bbvsqcd":"particlenetvsQCD_rawscore_LogScale"
     "globalparT3mass": "GlobalparT3 regressed mass",
-    "allTaus_decayMode": "All Taus Decay Modes"
+    "allTaus_decayMode": "All Taus Decay Modes",
+
+
+    # Visible H→ττ from HPS and Boosted Taus
+    "HTTvis_HPS_m": "Visible Mass of H#rightarrow#tau#tau (HPS)",
+    "HTTvis_HPS_eta": "Visible H#rightarrow#tau#tau #eta (HPS)",
+    "HTTvis_HPS_phi": "Visible H#rightarrow#tau#tau #phi (HPS)",
+
+    "HTTvis_boosted_m": "Visible Mass of H#rightarrow#tau#tau (Boosted)",
+    "HTTvis_boosted_eta": "Visible H#rightarrow#tau#tau #eta (Boosted)",
+    "HTTvis_boosted_phi": "Visible H#rightarrow#tau#tau #phi (Boosted)",
+
+    # Reconstructed H→ττ from HPS and Boosted Taus (FastMTT)
+    "HTT_HPS_m": "fastMTT H#rightarrow#tau#tau mass (HPS) (GeV)",
+    "HTT_HPS_eta": "fastMTT H#rightarrow#tau#tau #eta (HPS)",
+    "HTT_HPS_phi": "fastMTT H#rightarrow#tau#tau #phi (HPS)",
+
+    "HTT_boosted_m": "fastMTT H#rightarrow#tau#tau mass (Boosted) (GeV)",
+    "HTT_boosted_eta": "fastMTT H#rightarrow#tau#tau #eta (Boosted)",
+    "HTT_boosted_phi": "fastMTT H#rightarrow#tau#tau #phi (Boosted)",
+
+    # τ–ℓ (semi-leptonic) FastMTT systems
+    "HTT_HPS_Ele_m": "fastMTT H#rightarrow#tau_{HPS}e mass (GeV)",
+    "HTT_HPS_Ele_eta": "fastMTT H#rightarrow#tau_{HPS}e #eta",
+    "HTT_HPS_Ele_phi": "fastMTT H#rightarrow#tau_{HPS}e #phi",
+
+    "HTT_HPS_Mu_m": "fastMTT H#rightarrow#tau_{HPS}#mu mass (GeV)",
+    "HTT_HPS_Mu_eta": "fastMTT H#rightarrow#tau_{HPS}#mu #eta",
+    "HTT_HPS_Mu_phi": "fastMTT H#rightarrow#tau_{HPS}#mu #phi",
+
+    "HTT_boosted_Ele_m": "fastMTT H#rightarrow#tau_{boosted}e mass (GeV)",
+    "HTT_boosted_Ele_eta": "fastMTT H#rightarrow#tau_{boosted}e #eta",
+    "HTT_boosted_Ele_phi": "fastMTT H#rightarrow#tau_{boosted}e #phi",
+
+    "HTT_boosted_Mu_m": "fastMTT H#rightarrow#tau_{boosted}#mu mass (GeV)",
+    "HTT_boosted_Mu_eta": "fastMTT H#rightarrow#tau_{boosted}#mu #eta",
+    "HTT_boosted_Mu_phi": "fastMTT H#rightarrow#tau_{boosted}#mu #phi"
 
 }
 
@@ -159,12 +195,12 @@ variableFileNameDictionary = {
     "boostedTau_phi[index_gboostedTaus]":"tau_boosted_phi",
     "boostedTau_pt[index_gboostedTaus[0]]":"leadingtau_boosted_pt",
     "boostedTau_eta[index_gboostedTaus[0]]":"leadingtau_boosted_eta",
-    "boostedTau_phi[index_gboostedTaus[0]]":"leadingtau_boosted_hps",
+    "boostedTau_phi[index_gboostedTaus[0]]":"leadingtau_boosted_phi",
     "boostedTau_pt[index_gboostedTaus[1]]":"subleadingtau_boosted_pt",
     "boostedTau_eta[index_gboostedTaus[1]]":"subleadingtau_boosted_eta",
     "boostedTau_phi[index_gboostedTaus[1]]":"subleadingtau_boosted_phi",
     "PuppiMET_pt_nom":"PuppiMET_pt_nom",
-    "PuppiMET_phi_nom":"PuppiMET_phi_phi",
+    "PuppiMET_phi_nom":"PuppiMET_phi_nom",
     "PuppiMET_pt":"PuppiMET_pt",
     "PuppiMET_phi":"PuppiMET_phi",
     "ngood_Jets":"njets",
@@ -200,8 +236,43 @@ variableFileNameDictionary = {
     "MT":"MT",
     "boostedTau_rawDeepTau2018v2p7VSjet[index_gboostedTaus]":"deepboostedtau_raw",
     "globalparT3mass": "globalparT3mass",
-    "allTaus_decayMode": "allTaus_decayMode"
+    "allTaus_decayMode": "allTaus_decayMode",
     #"Hbb_met_phi": "Hbb_met_phi"
+
+    # Visible H→ττ (HPS / Boosted)
+    "HTTvis_HPS_m": "vishtt_hps_mass",
+    "HTTvis_HPS_eta": "vishtt_hps_eta",
+    "HTTvis_HPS_phi": "vishtt_hps_phi",
+
+    "HTTvis_boosted_m": "vishtt_boosted_mass",
+    "HTTvis_boosted_eta": "vishtt_boosted_eta",
+    "HTTvis_boosted_phi": "vishtt_boosted_phi",
+
+    # Reconstructed H→ττ (HPS / Boosted)
+    "HTT_HPS_m": "fastmtt_hps_mass",
+    "HTT_HPS_eta": "fastmtt_hps_eta",
+    "HTT_HPS_phi": "fastmtt_hps_phi",
+
+    "HTT_boosted_m": "fastmtt_boosted_mass",
+    "HTT_boosted_eta": "fastmtt_boosted_eta",
+    "HTT_boosted_phi": "fastmtt_boosted_phi",
+
+    # τ–ℓ (semi-leptonic) FastMTT systems
+    "HTT_HPS_Ele_m": "fastmtt_hps_ele_mass",
+    "HTT_HPS_Ele_eta": "fastmtt_hps_ele_eta",
+    "HTT_HPS_Ele_phi": "fastmtt_hps_ele_phi",
+
+    "HTT_HPS_Mu_m": "fastmtt_hps_mu_mass",
+    "HTT_HPS_Mu_eta": "fastmtt_hps_mu_eta",
+    "HTT_HPS_Mu_phi": "fastmtt_hps_mu_phi",
+
+    "HTT_boosted_Ele_m": "fastmtt_boosted_ele_mass",
+    "HTT_boosted_Ele_eta": "fastmtt_boosted_ele_eta",
+    "HTT_boosted_Ele_phi": "fastmtt_boosted_ele_phi",
+
+    "HTT_boosted_Mu_m": "fastmtt_boosted_mu_mass",
+    "HTT_boosted_Mu_eta": "fastmtt_boosted_mu_eta",
+    "HTT_boosted_Mu_phi": "fastmtt_boosted_mu_phi"
 }
 
 variableSettingDictionary = {
@@ -304,7 +375,42 @@ variableSettingDictionary = {
     #"Fatjet_pnet_bbvsqcd":"40,0.0,1.0"
     "Fatjet_pnet_bbvsqcd":"24,0.70,1.0",
     "globalparT3mass":"25,0.0,250.0",
-    "allTaus_decayMode": "7,0,7"
+    "allTaus_decayMode": "7,0,7",
+
+    # Visible H→ττ systems
+    "HTTvis_HPS_m": "50,0.0,250.0",
+    "HTTvis_HPS_eta": "32,-3.2,3.2",
+    "HTTvis_HPS_phi": "32,-3.2,3.2",
+
+    "HTTvis_boosted_m": "50,0.0,250.0",
+    "HTTvis_boosted_eta": "32,-3.2,3.2",
+    "HTTvis_boosted_phi": "32,-3.2,3.2",
+
+    # Reconstructed H→ττ systems (FastMTT)
+    "HTT_HPS_m": "50,0.0,250.0",
+    "HTT_HPS_eta": "32,-3.2,3.2",
+    "HTT_HPS_phi": "32,-3.2,3.2",
+
+    "HTT_boosted_m": "50,0.0,250.0",
+    "HTT_boosted_eta": "32,-3.2,3.2",
+    "HTT_boosted_phi": "32,-3.2,3.2",
+
+    # τ–ℓ systems (FastMTT)
+    "HTT_HPS_Ele_m": "50,0.0,250.0",
+    "HTT_HPS_Ele_eta": "32,-3.2,3.2",
+    "HTT_HPS_Ele_phi": "32,-3.2,3.2",
+
+    "HTT_HPS_Mu_m": "50,0.0,250.0",
+    "HTT_HPS_Mu_eta": "32,-3.2,3.2",
+    "HTT_HPS_Mu_phi": "32,-3.2,3.2",
+
+    "HTT_boosted_Ele_m": "50,0.0,250.0",
+    "HTT_boosted_Ele_eta": "32,-3.2,3.2",
+    "HTT_boosted_Ele_phi": "32,-3.2,3.2",
+
+    "HTT_boosted_Mu_m": "50,0.0,250.0",
+    "HTT_boosted_Mu_eta": "32,-3.2,3.2",
+    "HTT_boosted_Mu_phi": "32,-3.2,3.2"
 
 }
  
