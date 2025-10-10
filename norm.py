@@ -196,7 +196,7 @@ if __name__ == "__main__":
                     h.SetDirectory(0)
                     hists_by_proc[proc_name].append(h)
                     root_file.Close()
-                    #print(f"Histogram bins and ranges are {int(bin_values[0]), bin_values[1], bin_values[2]}")
+                    print(f"Histogram bins and ranges are {int(bin_values[0]), bin_values[1], bin_values[2]}")
                     #print(f"{hist_name} has entries={h.GetEntries()} and integral={h.Integral(0, h.GetNbinsX()+1)} \n")
 
         for proc_name, hlist in hists_by_proc.items():
@@ -569,7 +569,6 @@ if __name__ == "__main__":
         val, err = get_integral_with_error(data)
         print(f"Total Data integral = {format_scientific(val, err)}")
         
-        # --- Compute and set Y-axis maximum ---
         max_bkg = max(h.GetMaximum() for _, h in hists.items())
         max_sig = max(signal_1.GetMaximum(), signal_2.GetMaximum(),
                     signal_3.GetMaximum(), signal_4.GetMaximum())
@@ -580,10 +579,12 @@ if __name__ == "__main__":
         else:
             ymax = 1.7 * max(max_bkg, max_sig, max_data)
         
+        pad1.cd()
+        hist_stack.Draw("hist")  
         axis_hist = hist_stack.GetHistogram()
-        if axis_hist: 
+        if axis_hist:
             axis_hist.SetMaximum(ymax)
-        hist_stack.Draw("hist same")
+        hist_stack.Draw("hist same")  
 
         if log_scale:
             pad1.SetLogy()

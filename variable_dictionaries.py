@@ -3,8 +3,7 @@ variableAxisTitleDictionary = {
     "PV_npvsGood":"Number of Primary Vertices (Good)",    
     "FatJet_pt_nom[index_gFatJets[0]]":"Leading AK8 Jet Pt (GeV)",
     "FatJet_pt[index_gFatJets[0]]":"NanoAOD def Leading AK8 Jet Pt (GeV)",
-
-
+    
     #"FatJet_pt[index_gFatJets[0]]":"Leading AK8 Jet NanoAOD def Pt (GeV)",
     "FatJet_eta[index_gFatJets[0]]":"Leading AK8 Jet eta",
     "FatJet_phi[index_gFatJets[0]]":"Leading AK8 Jet Phi",

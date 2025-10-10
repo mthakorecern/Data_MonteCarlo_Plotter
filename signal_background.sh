@@ -23,10 +23,9 @@ cuts_MT="(channel==2)"
 # Variables for LOG scale (pt, mass, MET, HTT mass, etc.)
 variables_log=(
     
-    "FatJet_pt_nom[index_gFatJets[0]]"
+    #"FatJet_pt_nom[index_gFatJets[0]]"
     "FatJet_pt[index_gFatJets[0]]"
-
-    "PuppiMET_pt_nom"
+    #"PuppiMET_pt_nom"
     "PuppiMET_pt"
 )
     
@@ -45,10 +44,10 @@ variables_linear=(
     "boostedTau_eta[index_gboostedTaus]"
     "boostedTau_phi[index_gboostedTaus]"
 
-    "FatJet_mass_nom[index_gFatJets[0]]"
+    #"FatJet_mass_nom[index_gFatJets[0]]"
     "FatJet_mass[index_gFatJets[0]]"
     
-    "FatJet_msoftdrop_nom[index_gFatJets[0]]"
+    #"FatJet_msoftdrop_nom[index_gFatJets[0]]"
     "FatJet_msoftdrop[index_gFatJets[0]]"
     "FatJet_particleNetLegacy_mass[index_gFatJets[0]]"
     
@@ -63,10 +62,10 @@ variables_linear=(
     "Muon_eta[index_gMuons[0]]"
     "Muon_phi[index_gMuons[0]]"
     
-    "PuppiMET_phi_nom"
+    #"PuppiMET_phi_nom"
     "PuppiMET_phi"
     
-    "Jet_pt_nom[index_gJets[0]]"
+    #"Jet_pt_nom[index_gJets[0]]"
     "Jet_pt[index_gJets[0]]"
 
     "Jet_pt[index_gJets[0]]"
@@ -86,6 +85,33 @@ variables_linear=(
 
     "Hbb_met_phi"
     "allTaus_decayMode"
+
+    "HTTvis_HPS_m"
+    "HTTvis_HPS_eta"
+    "HTTvis_HPS_phi"
+    "HTTvis_boosted_m"
+    "HTTvis_boosted_eta"
+    "HTTvis_boosted_phi"
+
+    "HTT_HPS_m"
+    "HTT_HPS_eta"
+    "HTT_HPS_phi"
+    "HTT_boosted_m"
+    "HTT_boosted_eta"
+    "HTT_boosted_phi"
+
+    "HTT_HPS_Ele_m"
+    "HTT_HPS_Ele_eta"
+    "HTT_HPS_Ele_phi"
+    "HTT_HPS_Mu_m"
+    "HTT_HPS_Mu_eta"
+    "HTT_HPS_Mu_phi"
+    "HTT_boosted_Ele_m"
+    "HTT_boosted_Ele_eta"
+    "HTT_boosted_Ele_phi"
+    "HTT_boosted_Mu_m"
+    "HTT_boosted_Mu_eta"
+    "HTT_boosted_Mu_phi"
 )
 
 ############################################
@@ -168,12 +194,12 @@ done
 
 
 
-python3 norm.py \
-    --year 2024 \
-    --variables "FatJet_pt_nom[index_gFatJets[0]]" \
-    --cuts "((channel==0) && (HTTvis_deltaR<1.5) && (abs(Hbb_met_phi)>1) && (HTTvis_m>20) && (softdropmassnom>=30) && (X_m>750)&&(X_m<5500))" \
-    --weights xsWeight \
-    --set_maximum 1e6 \
-    --log_scale \
-    --Channel tt \
-    --dataMC 
+# python3 norm.py \
+#     --year 2024 \
+#     --variables "FatJet_pt_nom[index_gFatJets[0]]" \
+#     --cuts "((channel==0) && (HTTvis_deltaR<1.5) && (abs(Hbb_met_phi)>1) && (HTTvis_m>20) && (softdropmassnom>=30) && (X_m>750)&&(X_m<5500))" \
+#     --weights xsWeight \
+#     --set_maximum 1e6 \
+#     --log_scale \
+#     --Channel tt \
+#     --dataMC 
