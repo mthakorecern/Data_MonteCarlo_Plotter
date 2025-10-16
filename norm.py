@@ -35,11 +35,7 @@ def create_cut_string(weights, base_cut, additional_cuts, is_observed=False):
         return f"{weights} * ({cut_expr})"
 
 def group_key_from_name(name: str) -> str:
-    """
-    Group histograms into physics processes by substring matching.
-    Works even if hist name has _HTT_m, _0, _1, etc.
-    """
-    # Strip any trailing _<digits> or variable suffix to make matching robust
+    ## Strip any trailing _<digits> or variable suffix to make matching robust
     import re
     name_clean = re.sub(r"_[0-9]+$", "", name)      
     name_clean = re.sub(r"(_HTT_m.*)$", "", name_clean)  
@@ -65,11 +61,6 @@ import numpy as np
 import math
 
 def format_scientific(val, err=0, sig_val=3, sig_err=2):
-    """
-    Return a nicely formatted string (value ± error)×10^exp in scientific notation.
-    Example: (1.23 ± 0.04)×10^5
-    Handles zero, inf, or nan safely.
-    """
     if val == 0 or not np.isfinite(val):
         return f"(0 ± {err:.{sig_err}g})"
     exponent = int(np.floor(np.log10(abs(val))))
@@ -92,8 +83,6 @@ def get_full_path(base_dir, path):
     return os.path.join(base_dir, path)
 
 
-
-# Command-line argument parsing
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Generate histograms from ROOT files.")
     parser.add_argument('--year',
@@ -105,7 +94,6 @@ if __name__ == "__main__":
     parser.add_argument("--cuts", default="", help="Standard cut string.")
     parser.add_argument("--additional_cuts", nargs="+", default=[], help="Additional selection cuts.")
     parser.add_argument("--weights", default="FinalWeighting", help="Event weight expression.")
-    parser.add_argument("--set_maximum", type=float, default=350, help="Set the maximum value for the Y-axis.")
     parser.add_argument("--log_scale", action="store_true", help="Enable logarithmic Y-axis scaling.")
     parser.add_argument('--Channel',choices=["tt","et","mt","all","lt"], required=True)
     parser.add_argument("--signals_only", action="store_true", help="Plot signals only (skip backgrounds, stack, and error band).")
@@ -118,7 +106,6 @@ if __name__ == "__main__":
     weights = args.weights
     base_cut = args.cuts
     additional_cuts_o = args.additional_cuts
-    set_maximum = args.set_maximum 
     log_scale = args.log_scale
     
     for dirname in ["SignalandBackground", "Signal_only", "DataMC"]:
@@ -177,7 +164,7 @@ if __name__ == "__main__":
                 
                 for path in proc_info["files"]:
                     full_path = get_full_path(redirector_MC, path)
-                    #print(f"Processing {full_path}")
+                    print(f"Processing {full_path}")
 
                     root_file = ROOT.TFile.Open(full_path, 'READ')
                     if not root_file or root_file.IsZombie():
@@ -201,9 +188,9 @@ if __name__ == "__main__":
 
         for proc_name, hlist in hists_by_proc.items():
             for h in hlist:
-                #print(f"[DEBUG] {proc_name} → {h.GetName()} integral={h.Integral()}")
+                print(f"[DEBUG] {proc_name}: {h.GetName()} integral={h.Integral()}")
                 key = group_key_from_name(h.GetName())
-                #print(f"[DEBUG] Grouped as: {key}")
+                print(f"[DEBUG] Grouped as: {key}")
                 if key not in hists:
                     key = "Other"
                 hists[key].Add(h)
@@ -340,8 +327,6 @@ if __name__ == "__main__":
         canvas_sig.SetLeftMargin(0.1)
         canvas_sig.SetBottomMargin(0.1)
 
-
-        
         frame = ROOT.TH1F("frame", "", int(bin_values[0]), bin_values[1], bin_values[2])
         frame.SetDirectory(0)
         frame.SetStats(0)
@@ -361,8 +346,7 @@ if __name__ == "__main__":
             canvas_sig.SetLogy()
             frame.SetMinimum(1e-1)
 
-        ymax = max(signal_1.GetMaximum(), signal_2.GetMaximum(), signal_3.GetMaximum(), signal_4.GetMaximum(), 1.0)
-        frame.SetMaximum(2*ymax)
+        frame.SetMaximum(1.2*max(signal_1.GetMaximum(), signal_2.GetMaximum(), signal_3.GetMaximum(), signal_4.GetMaximum(), 1.0))
         frame.Draw("hist")
 
         signal_1.SetLineColor(ROOT.kRed)
@@ -432,9 +416,6 @@ if __name__ == "__main__":
         pad1.SetRightMargin(0.28)
         pad1.SetLeftMargin(0.1)
         
-
-        
-
         theLegend = ROOT.TLegend(0.73, 0, 0.97, 0.9, "", "brNDC")
         if (args.Channel == "tt"):
             theLegend.SetHeader("#tau-#tau Channel","C")
@@ -456,19 +437,6 @@ if __name__ == "__main__":
         theLegend.SetTextSize(0.037)  
         theLegend.SetBorderSize(0)
         theLegend.SetTextFont(42)
-
-        # 1. Draw once off-screen to force building internal histogram
-        #hist_stack.Draw("hist")
-
-        
-        # Background Stack
-        hist_stack.Draw("hist")
-        hist_stack.GetXaxis().SetTitle("")
-        hist_stack.GetXaxis().SetLabelSize(0)
-        hist_stack.GetYaxis().SetTitle("Events")
-        hist_stack.GetYaxis().SetTitleSize(0.05)
-        hist_stack.GetYaxis().SetLabelSize(0.04)
-        hist_stack.GetYaxis().SetTitleOffset(0.8)
 
         # Total background
         total_bkg_hist = hists["DiBoson"].Clone("total_bkg")
@@ -518,7 +486,7 @@ if __name__ == "__main__":
         data.Sumw2()
         data.SetDirectory(0)
 
-        prev_adddir = ROOT.TH1.AddDirectoryStatus()   # remember global state
+        prev_adddir = ROOT.TH1.AddDirectoryStatus()   
         data_hists = []
 
         for category, sample_type in observed.items():
@@ -536,17 +504,14 @@ if __name__ == "__main__":
                 raw_name  = f"{os.path.basename(path).replace('.root','')}_{variable}"
                 safe_name = _sanitize(raw_name)
 
-                # Allow Draw to register the object in gDirectory
                 ROOT.TH1.AddDirectory(True)
                 ROOT.gROOT.cd()
                 ROOT.gDirectory.Delete(f"{safe_name};*")
 
-                # Let Draw create/fill the hist off-screen
                 expr = f"{variable} >> {safe_name}({int(bin_values[0])},{bin_values[1]},{bin_values[2]})"
                 nsel = tree.Draw(expr, cut_data, "goff")
 
                 htemp = ROOT.gDirectory.Get(safe_name)
-                # Restore the global setting immediately after creation
                 ROOT.TH1.AddDirectory(prev_adddir)
 
                 if nsel < 0:
@@ -571,19 +536,19 @@ if __name__ == "__main__":
         
         max_bkg = max(h.GetMaximum() for _, h in hists.items())
         max_sig = max(signal_1.GetMaximum(), signal_2.GetMaximum(),
-                    signal_3.GetMaximum(), signal_4.GetMaximum())
+                            signal_3.GetMaximum(), signal_4.GetMaximum())
         max_data = data.GetMaximum() if data.GetMaximum() > 0 else 0
 
-        if args.set_maximum > 0:
-            ymax = args.set_maximum
-        else:
-            ymax = 1.7 * max(max_bkg, max_sig, max_data)
-        
         pad1.cd()
-        hist_stack.Draw("hist")  
-        axis_hist = hist_stack.GetHistogram()
-        if axis_hist:
-            axis_hist.SetMaximum(ymax)
+        hist_stack.SetMaximum(max(max_bkg, max_sig, max_data) * 1.8)
+        hist_stack.Draw("hist")
+        hist_stack.GetXaxis().SetTitle("")
+        hist_stack.GetXaxis().SetLabelSize(0)
+        hist_stack.GetYaxis().SetTitle("Events")
+        hist_stack.GetYaxis().SetTitleSize(0.05)
+        hist_stack.GetYaxis().SetLabelSize(0.04)
+        hist_stack.GetYaxis().SetTitleOffset(0.8)
+        #pad1.Update()
         hist_stack.Draw("hist same")  
 
         if log_scale:
@@ -599,13 +564,8 @@ if __name__ == "__main__":
         signal_4.Draw("hist SAME")
         data.Draw("ep SAME")
 
-        
-
-
-        #hist_stack.SetMaximum(set_maximum)
         pad1.RedrawAxis()
 
-        # Legend entries
         theLegend.AddEntry(hists["DiBoson"], "DiBoson", "f")
         theLegend.AddEntry(hists["STop"], "STop", "f")
         theLegend.AddEntry(hists["TTbar"], "TTbar", "f")
@@ -647,7 +607,6 @@ if __name__ == "__main__":
         ratio.SetMarkerStyle(20)
         ratio.SetMarkerSize(0.9)
 
-        #ratio.GetXaxis().SetTitle(hist_title)
         ratio.GetXaxis().SetTitleSize(0.14)
         ratio.GetXaxis().SetLabelSize(0.10)
         ratio.GetXaxis().SetLabelOffset(0.04)
@@ -709,24 +668,6 @@ if __name__ == "__main__":
         theLegend.SetFillStyle(0)
         theLegend.SetTextFont(42)
 
-        pad1.cd()
-        hist_stack.Draw("hist")
-        pad1.Update()
-
-        if args.set_maximum > 0:
-            hist_stack.GetHistogram().SetMaximum(args.set_maximum)
-        else
-            ymax = 1.5 * max(max_bkg, max_sig, max_data)
-            hist_stack.GetHistogram().SetMaximum(ymax)
-
-        hist_stack.Draw("hist same")
-
-        if log_scale:
-            pad1.SetLogy()
-            hist_stack.SetMinimum(1e-1)
-
-        pad1.Update()
-
         signal_1.SetLineColor(ROOT.kRed)
         signal_1.SetLineWidth(2)
         signal_2.SetLineColor(ROOT.kBlue+2)
@@ -736,11 +677,6 @@ if __name__ == "__main__":
         signal_4.SetLineColor(ROOT.kCyan+4)
         signal_4.SetLineWidth(2)
         
-        signal_1.Draw("hist SAME")
-        signal_2.Draw("hist SAME")
-        signal_3.Draw("hist SAME")
-        signal_4.Draw("hist SAME")
-
         total_bkg_hist = hists["DiBoson"].Clone("total_bkg")
         total_bkg_hist.Add(hists["STop"])
         total_bkg_hist.Add(hists["TTbar"])
@@ -760,9 +696,23 @@ if __name__ == "__main__":
         bkg_errors.SetFillColor(ROOT.TColor.GetColor("#545252"))
         bkg_errors.SetMarkerStyle(0)
         bkg_errors.SetLineWidth(0)
+        
+        pad1.cd()
+        hist_stack.GetHistogram().SetMaximum(1.2 * max(max_bkg, max_sig))
+        hist_stack.Draw("hist")
+        pad1.Update()
+        hist_stack.Draw("hist same")
+        if log_scale:
+            pad1.SetLogy()
+            hist_stack.SetMinimum(1e-1)
+        pad1.Update()
 
-
+        signal_1.Draw("hist SAME")
+        signal_2.Draw("hist SAME")
+        signal_3.Draw("hist SAME")
+        signal_4.Draw("hist SAME")
         bkg_errors.Draw("E2 SAME")
+
         theLegend.AddEntry(hists["DiBoson"], "DiBoson", "f")
         theLegend.AddEntry(hists["STop"], "STop", "f")
         theLegend.AddEntry(hists["TTbar"], "TTbar", "f")

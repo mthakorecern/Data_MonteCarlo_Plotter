@@ -1,4 +1,4 @@
-redirector_MC = "/hdfs/store/user/mithakor/2024_XsecAdded/MC_MET_120_Nocorrections_09Oct25_2146"
+redirector_MC = "/hdfs/store/user/mithakor/2024_XsecAdded/MC_MET_120_Nocorrections_debugged_final_15Oct25_0928"
 
 Signals = {
     "GluGlutoRadiontoHHto2B2Tau_M-1000": {
@@ -370,7 +370,21 @@ Backgrounds= {
             "files": [
                 "TbarWplustoLNu2Q_TuneCP5_13p6TeV_powheg-pythia8.root"
             ]
-        }
+        },
+        
+        "TbarBQto2Q-t-channel-4FS_TuneCP5_13p6TeV_powheg-madspin-pythia8": {
+            "files": [
+                "TbarBQto2Q-t-channel-4FS_TuneCP5_13p6TeV_powheg-madspin-pythia8.root"
+            ]
+        },
+        
+        "TBbarQto2Q-t-channel-4FS_TuneCP5_13p6TeV_powheg-madspin-pythia8": {
+            "files": [
+                "TBbarQto2Q-t-channel-4FS_TuneCP5_13p6TeV_powheg-madspin-pythia8.root"
+            ]
+        },
+
+
     },
     "TTbar": {
         "TTto2L2Nu_TuneCP5_13p6TeV_powheg-pythia8": {
@@ -678,7 +692,15 @@ Backgrounds= {
             "files": [
                 "ZZto2Nu2Q_TuneCP5_13p6TeV_powheg-pythia8.root"
             ]
-        }
+        },
+        
+        "ZZto4L_TuneCP5_13p6TeV_powheg-pythia8": {
+            "files": [
+                "ZZto4L_TuneCP5_13p6TeV_powheg-pythia8.root"
+            ]
+        },
+
+
     },
     "WJets": {
         "WtoENu_4Jets_TuneCP5_13p6TeV_madgraphMLM_pythia8": {

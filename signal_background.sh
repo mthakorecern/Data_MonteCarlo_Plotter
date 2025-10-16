@@ -23,9 +23,7 @@ cuts_MT="(channel==2)"
 # Variables for LOG scale (pt, mass, MET, HTT mass, etc.)
 variables_log=(
     
-    #"FatJet_pt_nom[index_gFatJets[0]]"
     "FatJet_pt[index_gFatJets[0]]"
-    #"PuppiMET_pt_nom"
     "PuppiMET_pt"
 )
     
@@ -44,10 +42,11 @@ variables_linear=(
     "boostedTau_eta[index_gboostedTaus]"
     "boostedTau_phi[index_gboostedTaus]"
 
-    #"FatJet_mass_nom[index_gFatJets[0]]"
     "FatJet_mass[index_gFatJets[0]]"
     
-    #"FatJet_msoftdrop_nom[index_gFatJets[0]]"
+
+
+
     "FatJet_msoftdrop[index_gFatJets[0]]"
     "FatJet_particleNetLegacy_mass[index_gFatJets[0]]"
     
@@ -62,15 +61,16 @@ variables_linear=(
     "Muon_eta[index_gMuons[0]]"
     "Muon_phi[index_gMuons[0]]"
     
-    #"PuppiMET_phi_nom"
     "PuppiMET_phi"
     
-    #"Jet_pt_nom[index_gJets[0]]"
-    "Jet_pt[index_gJets[0]]"
+
+############################
+ 
 
     "Jet_pt[index_gJets[0]]"
     "Jet_eta[index_gJets[0]]"
-    "Jet_eta[index_gJets[0]]"
+    "Jet_phi[index_gJets[0]]"
+    "HTTvis_deltaR"
 
     "ngood_Jets"
     "ngood_LooseJets"
@@ -127,7 +127,6 @@ for var in "${variables_log[@]}"; do
             --variables "$var" \
             --cuts "${!cut_var}" \
             --weights xsWeight \
-            --set_maximum 1e6 \
             --log_scale \
             --Channel $ch \
             --dataMC \
@@ -203,3 +202,12 @@ done
 #     --log_scale \
 #     --Channel tt \
 #     --dataMC 
+
+
+    #"FatJet_mass_nom[index_gFatJets[0]]"
+    #"FatJet_msoftdrop_nom[index_gFatJets[0]]"
+    #"PuppiMET_phi_nom"
+    #"Jet_pt_nom[index_gJets[0]]"
+    #"PuppiMET_pt_nom"
+    #"FatJet_pt_nom[index_gFatJets[0]]"
+
