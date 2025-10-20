@@ -8,9 +8,9 @@ from tqdm import tqdm
 MAX_JOBS = 40
 
 cuts = {
-    "tt": "(channel==0)",
-    "et": "(channel==1)",
-    "mt": "(channel==2)",
+    "tt": "((channel==0) && (Flag_JetVetoed==0) && (Flag_FatJetVetoed==0))",
+    "et": "((channel==1) && (Flag_JetVetoed==0) && (Flag_FatJetVetoed==0))",
+    "mt": "((channel==2) && (Flag_JetVetoed==0) && (Flag_FatJetVetoed==0))",
 }
 
 variables_log = [
