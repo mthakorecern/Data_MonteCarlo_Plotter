@@ -44,8 +44,12 @@ def group_key_from_name(name: str) -> str:
         return "DiBoson"
     if any(s in name_clean for s in ["TWminus", "TbarWplus", "TbarBQ", "TBbarQ"]):
         return "STop"
-    if "TTto" in name_clean:
-        return "TTbar"
+    if "TTto2L2Nu" in name_clean:
+        return "TTto2L2Nu"
+    if "TTto4Q" in name_clean:
+        return "TTto4Q"
+    if "TTtoLNu2Q" in name_clean:
+        return "TTtoLNu2Q"
     if "QCD" in name_clean:
         return "QCD"
     if "Wto" in name_clean:
@@ -127,9 +131,17 @@ if __name__ == "__main__":
     hists['STop'].Sumw2()
     hists['STop'].SetDirectory(0)
     
-    hists['TTbar'] = ROOT.TH1F("TTbar","TTbar", int(bin_values[0]), bin_values[1], bin_values[2])
-    hists['TTbar'].Sumw2()
-    hists['TTbar'].SetDirectory(0)
+    hists['TTto2L2Nu'] = ROOT.TH1F("TTto2L2Nu","TTto2L2Nu", int(bin_values[0]), bin_values[1], bin_values[2])
+    hists['TTto2L2Nu'].Sumw2()
+    hists['TTto2L2Nu'].SetDirectory(0)
+
+    hists['TTto4Q'] = ROOT.TH1F("TTto4Q","TTto4Q", int(bin_values[0]), bin_values[1], bin_values[2])
+    hists['TTto4Q'].Sumw2()
+    hists['TTto4Q'].SetDirectory(0)
+    
+    hists['TTtoLNu2Q'] = ROOT.TH1F("TTtoLNu2Q","TTtoLNu2Q", int(bin_values[0]), bin_values[1], bin_values[2])
+    hists['TTtoLNu2Q'].Sumw2()
+    hists['TTtoLNu2Q'].SetDirectory(0)
     
     hists['QCD'] = ROOT.TH1F("QCD", "QCD", int(bin_values[0]), bin_values[1], bin_values[2])
     hists['QCD'].Sumw2()
@@ -210,11 +222,21 @@ if __name__ == "__main__":
         print("STop background Integral is:")
         print(hists["STop"].Integral(0, hists["STop"].GetNbinsX()+1))
 
-        hists["TTbar"].SetLineColor(ROOT.TColor.GetColor("#92cfe0"))
-        hists["TTbar"].SetFillColor(ROOT.TColor.GetColor("#92cfe0"))
-        print("TTbar background Integral is:")
-        print(hists["TTbar"].Integral(0, hists["TTbar"].GetNbinsX()+1))
+        hists["TTto2L2Nu"].SetLineColor(ROOT.TColor.GetColor("#b9ac70"))
+        hists["TTto2L2Nu"].SetFillColor(ROOT.TColor.GetColor("#b9ac70"))
+        print("TTto2L2Nu background Integral is:")
+        print(hists["TTto2L2Nu"].Integral(0, hists["TTto2L2Nu"].GetNbinsX()+1))
 
+        hists["TTto4Q"].SetLineColor(ROOT.TColor.GetColor("#94a4a2"))
+        hists["TTto4Q"].SetFillColor(ROOT.TColor.GetColor("#94a4a2"))
+        print("TTto4Q background Integral is:")
+        print(hists["TTto4Q"].Integral(0, hists["TTto4Q"].GetNbinsX()+1))
+
+        hists["TTtoLNu2Q"].SetLineColor(ROOT.TColor.GetColor("#a96b59"))
+        hists["TTtoLNu2Q"].SetFillColor(ROOT.TColor.GetColor("#a96b59"))
+        print("TTtoLNu2Q background Integral is:")
+        print(hists["TTtoLNu2Q"].Integral(0, hists["TTtoLNu2Q"].GetNbinsX()+1))
+       
         hists["QCD"].SetLineColor(ROOT.TColor.GetColor("#f29b6f"))
         hists["QCD"].SetFillColor(ROOT.TColor.GetColor("#f29b6f"))
         print("QCD background Integral is:")
@@ -238,7 +260,9 @@ if __name__ == "__main__":
         backgrounds_sum = (
             hists["DiBoson"].Integral(0, hists["DiBoson"].GetNbinsX()+1)
             + hists["STop"].Integral(0, hists["STop"].GetNbinsX()+1)
-            + hists["TTbar"].Integral(0, hists["TTbar"].GetNbinsX()+1)
+            + hists["TTto2L2Nu"].Integral(0, hists["TTto2L2Nu"].GetNbinsX()+1)
+            + hists["TTto4Q"].Integral(0, hists["TTto4Q"].GetNbinsX()+1)
+            + hists["TTtoLNu2Q"].Integral(0, hists["TTtoLNu2Q"].GetNbinsX()+1)
             + hists["QCD"].Integral(0, hists["QCD"].GetNbinsX()+1)
             + hists["WJets"].Integral(0, hists["WJets"].GetNbinsX()+1)
             + hists["Drell-Yan"].Integral(0, hists["Drell-Yan"].GetNbinsX()+1)
@@ -248,7 +272,9 @@ if __name__ == "__main__":
         #print(f"Sum of background Integrals is: {backgrounds_sum}")
         hist_stack.Add(hists["DiBoson"])
         hist_stack.Add(hists["STop"])
-        hist_stack.Add(hists["TTbar"])
+        hist_stack.Add(hists["TTto2L2Nu"])
+        hist_stack.Add(hists["TTto4Q"])
+        hist_stack.Add(hists["TTtoLNu2Q"])
         hist_stack.Add(hists["QCD"])
         hist_stack.Add(hists["WJets"])
         hist_stack.Add(hists["Drell-Yan"])
@@ -441,7 +467,9 @@ if __name__ == "__main__":
         # Total background
         total_bkg_hist = hists["DiBoson"].Clone("total_bkg")
         total_bkg_hist.Add(hists["STop"])
-        total_bkg_hist.Add(hists["TTbar"])
+        total_bkg_hist.Add(hists["TTto2L2Nu"])
+        total_bkg_hist.Add(hists["TTto4Q"])
+        total_bkg_hist.Add(hists["TTtoLNu2Q"])
         total_bkg_hist.Add(hists["QCD"])
         total_bkg_hist.Add(hists["WJets"])
         total_bkg_hist.Add(hists["Drell-Yan"])
@@ -558,24 +586,26 @@ if __name__ == "__main__":
         pad1.Update()
 
         bkg_errors.Draw("E2 SAME")
-        signal_1.Draw("hist SAME")
-        signal_2.Draw("hist SAME")
-        signal_3.Draw("hist SAME")
-        signal_4.Draw("hist SAME")
+        # signal_1.Draw("hist SAME")
+        # signal_2.Draw("hist SAME")
+        # signal_3.Draw("hist SAME")
+        # signal_4.Draw("hist SAME")
         data.Draw("ep SAME")
 
         pad1.RedrawAxis()
 
         theLegend.AddEntry(hists["DiBoson"], "DiBoson", "f")
         theLegend.AddEntry(hists["STop"], "STop", "f")
-        theLegend.AddEntry(hists["TTbar"], "TTbar", "f")
+        theLegend.AddEntry(hists["TTto2L2Nu"], "TTto2L2Nu", "f")
+        theLegend.AddEntry(hists["TTto4Q"], "TTto4Q", "f")
+        theLegend.AddEntry(hists["TTtoLNu2Q"], "TTtoLNu2Q", "f")
         theLegend.AddEntry(hists["QCD"], "QCD", "f")
         theLegend.AddEntry(hists["WJets"], "WJets", "f")
         theLegend.AddEntry(hists["Drell-Yan"], "Drell-Yan", "f")
-        theLegend.AddEntry(signal_1, '1TeV (1pb x 0.073 (bbtt BR))', "f")
-        theLegend.AddEntry(signal_2, '2TeV (1pb x 0.073 (bbtt BR))', "f")
-        theLegend.AddEntry(signal_3, '3TeV (1pb x 0.073 (bbtt BR))', "f")
-        theLegend.AddEntry(signal_4, '4TeV (1pb x 0.073 (bbtt BR))', "f")
+        # theLegend.AddEntry(signal_1, '1TeV (1pb x 0.073 (bbtt BR))', "f")
+        # theLegend.AddEntry(signal_2, '2TeV (1pb x 0.073 (bbtt BR))', "f")
+        # theLegend.AddEntry(signal_3, '3TeV (1pb x 0.073 (bbtt BR))', "f")
+        # theLegend.AddEntry(signal_4, '4TeV (1pb x 0.073 (bbtt BR))', "f")
         theLegend.AddEntry(data, "Observed", "lep")
         theLegend.Draw()
 

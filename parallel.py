@@ -8,9 +8,27 @@ from tqdm import tqdm
 MAX_JOBS = 40
 
 cuts = {
-    "tt": "((channel==0) && (Flag_JetVetoed==0) && (Flag_FatJetVetoed==0))",
-    "et": "((channel==1) && (Flag_JetVetoed==0) && (Flag_FatJetVetoed==0))",
-    "mt": "((channel==2) && (Flag_JetVetoed==0) && (Flag_FatJetVetoed==0))",
+    "tt": "((channel==0) && (Flag_JetVetoed==0) && (Flag_FatJetVetoed==0) && boostedTau_rawBoostedDeepTauRunIIv2p0VSjet >= 0.95 && softdropmass >= 30 && PuppiMET_pt >= 200 && FatJet_pt[index_gFatJets[0]] >=200)",
+    "et": "((channel==1) && (Flag_JetVetoed==0) && (Flag_FatJetVetoed==0) && boostedTau_rawBoostedDeepTauRunIIv2p0VSjet >= 0.95  && softdropmass >= 30 && PuppiMET_pt >= 200 && FatJet_pt[index_gFatJets[0]] >=200)",
+    "mt": "((channel==2) && (Flag_JetVetoed==0) && (Flag_FatJetVetoed==0) && boostedTau_rawBoostedDeepTauRunIIv2p0VSjet >= 0.95  && softdropmass >= 30 && PuppiMET_pt >= 200 && FatJet_pt[index_gFatJets[0]] >=200)",
+}
+
+# cuts = {
+#     "tt": "((channel==0) && (boost==0) && (Flag_JetVetoed==0) && (Flag_FatJetVetoed==0))",
+#     "et": "((channel==1) && (boost==0) && (Flag_JetVetoed==0) && (Flag_FatJetVetoed==0))",
+#     "mt": "((channel==2) && (boost==0) && (Flag_JetVetoed==0) && (Flag_FatJetVetoed==0))",
+# }
+
+# cuts = {
+#     "tt": "((channel==0)  && (Flag_JetVetoed==0) && (Flag_FatJetVetoed==0))",
+#     "et": "((channel==1)  && (Flag_JetVetoed==0) && (Flag_FatJetVetoed==0))",
+#     "mt": "((channel==2)  && (Flag_JetVetoed==0) && (Flag_FatJetVetoed==0))",
+# }
+
+cuts = {
+    "tt": "((channel==0))",
+    "et": "((channel==1))",
+    "mt": "((channel==2))",
 }
 
 variables_log = [
@@ -19,16 +37,32 @@ variables_log = [
 ]
 
 variables_linear = [
-    "PV_npvsGood",
-    "PV_npvs",
+    # "PV_npvsGood",
+    # "PV_npvs",
 
-    "Tau_pt[index_gTaus]",
-    "Tau_eta[index_gTaus]",
-    "Tau_phi[index_gTaus]",
+    # "Tau_pt[index_gTaus]",
+    # "Tau_eta[index_gTaus]",
+    # "Tau_phi[index_gTaus]",
+
+    # "Tau_pt[index_gTaus[0]]",
+    # "Tau_eta[index_gTaus[0]]",
+    # "Tau_phi[index_gTaus[0]]",
+    
+    # "Tau_pt[index_gTaus[1]]",
+    # "Tau_eta[index_gTaus[1]]",
+    # "Tau_phi[index_gTaus[1]]",
 
     "boostedTau_pt[index_gboostedTaus]",
     "boostedTau_eta[index_gboostedTaus]",
     "boostedTau_phi[index_gboostedTaus]",
+
+    "boostedTau_pt[index_gboostedTaus[0]]",
+    "boostedTau_eta[index_gboostedTaus[0]]",
+    "boostedTau_phi[index_gboostedTaus[0]]",
+    
+    "boostedTau_pt[index_gboostedTaus[1]]",
+    "boostedTau_eta[index_gboostedTaus[1]]",
+    "boostedTau_phi[index_gboostedTaus[1]]",
 
     "FatJet_mass[index_gFatJets[0]]",
     "FatJet_msoftdrop[index_gFatJets[0]]",
@@ -36,67 +70,70 @@ variables_linear = [
     "FatJet_eta[index_gFatJets[0]]",
     "FatJet_phi[index_gFatJets[0]]",
 
-    "Electron_pt[index_gElectrons[0]]",
-    "Electron_eta[index_gElectrons[0]]",
-    "Electron_phi[index_gElectrons[0]]",
+    # "Electron_pt[index_gElectrons[0]]",
+    # "Electron_eta[index_gElectrons[0]]",
+    # "Electron_phi[index_gElectrons[0]]",
 
-    "Muon_pt[index_gMuons[0]]",
-    "Muon_eta[index_gMuons[0]]",
-    "Muon_phi[index_gMuons[0]]",
+    # "Muon_pt[index_gMuons[0]]",
+    # "Muon_eta[index_gMuons[0]]",
+    # "Muon_phi[index_gMuons[0]]",
 
-    "PuppiMET_phi",
+    # "PuppiMET_phi",
 
-    "Jet_pt[index_gJets[0]]",
-    "Jet_eta[index_gJets[0]]",
-    "Jet_phi[index_gJets[0]]",
+    # "Jet_pt[index_gJets[0]]",
+    # "Jet_eta[index_gJets[0]]",
+    # "Jet_phi[index_gJets[0]]",
 
-    "HTTvis_deltaR",
+    # "HTTvis_deltaR",
 
-    "ngood_Jets",
-    "ngood_LooseJets",
-    "ngood_MediumJets",
-    "ngood_TightJets",
+    # "ngood_Jets",
+    # "ngood_LooseJets",
+    # "ngood_MediumJets",
+    # "ngood_TightJets",
 
-    "HTT_m",
-    "HTTvis_m",
-    "HTT_pt",
-    "HTT_phi",
-    "HTT_eta",
+    # "HTT_m",
+    # "HTTvis_m",
+    # "HTT_pt",
+    # "HTT_phi",
+    # "HTT_eta",
 
-    "Hbb_met_phi",
+    # "Hbb_met_phi",
 
-    "allTaus_decayMode",
+    # "allTaus_decayMode",
 
-    "HTTvis_HPS_m",
-    "HTTvis_HPS_eta",
-    "HTTvis_HPS_phi",
-    "HTTvis_boosted_m",
-    "HTTvis_boosted_eta",
-    "HTTvis_boosted_phi",
+    # "HTTvis_HPS_m",
+    # "HTTvis_HPS_eta",
+    # "HTTvis_HPS_phi",
+    # "HTTvis_boosted_m",
+    # "HTTvis_boosted_eta",
+    # "HTTvis_boosted_phi",
 
-    "HTT_HPS_m",
-    "HTT_HPS_eta",
-    "HTT_HPS_phi",
+    # "HTT_HPS_m",
+    # "HTT_HPS_eta",
+    # "HTT_HPS_phi",
 
-    "HTT_boosted_m",
-    "HTT_boosted_eta",
-    "HTT_boosted_phi",
+    # "HTT_boosted_m",
+    # "HTT_boosted_eta",
+    # "HTT_boosted_phi",
 
-    "HTT_HPS_Ele_m",
-    "HTT_HPS_Ele_eta",
-    "HTT_HPS_Ele_phi",
+    # "HTT_HPS_Ele_m",
+    # "HTT_HPS_Ele_eta",
+    # "HTT_HPS_Ele_phi",
 
-    "HTT_HPS_Mu_m",
-    "HTT_HPS_Mu_eta",
-    "HTT_HPS_Mu_phi",
+    # "HTT_HPS_Mu_m",
+    # "HTT_HPS_Mu_eta",
+    # "HTT_HPS_Mu_phi",
     
-    "HTT_boosted_Ele_m",
-    "HTT_boosted_Ele_eta",
-    "HTT_boosted_Ele_phi",
+    # "HTT_boosted_Ele_m",
+    # "HTT_boosted_Ele_eta",
+    # "HTT_boosted_Ele_phi",
     
-    "HTT_boosted_Mu_m",
-    "HTT_boosted_Mu_eta",
-    "HTT_boosted_Mu_phi",
+    # "HTT_boosted_Mu_m",
+    # "HTT_boosted_Mu_eta",
+    # "HTT_boosted_Mu_phi",
+
+    # "Hbb_lep1_deltaR",
+    # "Hbb_lep2_deltaR"
 ]
 
 print_lock = threading.Lock()
