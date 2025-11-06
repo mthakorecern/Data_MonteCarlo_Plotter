@@ -7,17 +7,30 @@ from tqdm import tqdm
 
 MAX_JOBS = 40
 
+# cuts = {
+#     "tt": "((channel==0) && (Flag_JetVetoed==0) && (Flag_FatJetVetoed==0) && boostedTau_rawBoostedDeepTauRunIIv2p0VSjet >= 0.95 && softdropmass >= 30 && PuppiMET_pt >= 200 && FatJet_pt[index_gFatJets[0]] >=200)",
+#     "et": "((channel==1) && (Flag_JetVetoed==0) && (Flag_FatJetVetoed==0) && boostedTau_rawBoostedDeepTauRunIIv2p0VSjet >= 0.95  && softdropmass >= 30 && PuppiMET_pt >= 200 && FatJet_pt[index_gFatJets[0]] >=200)",
+#     "mt": "((channel==2) && (Flag_JetVetoed==0) && (Flag_FatJetVetoed==0) && boostedTau_rawBoostedDeepTauRunIIv2p0VSjet >= 0.95  && softdropmass >= 30 && PuppiMET_pt >= 200 && FatJet_pt[index_gFatJets[0]] >=200)",
+# }
+
 cuts = {
-    "tt": "((channel==0) && (Flag_JetVetoed==0) && (Flag_FatJetVetoed==0) && boostedTau_rawBoostedDeepTauRunIIv2p0VSjet >= 0.95 && softdropmass >= 30 && PuppiMET_pt >= 200 && FatJet_pt[index_gFatJets[0]] >=200)",
-    "et": "((channel==1) && (Flag_JetVetoed==0) && (Flag_FatJetVetoed==0) && boostedTau_rawBoostedDeepTauRunIIv2p0VSjet >= 0.95  && softdropmass >= 30 && PuppiMET_pt >= 200 && FatJet_pt[index_gFatJets[0]] >=200)",
-    "mt": "((channel==2) && (Flag_JetVetoed==0) && (Flag_FatJetVetoed==0) && boostedTau_rawBoostedDeepTauRunIIv2p0VSjet >= 0.95  && softdropmass >= 30 && PuppiMET_pt >= 200 && FatJet_pt[index_gFatJets[0]] >=200)",
+    "tt": "((channel==0) && PuppiMET_pt > 180 && (boost==0) && (Flag_JetVetoed==0) && (Flag_FatJetVetoed==0))",
+    "et": "((channel==1) && PuppiMET_pt > 180  && (boost==0) && (Flag_JetVetoed==0) && (Flag_FatJetVetoed==0))",
+    "mt": "((channel==2) && PuppiMET_pt > 180  && (boost==0) && (Flag_JetVetoed==0) && (Flag_FatJetVetoed==0))",
 }
 
+
 # cuts = {
-#     "tt": "((channel==0) && (boost==0) && (Flag_JetVetoed==0) && (Flag_FatJetVetoed==0))",
-#     "et": "((channel==1) && (boost==0) && (Flag_JetVetoed==0) && (Flag_FatJetVetoed==0))",
-#     "mt": "((channel==2) && (boost==0) && (Flag_JetVetoed==0) && (Flag_FatJetVetoed==0))",
+#     "tt": "((channel==0) && (boost==0))",
+#     "et": "((channel==1) && (boost==0))",
+#     "mt": "((channel==2) && (boost==0))",
 # }
+# cuts = {
+#     "tt": "((channel==0) && (Flag_FatJetVetoed==0) && (boost==1))",
+#     "et": "((channel==1) && (Flag_FatJetVetoed==0) && (boost==1))",
+#     "mt": "((channel==2) && (Flag_FatJetVetoed==0) && (boost==1))",
+# }
+
 
 # cuts = {
 #     "tt": "((channel==0)  && (Flag_JetVetoed==0) && (Flag_FatJetVetoed==0))",
@@ -25,11 +38,11 @@ cuts = {
 #     "mt": "((channel==2)  && (Flag_JetVetoed==0) && (Flag_FatJetVetoed==0))",
 # }
 
-cuts = {
-    "tt": "((channel==0))",
-    "et": "((channel==1))",
-    "mt": "((channel==2))",
-}
+# cuts = {
+#     "tt": "((channel==0))",
+#     "et": "((channel==1))",
+#     "mt": "((channel==2))",
+# }
 
 variables_log = [
     "FatJet_pt[index_gFatJets[0]]",
@@ -37,6 +50,9 @@ variables_log = [
 ]
 
 variables_linear = [
+    "Tau_rawDeepTau2018v2p5VSe[index_gTaus]",
+    "boostedTau_rawBoostedDeepTauRunIIv2p0VSjet[index_gboostedTaus]"
+
     # "PV_npvsGood",
     # "PV_npvs",
 
@@ -52,23 +68,23 @@ variables_linear = [
     # "Tau_eta[index_gTaus[1]]",
     # "Tau_phi[index_gTaus[1]]",
 
-    "boostedTau_pt[index_gboostedTaus]",
-    "boostedTau_eta[index_gboostedTaus]",
-    "boostedTau_phi[index_gboostedTaus]",
+    # "boostedTau_pt[index_gboostedTaus]",
+    # "boostedTau_eta[index_gboostedTaus]",
+    # "boostedTau_phi[index_gboostedTaus]",
 
-    "boostedTau_pt[index_gboostedTaus[0]]",
-    "boostedTau_eta[index_gboostedTaus[0]]",
-    "boostedTau_phi[index_gboostedTaus[0]]",
+    # "boostedTau_pt[index_gboostedTaus[0]]",
+    # "boostedTau_eta[index_gboostedTaus[0]]",
+    # "boostedTau_phi[index_gboostedTaus[0]]",
     
-    "boostedTau_pt[index_gboostedTaus[1]]",
-    "boostedTau_eta[index_gboostedTaus[1]]",
-    "boostedTau_phi[index_gboostedTaus[1]]",
+    # "boostedTau_pt[index_gboostedTaus[1]]",
+    # "boostedTau_eta[index_gboostedTaus[1]]",
+    # "boostedTau_phi[index_gboostedTaus[1]]",
 
-    "FatJet_mass[index_gFatJets[0]]",
-    "FatJet_msoftdrop[index_gFatJets[0]]",
-    "FatJet_particleNetLegacy_mass[index_gFatJets[0]]",
-    "FatJet_eta[index_gFatJets[0]]",
-    "FatJet_phi[index_gFatJets[0]]",
+    # "FatJet_mass[index_gFatJets[0]]",
+    # "FatJet_msoftdrop[index_gFatJets[0]]",
+    # "FatJet_particleNetLegacy_mass[index_gFatJets[0]]",
+    # "FatJet_eta[index_gFatJets[0]]",
+    # "FatJet_phi[index_gFatJets[0]]",
 
     # "Electron_pt[index_gElectrons[0]]",
     # "Electron_eta[index_gElectrons[0]]",

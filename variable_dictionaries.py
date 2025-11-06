@@ -82,8 +82,8 @@ variableAxisTitleDictionary = {
     #"HTTvis_deltaR":"DeltaR(HPS, visHTT) ",
     #"HTTvis_deltaR":"DeltaR(Boosted, visHTT)",
 
-
-    "boostedTau_rawDeepTau2018v2p7VSjet[index_gboostedTaus]":"DeepBoostedTau_Raw",
+    "Tau_rawDeepTau2018v2p5VSe[index_gTaus]":"DeepTau_Raw",
+    "boostedTau_rawBoostedDeepTauRunIIv2p0VSjet[index_gboostedTaus]":"DeepBoostedTau_Raw",
     "Fatjet_pnet_bbvsqcd":"particlenetvsQCD_rawscore_Zoomed_LogScale",
 
 
@@ -233,7 +233,8 @@ variableFileNameDictionary = {
     "X_eta":"x_eta",
         "HT":"HT",
     "MT":"MT",
-    "boostedTau_rawDeepTau2018v2p7VSjet[index_gboostedTaus]":"deepboostedtau_raw",
+    "Tau_rawDeepTau2018v2p5VSe[index_gTaus]":"deeptau_raw",
+    "boostedTau_rawBoostedDeepTauRunIIv2p0VSjet[index_gboostedTaus]":"deepboostedtau_raw",
     "globalparT3mass": "globalparT3mass",
     "allTaus_decayMode": "allTaus_decayMode",
     #"Hbb_met_phi": "Hbb_met_phi"
@@ -314,9 +315,9 @@ variableSettingDictionary = {
     "FatJet_msoftdrop_nom[index_gFatJets[0]]":"25,0.0,250.0",
     "FatJet_msoftdrop[index_gFatJets[0]]":"25,0.0,250.0",
 
-    "PuppiMET_pt_nom":"21,120,1000",
+    "PuppiMET_pt_nom":"22,120,1000",
     "PuppiMET_phi_nom":"16,-3.20,3.20",
-    "PuppiMET_pt":"21,120,1000",
+    "PuppiMET_pt": "21,180,1000", #"45,120,1020",
     "PuppiMET_phi":"16,-3.20,3.20",
     
     "allTaus_pt":"20,0.0,400.0",
@@ -369,8 +370,9 @@ variableSettingDictionary = {
     "Jet_phi[index_gJets]":"16,-3.20,3.20",
     "Jet_eta":"16,-3.20,3.20",
     "Jet_phi":"16,-3.20,3.20",
-    "boostedTau_rawDeepTau2018v2p7VSjet[index_gboostedTaus]":"20,0.75,1.0",
-    "Tau_rawDeepTau2018v2p5VSjet[index_gTaus]":"8,0.90,1.0",
+    
+    "boostedTau_rawBoostedDeepTauRunIIv2p0VSjet[index_gboostedTaus]":"15,0.85,1.0",
+    "Tau_rawDeepTau2018v2p5VSe[index_gTaus]":"10,0.90,1.0",
     #"Fatjet_pnet_bbvsqcd":"40,0.0,1.0"
     "Fatjet_pnet_bbvsqcd":"24,0.70,1.0",
     "globalparT3mass":"25,0.0,250.0",
