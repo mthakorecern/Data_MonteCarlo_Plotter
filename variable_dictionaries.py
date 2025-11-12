@@ -317,7 +317,7 @@ variableSettingDictionary = {
 
     "PuppiMET_pt_nom":"22,120,1000",
     "PuppiMET_phi_nom":"16,-3.20,3.20",
-    "PuppiMET_pt": "21,180,1000", #"45,120,1020",
+    "PuppiMET_pt": "45,120,1020",#"21,180,1000"
     "PuppiMET_phi":"16,-3.20,3.20",
     
     "allTaus_pt":"20,0.0,400.0",

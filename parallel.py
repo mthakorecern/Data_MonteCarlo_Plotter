@@ -14,11 +14,16 @@ MAX_JOBS = 40
 # }
 
 cuts = {
-    "tt": "((channel==0) && PuppiMET_pt > 180 && (boost==0) && (Flag_JetVetoed==0) && (Flag_FatJetVetoed==0))",
-    "et": "((channel==1) && PuppiMET_pt > 180  && (boost==0) && (Flag_JetVetoed==0) && (Flag_FatJetVetoed==0))",
-    "mt": "((channel==2) && PuppiMET_pt > 180  && (boost==0) && (Flag_JetVetoed==0) && (Flag_FatJetVetoed==0))",
+    "tt": "((channel==0) && PuppiMET_pt > 180 && (Flag_JetVetoed==0) && (Flag_FatJetVetoed==0))",
+    "et": "((channel==1) && PuppiMET_pt > 180 && (Flag_JetVetoed==0) && (Flag_FatJetVetoed==0))",
+    "mt": "((channel==2) && PuppiMET_pt > 180 && (Flag_JetVetoed==0) && (Flag_FatJetVetoed==0))",
 }
 
+# cuts = {
+#     "tt": "((channel==0) && (Flag_JetVetoed==0) && (Flag_FatJetVetoed==0))",
+#     "et": "((channel==1) && (Flag_JetVetoed==0) && (Flag_FatJetVetoed==0))",
+#     "mt": "((channel==2) && (Flag_JetVetoed==0) && (Flag_FatJetVetoed==0))",
+# }
 
 # cuts = {
 #     "tt": "((channel==0) && (boost==0))",
@@ -45,13 +50,13 @@ cuts = {
 # }
 
 variables_log = [
-    "FatJet_pt[index_gFatJets[0]]",
-    "PuppiMET_pt",
+    # "FatJet_pt[index_gFatJets[0]]",
+    # "PuppiMET_pt",
 ]
 
 variables_linear = [
-    "Tau_rawDeepTau2018v2p5VSe[index_gTaus]",
-    "boostedTau_rawBoostedDeepTauRunIIv2p0VSjet[index_gboostedTaus]"
+    # "Tau_rawDeepTau2018v2p5VSe[index_gTaus]",
+    # "boostedTau_rawBoostedDeepTauRunIIv2p0VSjet[index_gboostedTaus]",
 
     # "PV_npvsGood",
     # "PV_npvs",
@@ -107,49 +112,49 @@ variables_linear = [
     # "ngood_MediumJets",
     # "ngood_TightJets",
 
-    # "HTT_m",
-    # "HTTvis_m",
-    # "HTT_pt",
-    # "HTT_phi",
-    # "HTT_eta",
+    "HTT_m",
+    "HTTvis_m",
+    "HTT_pt",
+    "HTT_phi",
+    "HTT_eta",
 
-    # "Hbb_met_phi",
+    "Hbb_met_phi",
 
-    # "allTaus_decayMode",
+    "allTaus_decayMode",
 
-    # "HTTvis_HPS_m",
-    # "HTTvis_HPS_eta",
-    # "HTTvis_HPS_phi",
-    # "HTTvis_boosted_m",
-    # "HTTvis_boosted_eta",
-    # "HTTvis_boosted_phi",
+    "HTTvis_HPS_m",
+    "HTTvis_HPS_eta",
+    "HTTvis_HPS_phi",
+    "HTTvis_boosted_m",
+    "HTTvis_boosted_eta",
+    "HTTvis_boosted_phi",
 
-    # "HTT_HPS_m",
-    # "HTT_HPS_eta",
-    # "HTT_HPS_phi",
+    "HTT_HPS_m",
+    "HTT_HPS_eta",
+    "HTT_HPS_phi",
 
-    # "HTT_boosted_m",
-    # "HTT_boosted_eta",
-    # "HTT_boosted_phi",
+    "HTT_boosted_m",
+    "HTT_boosted_eta",
+    "HTT_boosted_phi",
 
-    # "HTT_HPS_Ele_m",
-    # "HTT_HPS_Ele_eta",
-    # "HTT_HPS_Ele_phi",
+    "HTT_HPS_Ele_m",
+    "HTT_HPS_Ele_eta",
+    "HTT_HPS_Ele_phi",
 
-    # "HTT_HPS_Mu_m",
-    # "HTT_HPS_Mu_eta",
-    # "HTT_HPS_Mu_phi",
+    "HTT_HPS_Mu_m",
+    "HTT_HPS_Mu_eta",
+    "HTT_HPS_Mu_phi",
     
-    # "HTT_boosted_Ele_m",
-    # "HTT_boosted_Ele_eta",
-    # "HTT_boosted_Ele_phi",
+    "HTT_boosted_Ele_m",
+    "HTT_boosted_Ele_eta",
+    "HTT_boosted_Ele_phi",
     
-    # "HTT_boosted_Mu_m",
-    # "HTT_boosted_Mu_eta",
-    # "HTT_boosted_Mu_phi",
+    "HTT_boosted_Mu_m",
+    "HTT_boosted_Mu_eta",
+    "HTT_boosted_Mu_phi",
 
-    # "Hbb_lep1_deltaR",
-    # "Hbb_lep2_deltaR"
+    "Hbb_lep1_deltaR",
+    "Hbb_lep2_deltaR"
 ]
 
 print_lock = threading.Lock()
@@ -176,6 +181,7 @@ def run_job(args):
 
 def generate_commands():
     for var in variables_log:
+        os.makedirs("logs_MET180", exist_ok=True)
         for ch in ["tt", "et", "mt"]:
             cut_expr = cuts[ch]
             safe_var = (
@@ -185,7 +191,7 @@ def generate_commands():
                 .replace(")", "")
                 .replace("/", "_")
             )
-            log_name = f"logs/log_{ch}_{safe_var}_dataMC.txt"
+            log_name = f"logs_MET180/log_{ch}_{safe_var}_dataMC.txt"
             yield [
                 "--year", "2024",
                 "--variables", var,
@@ -207,7 +213,7 @@ def generate_commands():
                 .replace(")", "")
                 .replace("/", "_")
             )
-            log_name = f"logs/log_{ch}_{safe_var}_dataMC.txt"
+            log_name = f"logs_MET180/log_{ch}_{safe_var}_dataMC.txt"
             yield [
                 "--year", "2024",
                 "--variables", var,

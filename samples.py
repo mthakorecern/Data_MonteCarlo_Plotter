@@ -1,4 +1,4 @@
-redirector_MC = "/hdfs/store/user/mithakor/2024_XsecAdded/MC_MET_120_Nocorrections_veto_final_New_crosssections_22Oct25_1643"
+redirector_MC = "/hdfs/store/user/mithakor/2024_XsecAdded/MC_MET120_Nocorrections_FatJetJetTightLeptonVeto_05Nov25_2311/"
 
 Signals = {
     "GluGlutoRadiontoHHto2B2Tau_M-1000": {
