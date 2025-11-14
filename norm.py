@@ -130,19 +130,7 @@ if __name__ == "__main__":
     hists['TTbar'] = ROOT.TH1F("TTbar","TTbar", int(bin_values[0]), bin_values[1], bin_values[2])
     hists['TTbar'].Sumw2()
     hists['TTbar'].SetDirectory(0)
-    
-    # hists['TTto2L2Nu'] = ROOT.TH1F("TTto2L2Nu","TTto2L2Nu", int(bin_values[0]), bin_values[1], bin_values[2])
-    # hists['TTto2L2Nu'].Sumw2()
-    # hists['TTto2L2Nu'].SetDirectory(0)
-
-    # hists['TTto4Q'] = ROOT.TH1F("TTto4Q","TTto4Q", int(bin_values[0]), bin_values[1], bin_values[2])
-    # hists['TTto4Q'].Sumw2()
-    # hists['TTto4Q'].SetDirectory(0)
-    
-    # hists['TTtoLNu2Q'] = ROOT.TH1F("TTtoLNu2Q","TTtoLNu2Q", int(bin_values[0]), bin_values[1], bin_values[2])
-    # hists['TTtoLNu2Q'].Sumw2()
-    # hists['TTtoLNu2Q'].SetDirectory(0)
-    
+   
     hists['QCD'] = ROOT.TH1F("QCD", "QCD", int(bin_values[0]), bin_values[1], bin_values[2])
     hists['QCD'].Sumw2()
     hists['QCD'].SetDirectory(0)
@@ -226,21 +214,6 @@ if __name__ == "__main__":
         hists["TTbar"].SetFillColor(ROOT.TColor.GetColor("#92cfe0"))
         print("TTbar background Integral is:")
         print(hists["TTbar"].Integral(0, hists["TTbar"].GetNbinsX()+1))
-
-        # hists["TTto2L2Nu"].SetLineColor(ROOT.TColor.GetColor("#b9ac70"))
-        # hists["TTto2L2Nu"].SetFillColor(ROOT.TColor.GetColor("#b9ac70"))
-        # print("TTto2L2Nu background Integral is:")
-        # print(hists["TTto2L2Nu"].Integral(0, hists["TTto2L2Nu"].GetNbinsX()+1))
-
-        # hists["TTto4Q"].SetLineColor(ROOT.TColor.GetColor("#94a4a2"))
-        # hists["TTto4Q"].SetFillColor(ROOT.TColor.GetColor("#94a4a2"))
-        # print("TTto4Q background Integral is:")
-        # print(hists["TTto4Q"].Integral(0, hists["TTto4Q"].GetNbinsX()+1))
-
-        # hists["TTtoLNu2Q"].SetLineColor(ROOT.TColor.GetColor("#a96b59"))
-        # hists["TTtoLNu2Q"].SetFillColor(ROOT.TColor.GetColor("#a96b59"))
-        # print("TTtoLNu2Q background Integral is:")
-        # print(hists["TTtoLNu2Q"].Integral(0, hists["TTtoLNu2Q"].GetNbinsX()+1))
        
         hists["QCD"].SetLineColor(ROOT.TColor.GetColor("#f29b6f"))
         hists["QCD"].SetFillColor(ROOT.TColor.GetColor("#f29b6f"))
@@ -266,11 +239,6 @@ if __name__ == "__main__":
             hists["DiBoson"].Integral(0, hists["DiBoson"].GetNbinsX()+1)
             + hists["STop"].Integral(0, hists["STop"].GetNbinsX()+1)
             + hists["TTbar"].Integral(0, hists["TTbar"].GetNbinsX()+1)
-
-            # + hists["TTto2L2Nu"].Integral(0, hists["TTto2L2Nu"].GetNbinsX()+1)
-            # + hists["TTto4Q"].Integral(0, hists["TTto4Q"].GetNbinsX()+1)
-            # + hists["TTtoLNu2Q"].Integral(0, hists["TTtoLNu2Q"].GetNbinsX()+1)
-
             + hists["QCD"].Integral(0, hists["QCD"].GetNbinsX()+1)
             + hists["WJets"].Integral(0, hists["WJets"].GetNbinsX()+1)
             + hists["Drell-Yan"].Integral(0, hists["Drell-Yan"].GetNbinsX()+1)
@@ -281,10 +249,6 @@ if __name__ == "__main__":
         hist_stack.Add(hists["DiBoson"])
         hist_stack.Add(hists["STop"])
         hist_stack.Add(hists["TTbar"])
-
-        # hist_stack.Add(hists["TTto2L2Nu"])
-        # hist_stack.Add(hists["TTto4Q"])
-        # hist_stack.Add(hists["TTtoLNu2Q"])
         hist_stack.Add(hists["QCD"])
         hist_stack.Add(hists["WJets"])
         hist_stack.Add(hists["Drell-Yan"])
@@ -577,17 +541,21 @@ if __name__ == "__main__":
         max_bkg = max(h.GetMaximum() for _, h in hists.items())
         max_sig = max(signal_1.GetMaximum(), signal_2.GetMaximum(),
                             signal_3.GetMaximum(), signal_4.GetMaximum())
-        max_data = data.GetMaximum() if data.GetMaximum() > 0 else 0
+        max_data = data.GetMaximum()
 
         pad1.cd()
-        hist_stack.SetMaximum(max(max_bkg, max_sig, max_data) * 1.8)
+        hist_stack.SetMaximum(max(max_bkg, max_sig, max_data) * 1.4)
         hist_stack.Draw("hist")
+        # hist_stack.GetHistogram().GetXaxis().SetRangeUser(180,1980) # For fatjetsonly
+        # hist_stack.GetHistogram().GetXaxis().SetNdivisions(-905) #  # For fatjetsonly
+
         hist_stack.GetXaxis().SetTitle("")
         hist_stack.GetXaxis().SetLabelSize(0)
         hist_stack.GetYaxis().SetTitle("Events")
         hist_stack.GetYaxis().SetTitleSize(0.05)
         hist_stack.GetYaxis().SetLabelSize(0.04)
         hist_stack.GetYaxis().SetTitleOffset(0.8)
+
         #pad1.Update()
         hist_stack.Draw("hist same")  
 
@@ -646,6 +614,8 @@ if __name__ == "__main__":
         pad2.SetGridy()
 
         ratio = data.Clone("Data_MC_Ratio")
+        # ratio.GetXaxis().SetRangeUser(180,1980)
+        # ratio.GetXaxis().SetNdivisions(-905)
         ratio.Divide(total_bkg_hist)
         ratio.SetStats(0)
         ratio.SetMarkerStyle(20)
@@ -668,6 +638,7 @@ if __name__ == "__main__":
         line.SetLineStyle(2)
         line.SetLineWidth(2)
         line.Draw("same")
+        
 
         canvas_dataMC.SaveAs(os.path.join("DataMC", f"{args.year}_{args.Channel}_{variable}_DataMC.png"))
 

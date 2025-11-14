@@ -7,17 +7,21 @@ from tqdm import tqdm
 
 MAX_JOBS = 40
 
+##Run2cuts
+
+#'xsWeight*pileupcorrWeight*topptWeight*combinedWZgenPtDeborahWeight*eleidWeight*elerecoWeight*muonidWeight*muonisoWeight*hpstauidWeight*metsfWeight*(((channel==0)&&(HTTvis_deltaR<1.5)&&(abs(Hbb_met_phi)>1)&&(HTTvis_m>20)&&(softdropmassnom>=30)) && (X_m>750) && (X_m<5500))')
+
 # cuts = {
 #     "tt": "((channel==0) && (Flag_JetVetoed==0) && (Flag_FatJetVetoed==0) && boostedTau_rawBoostedDeepTauRunIIv2p0VSjet >= 0.95 && softdropmass >= 30 && PuppiMET_pt >= 200 && FatJet_pt[index_gFatJets[0]] >=200)",
 #     "et": "((channel==1) && (Flag_JetVetoed==0) && (Flag_FatJetVetoed==0) && boostedTau_rawBoostedDeepTauRunIIv2p0VSjet >= 0.95  && softdropmass >= 30 && PuppiMET_pt >= 200 && FatJet_pt[index_gFatJets[0]] >=200)",
 #     "mt": "((channel==2) && (Flag_JetVetoed==0) && (Flag_FatJetVetoed==0) && boostedTau_rawBoostedDeepTauRunIIv2p0VSjet >= 0.95  && softdropmass >= 30 && PuppiMET_pt >= 200 && FatJet_pt[index_gFatJets[0]] >=200)",
 # }
 
-cuts = {
-    "tt": "((channel==0) && PuppiMET_pt > 180 && (boost==0) && (Flag_JetVetoed==0) && (Flag_FatJetVetoed==0))",
-    "et": "((channel==1) && PuppiMET_pt > 180  && (boost==0) && (Flag_JetVetoed==0) && (Flag_FatJetVetoed==0))",
-    "mt": "((channel==2) && PuppiMET_pt > 180  && (boost==0) && (Flag_JetVetoed==0) && (Flag_FatJetVetoed==0))",
-}
+# cuts = {
+#     "tt": "((channel==0) && PuppiMET_pt > 180 && (boost==0) && (Flag_JetVetoed==0) && (Flag_FatJetVetoed==0))",
+#     "et": "((channel==1) && PuppiMET_pt > 180  && (boost==0) && (Flag_JetVetoed==0) && (Flag_FatJetVetoed==0))",
+#     "mt": "((channel==2) && PuppiMET_pt > 180  && (boost==0) && (Flag_JetVetoed==0) && (Flag_FatJetVetoed==0))",
+# }
 
 
 # cuts = {
@@ -25,13 +29,6 @@ cuts = {
 #     "et": "((channel==1) && (boost==0))",
 #     "mt": "((channel==2) && (boost==0))",
 # }
-# cuts = {
-#     "tt": "((channel==0) && (Flag_FatJetVetoed==0) && (boost==1))",
-#     "et": "((channel==1) && (Flag_FatJetVetoed==0) && (boost==1))",
-#     "mt": "((channel==2) && (Flag_FatJetVetoed==0) && (boost==1))",
-# }
-
-
 # cuts = {
 #     "tt": "((channel==0)  && (Flag_JetVetoed==0) && (Flag_FatJetVetoed==0))",
 #     "et": "((channel==1)  && (Flag_JetVetoed==0) && (Flag_FatJetVetoed==0))",
@@ -44,14 +41,36 @@ cuts = {
 #     "mt": "((channel==2))",
 # }
 
+
+
+cuts = {
+    "tt": "((channel==0) && PuppiMET_pt > 180 && (boost==0))",
+    
+    "et": "((channel==1) && PuppiMET_pt > 180 && (boost==0))",
+    
+    "mt": "((channel==2) && PuppiMET_pt > 180 && (boost==0))",
+}
+
+
+
 variables_log = [
-    "FatJet_pt[index_gFatJets[0]]",
-    "PuppiMET_pt",
+    # "FatJet_pt[index_gFatJets[0]]",
+    # "PuppiMET_pt",
+    # "Tau_rawDeepTau2018v2p5VSjet[index_gTaus]",
+     "boostedTau_rawBoostedDeepTauRunIIv2p0VSjet[index_gboostedTaus]"
+
 ]
 
 variables_linear = [
-    "Tau_rawDeepTau2018v2p5VSe[index_gTaus]",
-    "boostedTau_rawBoostedDeepTauRunIIv2p0VSjet[index_gboostedTaus]"
+
+    # "FatJet_mass[index_gFatJets[0]]",
+    # "FatJet_msoftdrop[index_gFatJets[0]]",
+    # "FatJet_particleNetLegacy_mass[index_gFatJets[0]]",
+    
+    # "FatJet_eta[index_gFatJets[0]]",
+    # "FatJet_phi[index_gFatJets[0]]",
+    # # "Tau_rawDeepTau2018v2p5VSjet[index_gTaus]",
+   
 
     # "PV_npvsGood",
     # "PV_npvs",
@@ -60,31 +79,25 @@ variables_linear = [
     # "Tau_eta[index_gTaus]",
     # "Tau_phi[index_gTaus]",
 
-    # "Tau_pt[index_gTaus[0]]",
-    # "Tau_eta[index_gTaus[0]]",
-    # "Tau_phi[index_gTaus[0]]",
+    # # "Tau_pt[index_gTaus[0]]",
+    # # "Tau_eta[index_gTaus[0]]",
+    # # "Tau_phi[index_gTaus[0]]",
     
-    # "Tau_pt[index_gTaus[1]]",
-    # "Tau_eta[index_gTaus[1]]",
-    # "Tau_phi[index_gTaus[1]]",
+    # # "Tau_pt[index_gTaus[1]]",
+    # # "Tau_eta[index_gTaus[1]]",
+    # # "Tau_phi[index_gTaus[1]]",
 
     # "boostedTau_pt[index_gboostedTaus]",
     # "boostedTau_eta[index_gboostedTaus]",
     # "boostedTau_phi[index_gboostedTaus]",
 
-    # "boostedTau_pt[index_gboostedTaus[0]]",
-    # "boostedTau_eta[index_gboostedTaus[0]]",
-    # "boostedTau_phi[index_gboostedTaus[0]]",
+    # # "boostedTau_pt[index_gboostedTaus[0]]",
+    # # "boostedTau_eta[index_gboostedTaus[0]]",
+    # # "boostedTau_phi[index_gboostedTaus[0]]",
     
-    # "boostedTau_pt[index_gboostedTaus[1]]",
-    # "boostedTau_eta[index_gboostedTaus[1]]",
-    # "boostedTau_phi[index_gboostedTaus[1]]",
-
-    # "FatJet_mass[index_gFatJets[0]]",
-    # "FatJet_msoftdrop[index_gFatJets[0]]",
-    # "FatJet_particleNetLegacy_mass[index_gFatJets[0]]",
-    # "FatJet_eta[index_gFatJets[0]]",
-    # "FatJet_phi[index_gFatJets[0]]",
+    # # "boostedTau_pt[index_gboostedTaus[1]]",
+    # # "boostedTau_eta[index_gboostedTaus[1]]",
+    # # "boostedTau_phi[index_gboostedTaus[1]]",
 
     # "Electron_pt[index_gElectrons[0]]",
     # "Electron_eta[index_gElectrons[0]]",
@@ -94,14 +107,13 @@ variables_linear = [
     # "Muon_eta[index_gMuons[0]]",
     # "Muon_phi[index_gMuons[0]]",
 
-    # "PuppiMET_phi",
+    "PuppiMET_phi",
 
     # "Jet_pt[index_gJets[0]]",
     # "Jet_eta[index_gJets[0]]",
     # "Jet_phi[index_gJets[0]]",
 
     # "HTTvis_deltaR",
-
     # "ngood_Jets",
     # "ngood_LooseJets",
     # "ngood_MediumJets",
@@ -116,10 +128,10 @@ variables_linear = [
     # "Hbb_met_phi",
 
     # "allTaus_decayMode",
-
     # "HTTvis_HPS_m",
     # "HTTvis_HPS_eta",
     # "HTTvis_HPS_phi",
+    
     # "HTTvis_boosted_m",
     # "HTTvis_boosted_eta",
     # "HTTvis_boosted_phi",
@@ -149,7 +161,27 @@ variables_linear = [
     # "HTT_boosted_Mu_phi",
 
     # "Hbb_lep1_deltaR",
-    # "Hbb_lep2_deltaR"
+    # "Hbb_lep2_deltaR",
+
+    # "deltaR_tau_ele",
+    # "deltaR_tau_mu",
+    
+    # "deltaPhi_hbb_httvis",
+    # "deltaPhi_hbb_htt",
+    # "deltaPhi_hbb_leadingtau",
+    # "deltaPhi_hbb_subleadingtau",
+    # "deltaPhi_hbb_leadingele",
+    # "deltaPhi_hbb_leadingmu",
+    
+    # "deltaPhi_tau1_tau2",
+    # "deltaR_tau1_tau2",
+    
+    # "deltaPhi_met_tautau",
+    # "deltaPhi_met_leadingtau",
+    # "deltaPhi_met_subleadingtau",
+    # "deltaPhi_met_leadingele",
+    # "deltaPhi_met_leadingmu"
+
 ]
 
 print_lock = threading.Lock()
