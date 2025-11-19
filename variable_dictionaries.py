@@ -202,6 +202,58 @@ variableAxisTitleDictionary = {
     
     #"Fatjet_pnet_bbvsqcd":"particlenetvsQCD_rawscore_LogScale"
     "globalparT3mass": "GlobalparT3 regressed mass",
+        "fatjet_tau21": "#tau_{21} of leading FatJet",
+    "fatjet_tau32": "#tau_{32} of leading FatJet",
+
+    "deltaR_subjets": "#Delta R(SubJet1, SubJet2)",
+    "deltaPhi_subjets": "#Delta #phi(SubJet1, SubJet2)",
+
+    "subjet1_tau21": "#tau_{21} of SubJet1",
+    "subjet1_tau32": "#tau_{32} of SubJet1",
+    "subjet2_tau21": "#tau_{21} of SubJet2",
+    "subjet2_tau32": "#tau_{32} of SubJet2",
+
+    "deltaR_subjet1_leadtau": "#Delta R(SubJet1, leading #tau)",
+    "deltaPhi_subjet1_leadtau": "#Delta #phi(SubJet1, leading #tau)",
+    "deltaR_subjet1_subtau": "#Delta R(SubJet1, subleading #tau)",
+    "deltaPhi_subjet1_subtau": "#Delta #phi(SubJet1, subleading #tau)",
+    "deltaR_subjet1_ele": "#Delta R(SubJet1, e)",
+    "deltaPhi_subjet1_ele": "#Delta #phi(SubJet1, e)",
+    "deltaR_subjet1_mu": "#Delta R(SubJet1, #mu)",
+    "deltaPhi_subjet1_mu": "#Delta #phi(SubJet1, #mu)",
+
+    "deltaR_subjet2_leadtau": "#Delta R(SubJet2, leading #tau)",
+    "deltaPhi_subjet2_leadtau": "#Delta #phi(SubJet2, leading #tau)",
+    "deltaR_subjet2_subtau": "#Delta R(SubJet2, subleading #tau)",
+    "deltaPhi_subjet2_subtau": "#Delta #phi(SubJet2, subleading #tau)",
+    "deltaR_subjet2_ele": "#Delta R(SubJet2, e)",
+    "deltaPhi_subjet2_ele": "#Delta #phi(SubJet2, e)",
+    "deltaR_subjet2_mu": "#Delta R(SubJet2, #mu)",
+    "deltaPhi_subjet2_mu": "#Delta #phi(SubJet2, #mu)",
+
+    "Tau_rawDeepTauVSjet_logit": "Logit(DeepTau VSjet)",
+    "boostedTau_rawDeepTauVSjet_logit": "Logit(Boosted DeepTau VSjet)",
+
+    "pt_balance_hbb_htt": "p_{T}-balance(H_{bb}, H_{#tau#tau})",
+    "deltaR_hbb_ak4lead": "#Delta R(H_{bb}, leading AK4 jet)",
+    "deltaPhi_hbb_ak4lead": "#Delta #phi(H_{bb}, leading AK4 jet)",
+
+    "deltaR_ak4_leadtau": "#Delta R(leading AK4 jet, leading #tau)",
+    "deltaPhi_ak4_leadtau": "#Delta #phi(leading AK4 jet, leading #tau)",
+    "deltaR_ak4_subtau": "#Delta R(leading AK4 jet, subleading #tau)",
+    "deltaPhi_ak4_subtau": "#Delta #phi(leading AK4 jet, subleading #tau)",
+
+    "deltaR_ak4_ele": "#Delta R(leading AK4 jet, e)",
+    "deltaPhi_ak4_ele": "#Delta #phi(leading AK4 jet, e)",
+
+    "deltaR_ak4_mu": "#Delta R(leading AK4 jet, #mu)",
+    "deltaPhi_ak4_mu": "#Delta #phi(leading AK4 jet, #mu)",
+
+    "deltaPhi_met_ak4lead": "#Delta #phi(MET, leading AK4 jet)",
+
+    "deltaR_httvis_ak4lead": "#Delta R(H_{#tau#tau}^{vis}, leading AK4 jet)",
+    "deltaPhi_httvis_ak4lead": "#Delta #phi(H_{#tau#tau}^{vis}, leading AK4 jet)",
+
 
 
 }
@@ -337,7 +389,61 @@ variableFileNameDictionary = {
     "deltaPhi_met_leadingtau": "delphi_met_leadtau",
     "deltaPhi_met_subleadingtau": "delphi_met_subtau",
     "deltaPhi_met_leadingele": "delphi_met_ele",
-    "deltaPhi_met_leadingmu": "delphi_met_mu"
+    "deltaPhi_met_leadingmu": "delphi_met_mu",
+        "fatjet_tau21": "fatjet_tau21",
+    "fatjet_tau32": "fatjet_tau32",
+
+    "deltaR_subjets": "deltaR_subjets",
+    "deltaPhi_subjets": "deltaPhi_subjets",
+
+    "subjet1_tau21": "subjet1_tau21",
+    "subjet1_tau32": "subjet1_tau32",
+    "subjet2_tau21": "subjet2_tau21",
+    "subjet2_tau32": "subjet2_tau32",
+
+    "deltaR_subjet1_leadtau": "deltaR_sj1_leadtau",
+    "deltaPhi_subjet1_leadtau": "deltaPhi_sj1_leadtau",
+    "deltaR_subjet1_subtau": "deltaR_sj1_subtau",
+    "deltaPhi_subjet1_subtau": "deltaPhi_sj1_subtau",
+    "deltaR_subjet1_ele": "deltaR_sj1_ele",
+    "deltaPhi_subjet1_ele": "deltaPhi_sj1_ele",
+    "deltaR_subjet1_mu": "deltaR_sj1_mu",
+    "deltaPhi_subjet1_mu": "deltaPhi_sj1_mu",
+
+    "deltaR_subjet2_leadtau": "deltaR_sj2_leadtau",
+    "deltaPhi_subjet2_leadtau": "deltaPhi_sj2_leadtau",
+    "deltaR_subjet2_subtau": "deltaR_sj2_subtau",
+    "deltaPhi_subjet2_subtau": "deltaPhi_sj2_subtau",
+    "deltaR_subjet2_ele": "deltaR_sj2_ele",
+    "deltaPhi_subjet2_ele": "deltaPhi_sj2_ele",
+    "deltaR_subjet2_mu": "deltaR_sj2_mu",
+    "deltaPhi_subjet2_mu": "deltaPhi_sj2_mu",
+
+    "Tau_rawDeepTauVSjet_logit": "tau_deeptau_logit",
+    "boostedTau_rawDeepTauVSjet_logit": "boostedtau_deeptau_logit",
+
+    "deltaR_hbb_ak4lead": "delr_hbb_ak4lead",
+    "deltaPhi_hbb_ak4lead": "delphi_hbb_ak4lead",
+
+    "deltaR_ak4_leadtau": "delr_ak4_leadtau",
+    "deltaPhi_ak4_leadtau": "delphi_ak4_leadtau",
+    "deltaR_ak4_subtau": "delr_ak4_subtau",
+    "deltaPhi_ak4_subtau": "delphi_ak4_subtau",
+
+    "deltaR_ak4_ele": "delr_ak4_ele",
+    "deltaPhi_ak4_ele": "delphi_ak4_ele",
+
+    "deltaR_ak4_mu": "delr_ak4_mu",
+    "deltaPhi_ak4_mu": "delphi_ak4_mu",
+
+    "deltaPhi_met_ak4lead": "delphi_met_ak4lead",
+
+    "deltaR_httvis_ak4lead": "delr_httvis_ak4lead",
+    "deltaPhi_httvis_ak4lead": "delphi_httvis_ak4lead",
+
+
+    "pt_balance_hbb_htt": "pt_balance_hbb_htt",
+
 }
 
 variableSettingDictionary = {
@@ -345,22 +451,22 @@ variableSettingDictionary = {
     "PV_npvsGood":"50,0,100",  
     
     "Tau_pt[index_gTaus[0]]":"20,0.0,400.0",
-    "Tau_eta[index_gTaus[0]]":"16,-3.20,3.20",
-    "Tau_phi[index_gTaus[0]]":"16,-3.20,3.20",
+    "Tau_eta[index_gTaus[0]]":"64,-3.20,3.20",
+    "Tau_phi[index_gTaus[0]]":"64,-3.20,3.20",
     "Tau_pt[index_gTaus[1]]":"20,0.0,400.0",
-    "Tau_eta[index_gTaus[1]]":"16,-3.20,3.20",
-    "Tau_phi[index_gTaus[1]]":"16,-3.20,3.20",
+    "Tau_eta[index_gTaus[1]]":"64,-3.20,3.20",
+    "Tau_phi[index_gTaus[1]]":"64,-3.20,3.20",
     
     "boostedTau_pt[index_gboostedTaus[0]]":"20,0.0,400.0",
-    "boostedTau_eta[index_gboostedTaus[0]]":"16,-3.20,3.20",
-    "boostedTau_phi[index_gboostedTaus[0]]":"16,-3.20,3.20",
+    "boostedTau_eta[index_gboostedTaus[0]]":"64,-3.20,3.20",
+    "boostedTau_phi[index_gboostedTaus[0]]":"64,-3.20,3.20",
     "boostedTau_pt[index_gboostedTaus[1]]":"20,0.0,400.0",
-    "boostedTau_eta[index_gboostedTaus[1]]":"16,-3.20,3.20",
-    "boostedTau_phi[index_gboostedTaus[1]]":"16,-3.20,3.20",
+    "boostedTau_eta[index_gboostedTaus[1]]":"64,-3.20,3.20",
+    "boostedTau_phi[index_gboostedTaus[1]]":"64,-3.20,3.20",
     
     "Tau_pt[index_gTaus]":"20,0.0,400.0",
-    "Tau_eta[index_gTaus]":"16,-3.20,3.20",
-    "Tau_phi[index_gTaus]":"16,-3.20,3.20",
+    "Tau_eta[index_gTaus]":"64,-3.20,3.20",
+    "Tau_phi[index_gTaus]":"64,-3.20,3.20",
     
     "boostedTau_pt[index_gboostedTaus]":"20,0.0,400.0",
     "boostedTau_eta[index_gboostedTaus]":"64,-3.20,3.20",
@@ -395,20 +501,20 @@ variableSettingDictionary = {
     "PuppiMET_phi":"64,-3.20,3.20",
     
     "allTaus_pt":"20,0.0,400.0",
-    "allTaus_eta":"16,-3.20,3.20",
-    "allTaus_phi":"16,-3.20,3.20",
+    "allTaus_eta":"64,-3.20,3.20",
+    "allTaus_phi":"64,-3.20,3.20",
     "allTaus_pt[0]":"20,0.0,400.0",
-    "allTaus_eta[0]":"16,-3.20,3.20",
-    "allTaus_phi[0]":"16,-3.20,3.20",
+    "allTaus_eta[0]":"64,-3.20,3.20",
+    "allTaus_phi[0]":"64,-3.20,3.20",
     "allTaus_pt[1]":"20,0.0,400.0",
-    "allTaus_eta[1]":"16,-3.20,3.20",
+    "allTaus_eta[1]":"64,-3.20,3.20",
     "allTaus_phi[1]":"16,-3.20,3.20",
     "HTT_pt":"41,0,2050",
 #    "HTT_m":"25,0.0,250.0",
     "HTT_m":"50,0.0,250.0", # temp
 
     "HTT_phi":"32,-3.20,3.20",
-    "HTT_eta":"32,-3.20,3.20",
+    "HTT_eta":"64,-3.20,3.20",
     "X_pt":"40,50,2050",
     "X_m":"55,0,5500",
     "X_phi":"16,-3.20,3.20",
@@ -419,12 +525,12 @@ variableSettingDictionary = {
     "Electron_pt[index_gElectrons[0]]":"40,0.0,400.0",
     "Electron_eta[index_gElectrons[0]]":"16,-3.20,3.20",
     "Electron_phi[index_gElectrons[0]]":"16,-3.20,3.20",
-    "HTTvis_deltaR":"15,0.0,1.5",
+    "HTTvis_deltaR":"60,0,6.0",
     "Hbb_lep1_deltaR":"60,0.0,6.0",
     "Hbb_lep2_deltaR":"60,0.0,6.0",
     "Hbb_met_phi":"32, 0, 3.2",
-    "HTTvis_deltaR_HPS":"15,0.0,1.5",
-    "HTTvis_deltaR_Boosted":"15,0.0,1.5",
+    "HTTvis_deltaR_HPS":"60,0.0,6.0",
+    "HTTvis_deltaR_Boosted":"60,0.0,6.0",
     "Hbb_lep1_deltaR_HPS":"60,0.0,6.0",
     "Hbb_lep1_deltaR_Boosted":"60,0.0,6.0",
     "Hbb_lep2_deltaR_HPS":"60,0.0,6.0",
@@ -436,14 +542,14 @@ variableSettingDictionary = {
     "ngood_MediumJets":"5,0,5",
     "ngood_TightJets":"5,0,5",
     "Jet_pt[index_gJets[0]]":"20,0.0,400.0",
-    "Jet_eta[index_gJets[0]]":"16,-3.20,3.20",
-    "Jet_phi[index_gJets[0]]":"16,-3.20,3.20",
+    "Jet_eta[index_gJets[0]]":"64,-3.20,3.20",
+    "Jet_phi[index_gJets[0]]":"64,-3.20,3.20",
     "Jet_pt_nom[index_gJets]":"20,0.0,400.0",
     "Jet_pt_nom[index_gJets[0]]":"20,0.0,400.0",
-    "Jet_eta[index_gJets]":"16,-3.20,3.20",
-    "Jet_phi[index_gJets]":"16,-3.20,3.20",
-    "Jet_eta":"16,-3.20,3.20",
-    "Jet_phi":"16,-3.20,3.20",
+    "Jet_eta[index_gJets]":"64,-3.20,3.20",
+    "Jet_phi[index_gJets]":"64,-3.20,3.20",
+    "Jet_eta":"64,-3.20,3.20",
+    "Jet_phi":"64,-3.20,3.20",
     
     "boostedTau_rawBoostedDeepTauRunIIv2p0VSjet[index_gboostedTaus]":"30,0.85,1.0",
     "Tau_rawDeepTau2018v2p5VSjet[index_gTaus]":"40,0.92,1.00",
@@ -454,54 +560,107 @@ variableSettingDictionary = {
 
     # Visible H→ττ systems
     "HTTvis_HPS_m": "50,0.0,250.0",
-    "HTTvis_HPS_eta": "32,-3.2,3.2",
-    "HTTvis_HPS_phi": "32,-3.2,3.2",
+    "HTTvis_HPS_eta": "64,-3.2,3.2",
+    "HTTvis_HPS_phi": "64,-3.2,3.2",
 
     "HTTvis_boosted_m": "50,0.0,250.0",
-    "HTTvis_boosted_eta": "32,-3.2,3.2",
-    "HTTvis_boosted_phi": "32,-3.2,3.2",
+    "HTTvis_boosted_eta": "64,-3.2,3.2",
+    "HTTvis_boosted_phi": "64,-3.2,3.2",
 
     # Reconstructed H→ττ systems (FastMTT)
     "HTT_HPS_m": "50,0.0,250.0",
-    "HTT_HPS_eta": "32,-3.2,3.2",
-    "HTT_HPS_phi": "32,-3.2,3.2",
+    "HTT_HPS_eta": "64,-3.2,3.2",
+    "HTT_HPS_phi": "64,-3.2,3.2",
 
     "HTT_boosted_m": "50,0.0,250.0",
-    "HTT_boosted_eta": "32,-3.2,3.2",
-    "HTT_boosted_phi": "32,-3.2,3.2",
+    "HTT_boosted_eta": "64,-3.2,3.2",
+    "HTT_boosted_phi": "64,-3.2,3.2",
 
     "HTT_HPS_Ele_m": "50,0.0,250.0",
-    "HTT_HPS_Ele_eta": "32,-3.2,3.2",
-    "HTT_HPS_Ele_phi": "32,-3.2,3.2",
+    "HTT_HPS_Ele_eta": "64,-3.2,3.2",
+    "HTT_HPS_Ele_phi": "64,-3.2,3.2",
 
     "HTT_HPS_Mu_m": "50,0.0,250.0",
-    "HTT_HPS_Mu_eta": "32,-3.2,3.2",
-    "HTT_HPS_Mu_phi": "32,-3.2,3.2",
+    "HTT_HPS_Mu_eta": "64,-3.2,3.2",
+    "HTT_HPS_Mu_phi": "64,-3.2,3.2",
 
     "HTT_boosted_Ele_m": "50,0.0,250.0",
-    "HTT_boosted_Ele_eta": "32,-3.2,3.2",
-    "HTT_boosted_Ele_phi": "32,-3.2,3.2",
+    "HTT_boosted_Ele_eta": "64,-3.2,3.2",
+    "HTT_boosted_Ele_phi": "64,-3.2,3.2",
 
     "HTT_boosted_Mu_m": "50,0.0,250.0",
     "HTT_boosted_Mu_eta": "64,-3.2,3.2",
     "HTT_boosted_Mu_phi": "64,-3.2,3.2",
-    "deltaR_tau_ele": "15,0,1.5",
-    "deltaR_tau_mu": "15,0,1.5",
-    "deltaR_tau1_tau2": "15,0,1.5",
+    "deltaR_tau_ele": "60,0,6.0",
+    "deltaR_tau_mu": "60,0,6.0",
+    "deltaR_tau1_tau2": "60,0,6.0",
 
-    "deltaPhi_hbb_httvis": "32,0,3.2",
-    "deltaPhi_hbb_htt": "32,0,3.2",
-    "deltaPhi_hbb_leadingtau": "32,0,3.2",
-    "deltaPhi_hbb_subleadingtau": "32,0,3.2",
-    "deltaPhi_hbb_leadingele": "32,0,3.2",
-    "deltaPhi_hbb_leadingmu": "32,0,3.2",
+    "deltaPhi_hbb_httvis": "64,0,3.2",
+    "deltaPhi_hbb_htt": "64,0,3.2",
+    "deltaPhi_hbb_leadingtau": "64,0,3.2",
+    "deltaPhi_hbb_subleadingtau": "64,0,3.2",
+    "deltaPhi_hbb_leadingele": "64,0,3.2",
+    "deltaPhi_hbb_leadingmu": "64,0,3.2",
 
-    "deltaPhi_tau1_tau2": "32,0,3.2",
-    "deltaPhi_met_tautau": "32,0,3.2",
-    "deltaPhi_met_leadingtau": "32,0,3.2",
-    "deltaPhi_met_subleadingtau": "32,0,3.2",
-    "deltaPhi_met_leadingele": "32,0,3.2",
-    "deltaPhi_met_leadingmu": "32,0,3.2",
+    "deltaPhi_tau1_tau2": "64,0,3.2",
+    "deltaPhi_met_tautau": "64,0,3.2",
+    "deltaPhi_met_leadingtau": "64,0,3.2",
+    "deltaPhi_met_subleadingtau": "64,0,3.2",
+    "deltaPhi_met_leadingele": "64,0,3.2",
+    "deltaPhi_met_leadingmu": "64,0,3.2",
+
+        "fatjet_tau21": "50,0,1.0",
+    "fatjet_tau32": "50,0,1.0",
+
+    "deltaR_subjets": "60,0,6.0",
+    "deltaPhi_subjets": "64,0,3.2",
+
+    "subjet1_tau21": "50,0,1.0",
+    "subjet1_tau32": "50,0,1.0",
+    "subjet2_tau21": "50,0,1.0",
+    "subjet2_tau32": "50,0,1.0",
+
+    "deltaR_subjet1_leadtau": "60,0,6.0",
+    "deltaPhi_subjet1_leadtau": "64,0,3.2",
+    "deltaR_subjet1_subtau": "60,0,6.0",
+    "deltaPhi_subjet1_subtau": "64,0,3.2",
+    "deltaR_subjet1_ele": "60,0,6.0",
+    "deltaPhi_subjet1_ele": "64,0,3.2",
+    "deltaR_subjet1_mu": "60,0,6.0",
+    "deltaPhi_subjet1_mu": "64,0,3.2",
+
+    "deltaR_subjet2_leadtau": "60,0,6.0",
+    "deltaPhi_subjet2_leadtau": "64,0,3.2",
+    "deltaR_subjet2_subtau": "60,0,6.0",
+    "deltaPhi_subjet2_subtau": "64,0,3.2",
+    "deltaR_subjet2_ele": "60,0,6.0",
+    "deltaPhi_subjet2_ele": "64,0,3.2",
+    "deltaR_subjet2_mu": "60,0,6.0",
+    "deltaPhi_subjet2_mu": "64,0,3.2",
+
+    "Tau_rawDeepTauVSjet_logit": "40,-10,10",
+    "boostedTau_rawDeepTauVSjet_logit": "40,-10,10",
+
+    "pt_balance_hbb_htt": "50,0,2.0",
+
+    "deltaR_hbb_ak4lead": "60,0,6.0",
+    "deltaPhi_hbb_ak4lead": "64,0,3.2",
+
+    "deltaR_ak4_leadtau": "60,0,6.0",
+    "deltaPhi_ak4_leadtau": "64,0,3.2",
+    "deltaR_ak4_subtau": "60,0,6.0",
+    "deltaPhi_ak4_subtau": "64,0,3.2",
+
+    "deltaR_ak4_ele": "60,0,6.0",
+    "deltaPhi_ak4_ele": "64,0,3.2",
+
+    "deltaR_ak4_mu": "60,0,6.0",
+    "deltaPhi_ak4_mu": "64,0,3.2",
+
+    "deltaPhi_met_ak4lead": "64,0,3.2",
+
+    "deltaR_httvis_ak4lead": "60,0,6.0",
+    "deltaPhi_httvis_ak4lead": "64,0,3.2",
 
 
 

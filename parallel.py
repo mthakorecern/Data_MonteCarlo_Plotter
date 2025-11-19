@@ -41,146 +41,143 @@ MAX_JOBS = 40
 #     "mt": "((channel==2))",
 # }
 
-
+#&& (HTTvis_deltaR > 3 && HTTvis_deltaR < 3.2) && 
 
 cuts = {
-    "tt": "((channel==0) && PuppiMET_pt > 180 && (boost==0))",
+    "tt": "((channel==0) && (FatJet_pt[index_gFatJets] > 250) && (FatJet_jetId[index_gFatJets] & 4) && PuppiMET_pt > 180 && (boost==1) && (Flag_JetVetoed==0) && (Flag_FatJetVetoed==0))",
     
-    "et": "((channel==1) && PuppiMET_pt > 180 && (boost==0))",
+    "et": "((channel==1) && (FatJet_pt[index_gFatJets] > 250) && (FatJet_jetId[index_gFatJets] & 4) && PuppiMET_pt > 180 && (boost==1) && (Flag_JetVetoed==0) && (Flag_FatJetVetoed==0))",
     
-    "mt": "((channel==2) && PuppiMET_pt > 180 && (boost==0))",
+    "mt": "((channel==2) && (FatJet_pt[index_gFatJets] > 250) && (FatJet_jetId[index_gFatJets] & 4) && PuppiMET_pt > 180 && (boost==1) && (Flag_JetVetoed==0) && (Flag_FatJetVetoed==0))",
 }
-
+#"((channel==0) && PuppiMET_pt > 180 && (boost==1) && (Flag_JetVetoed==0) && (Flag_FatJetVetoed==0))"
 
 
 variables_log = [
-    # "FatJet_pt[index_gFatJets[0]]",
-    # "PuppiMET_pt",
-    # "Tau_rawDeepTau2018v2p5VSjet[index_gTaus]",
-     "boostedTau_rawBoostedDeepTauRunIIv2p0VSjet[index_gboostedTaus]"
+    "FatJet_pt[index_gFatJets[0]]",
+    "PuppiMET_pt",
+    "Tau_rawDeepTau2018v2p5VSjet[index_gTaus]",
+    "boostedTau_rawBoostedDeepTauRunIIv2p0VSjet[index_gboostedTaus]"
 
 ]
 
 variables_linear = [
 
-    # "FatJet_mass[index_gFatJets[0]]",
-    # "FatJet_msoftdrop[index_gFatJets[0]]",
-    # "FatJet_particleNetLegacy_mass[index_gFatJets[0]]",
+    "FatJet_mass[index_gFatJets[0]]",
+    "FatJet_msoftdrop[index_gFatJets[0]]",
+    "FatJet_particleNetLegacy_mass[index_gFatJets[0]]",
     
-    # "FatJet_eta[index_gFatJets[0]]",
-    # "FatJet_phi[index_gFatJets[0]]",
-    # # "Tau_rawDeepTau2018v2p5VSjet[index_gTaus]",
-   
+    "FatJet_eta[index_gFatJets[0]]",
+    "FatJet_phi[index_gFatJets[0]]",   
+    "PV_npvsGood",
+    "PV_npvs",
 
-    # "PV_npvsGood",
-    # "PV_npvs",
+    "Tau_pt[index_gTaus]",
+    "Tau_eta[index_gTaus]",
+    "Tau_phi[index_gTaus]",
 
-    # "Tau_pt[index_gTaus]",
-    # "Tau_eta[index_gTaus]",
-    # "Tau_phi[index_gTaus]",
-
-    # # "Tau_pt[index_gTaus[0]]",
-    # # "Tau_eta[index_gTaus[0]]",
-    # # "Tau_phi[index_gTaus[0]]",
+    "Tau_pt[index_gTaus[0]]",
+    "Tau_eta[index_gTaus[0]]",
+    "Tau_phi[index_gTaus[0]]",
     
-    # # "Tau_pt[index_gTaus[1]]",
-    # # "Tau_eta[index_gTaus[1]]",
-    # # "Tau_phi[index_gTaus[1]]",
+    "Tau_pt[index_gTaus[1]]",
+    "Tau_eta[index_gTaus[1]]",
+    "Tau_phi[index_gTaus[1]]",
 
-    # "boostedTau_pt[index_gboostedTaus]",
-    # "boostedTau_eta[index_gboostedTaus]",
-    # "boostedTau_phi[index_gboostedTaus]",
+    "boostedTau_pt[index_gboostedTaus]",
+    "boostedTau_eta[index_gboostedTaus]",
+    "boostedTau_phi[index_gboostedTaus]",
 
-    # # "boostedTau_pt[index_gboostedTaus[0]]",
-    # # "boostedTau_eta[index_gboostedTaus[0]]",
-    # # "boostedTau_phi[index_gboostedTaus[0]]",
+    "boostedTau_pt[index_gboostedTaus[0]]",
+    "boostedTau_eta[index_gboostedTaus[0]]",
+    "boostedTau_phi[index_gboostedTaus[0]]",
     
-    # # "boostedTau_pt[index_gboostedTaus[1]]",
-    # # "boostedTau_eta[index_gboostedTaus[1]]",
-    # # "boostedTau_phi[index_gboostedTaus[1]]",
+    "boostedTau_pt[index_gboostedTaus[1]]",
+    "boostedTau_eta[index_gboostedTaus[1]]",
+    "boostedTau_phi[index_gboostedTaus[1]]",
 
-    # "Electron_pt[index_gElectrons[0]]",
-    # "Electron_eta[index_gElectrons[0]]",
-    # "Electron_phi[index_gElectrons[0]]",
+    "Electron_pt[index_gElectrons[0]]",
+    "Electron_eta[index_gElectrons[0]]",
+    "Electron_phi[index_gElectrons[0]]",
 
-    # "Muon_pt[index_gMuons[0]]",
-    # "Muon_eta[index_gMuons[0]]",
-    # "Muon_phi[index_gMuons[0]]",
+    "Muon_pt[index_gMuons[0]]",
+    "Muon_eta[index_gMuons[0]]",
+    "Muon_phi[index_gMuons[0]]",
 
     "PuppiMET_phi",
 
-    # "Jet_pt[index_gJets[0]]",
-    # "Jet_eta[index_gJets[0]]",
-    # "Jet_phi[index_gJets[0]]",
+    "Jet_pt[index_gJets[0]]",
+    "Jet_eta[index_gJets[0]]",
+    "Jet_phi[index_gJets[0]]",
 
-    # "HTTvis_deltaR",
-    # "ngood_Jets",
-    # "ngood_LooseJets",
-    # "ngood_MediumJets",
-    # "ngood_TightJets",
+    "HTTvis_deltaR",
+    "ngood_Jets",
+    "ngood_LooseJets",
+    "ngood_MediumJets",
+    "ngood_TightJets",
 
-    # "HTT_m",
-    # "HTTvis_m",
-    # "HTT_pt",
-    # "HTT_phi",
-    # "HTT_eta",
+    "HTT_m",
+    "HTTvis_m",
+    "HTT_pt",
+    "HTT_phi",
+    "HTT_eta",
 
-    # "Hbb_met_phi",
+    "Hbb_met_phi",
 
-    # "allTaus_decayMode",
-    # "HTTvis_HPS_m",
-    # "HTTvis_HPS_eta",
-    # "HTTvis_HPS_phi",
+    "allTaus_decayMode",
+    "HTTvis_HPS_m",
+    "HTTvis_HPS_eta",
+    "HTTvis_HPS_phi",
     
-    # "HTTvis_boosted_m",
-    # "HTTvis_boosted_eta",
-    # "HTTvis_boosted_phi",
+    "HTTvis_boosted_m",
+    "HTTvis_boosted_eta",
+    "HTTvis_boosted_phi",
 
-    # "HTT_HPS_m",
-    # "HTT_HPS_eta",
-    # "HTT_HPS_phi",
+    "HTT_HPS_m",
+    "HTT_HPS_eta",
+    "HTT_HPS_phi",
 
-    # "HTT_boosted_m",
-    # "HTT_boosted_eta",
-    # "HTT_boosted_phi",
+    "HTT_boosted_m",
+    "HTT_boosted_eta",
+    "HTT_boosted_phi",
 
-    # "HTT_HPS_Ele_m",
-    # "HTT_HPS_Ele_eta",
-    # "HTT_HPS_Ele_phi",
+    "HTT_HPS_Ele_m",
+    "HTT_HPS_Ele_eta",
+    "HTT_HPS_Ele_phi",
 
-    # "HTT_HPS_Mu_m",
-    # "HTT_HPS_Mu_eta",
-    # "HTT_HPS_Mu_phi",
+    "HTT_HPS_Mu_m",
+    "HTT_HPS_Mu_eta",
+    "HTT_HPS_Mu_phi",
     
-    # "HTT_boosted_Ele_m",
-    # "HTT_boosted_Ele_eta",
-    # "HTT_boosted_Ele_phi",
+    "HTT_boosted_Ele_m",
+    "HTT_boosted_Ele_eta",
+    "HTT_boosted_Ele_phi",
     
-    # "HTT_boosted_Mu_m",
-    # "HTT_boosted_Mu_eta",
-    # "HTT_boosted_Mu_phi",
+    "HTT_boosted_Mu_m",
+    "HTT_boosted_Mu_eta",
+    "HTT_boosted_Mu_phi",
 
-    # "Hbb_lep1_deltaR",
-    # "Hbb_lep2_deltaR",
+    "Hbb_lep1_deltaR",
+    "Hbb_lep2_deltaR",
 
-    # "deltaR_tau_ele",
-    # "deltaR_tau_mu",
+    "deltaR_tau_ele",
+    "deltaR_tau_mu",
     
-    # "deltaPhi_hbb_httvis",
-    # "deltaPhi_hbb_htt",
-    # "deltaPhi_hbb_leadingtau",
-    # "deltaPhi_hbb_subleadingtau",
-    # "deltaPhi_hbb_leadingele",
-    # "deltaPhi_hbb_leadingmu",
+    "deltaPhi_hbb_httvis",
+    "deltaPhi_hbb_htt",
+    "deltaPhi_hbb_leadingtau",
+    "deltaPhi_hbb_subleadingtau",
+    "deltaPhi_hbb_leadingele",
+    "deltaPhi_hbb_leadingmu",
     
-    # "deltaPhi_tau1_tau2",
-    # "deltaR_tau1_tau2",
+    "deltaPhi_tau1_tau2",
+    "deltaR_tau1_tau2",
     
-    # "deltaPhi_met_tautau",
-    # "deltaPhi_met_leadingtau",
-    # "deltaPhi_met_subleadingtau",
-    # "deltaPhi_met_leadingele",
-    # "deltaPhi_met_leadingmu"
+    "deltaPhi_met_tautau",
+    "deltaPhi_met_leadingtau",
+    "deltaPhi_met_subleadingtau",
+    "deltaPhi_met_leadingele",
+    "deltaPhi_met_leadingmu"
 
 ]
 

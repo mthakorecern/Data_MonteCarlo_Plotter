@@ -633,6 +633,25 @@ if __name__ == "__main__":
         ratio.GetYaxis().SetRangeUser(0, 2)
         ratio.Draw("ep")
 
+        ratio_band = ROOT.TGraphAsymmErrors()
+        for b in range(1, total_bkg_hist.GetNbinsX() + 1):
+            mc_val = total_bkg_hist.GetBinContent(b)
+            mc_err = total_bkg_hist.GetBinError(b)
+            x = total_bkg_hist.GetBinCenter(b)
+            w = total_bkg_hist.GetBinWidth(b) / 2
+
+            err_up = mc_err/mc_val if mc_val > 0 else 0
+            err_dn = mc_err/mc_val if mc_val > 0 else 0
+
+            ratio_band.SetPoint(b-1, x, 1.0)
+            ratio_band.SetPointError(b-1, w, w, err_dn, err_up)
+
+        ratio_band.SetFillColorAlpha(ROOT.kGray+1, 0.35)  # 🔥 modern look
+        ratio_band.SetFillStyle(1001)
+        ratio_band.SetLineWidth(0)
+
+        ratio_band.Draw("E2 SAME")
+
         line = ROOT.TLine(bin_values[1], 1.0, bin_values[2], 1.0)
         line.SetLineColor(ROOT.kRed)
         line.SetLineStyle(2)
