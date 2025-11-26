@@ -179,30 +179,34 @@ variableAxisTitleDictionary = {
     "allTaus_decayMode": "All Taus Decay Modes",
 
     "deltaR_tau_ele": "#Delta R(#tau, e)",
+    "deltaPhi_tau_ele": "#Delta #Phi(#tau, e)",
     "deltaR_tau_mu": "#Delta R(#tau, #mu)",
+    "deltaPhi_tau_mu": "#Delta #Phi(#tau, #mu)",
+    "deltaR_tau1_tau2": "#Delta R(#tau_{1}, #tau_{2})",
+    "deltaPhi_tau1_tau2": "#Delta #Phi(#tau_{1}, #tau_{2})",
     
+    "deltaR_hbb_httvis": "#Delta R(H_{bb}, H_{#tau#tau}^{vis})",
     "deltaPhi_hbb_httvis": "#Delta #Phi(H_{bb}, H_{#tau#tau}^{vis})",
+    "deltaR_hbb_htt": "#Delta R(H_{bb}, H_{#tau#tau}^{reco})",
     "deltaPhi_hbb_htt": "#Delta #Phi(H_{bb}, H_{#tau#tau}^{reco})",
+    "deltaR_hbb_ak4lead": "#Delta R(H_{bb}, leading AK4 jet)",
+    "deltaPhi_hbb_ak4lead": "#Delta #phi(H_{bb}, leading AK4 jet)",
     "deltaPhi_hbb_leadingtau": "#Delta #Phi(H_{bb}, leading #tau)",
     "deltaPhi_hbb_subleadingtau": "#Delta #Phi(H_{bb}, subleading #tau)",
     "deltaPhi_hbb_leadingele": "#Delta #Phi(H_{bb}, e)",
-    "deltaPhi_hbb_leadingmu": "#Delta #Phi(H_{bb}, #mu)",
-    
-    "deltaPhi_tau1_tau2": "#Delta #Phi(#tau_{1}, #tau_{2})",
-    "deltaR_tau1_tau2": "#Delta R(#tau_{1}, #tau_{2})",
+    "deltaPhi_hbb_leadingmu": "#Delta #Phi(H_{bb}, #mu)",  
     
     "deltaPhi_met_tautau": "#Delta #Phi(MET, H_{#tau#tau}^{vis})",
     "deltaPhi_met_leadingtau": "#Delta #Phi(MET, leading #tau)",
     "deltaPhi_met_subleadingtau": "#Delta #Phi(MET, subleading #tau)",
     "deltaPhi_met_leadingele": "#Delta #Phi(MET, e)",
     "deltaPhi_met_leadingmu": "#Delta #Phi(MET, #mu)",
+    "deltaPhi_met_ak4lead": "#Delta #phi(MET, leading AK4 jet)",
 
-
-
-    
+   
     #"Fatjet_pnet_bbvsqcd":"particlenetvsQCD_rawscore_LogScale"
     "globalparT3mass": "GlobalparT3 regressed mass",
-        "fatjet_tau21": "#tau_{21} of leading FatJet",
+    "fatjet_tau21": "#tau_{21} of leading FatJet",
     "fatjet_tau32": "#tau_{32} of leading FatJet",
 
     "deltaR_subjets": "#Delta R(SubJet1, SubJet2)",
@@ -230,32 +234,26 @@ variableAxisTitleDictionary = {
     "deltaPhi_subjet2_ele": "#Delta #phi(SubJet2, e)",
     "deltaR_subjet2_mu": "#Delta R(SubJet2, #mu)",
     "deltaPhi_subjet2_mu": "#Delta #phi(SubJet2, #mu)",
-
+    
     "Tau_rawDeepTauVSjet_logit": "Logit(DeepTau VSjet)",
     "boostedTau_rawDeepTauVSjet_logit": "Logit(Boosted DeepTau VSjet)",
-
+    
     "pt_balance_hbb_htt": "p_{T}-balance(H_{bb}, H_{#tau#tau})",
-    "deltaR_hbb_ak4lead": "#Delta R(H_{bb}, leading AK4 jet)",
-    "deltaPhi_hbb_ak4lead": "#Delta #phi(H_{bb}, leading AK4 jet)",
-
+    
     "deltaR_ak4_leadtau": "#Delta R(leading AK4 jet, leading #tau)",
     "deltaPhi_ak4_leadtau": "#Delta #phi(leading AK4 jet, leading #tau)",
     "deltaR_ak4_subtau": "#Delta R(leading AK4 jet, subleading #tau)",
     "deltaPhi_ak4_subtau": "#Delta #phi(leading AK4 jet, subleading #tau)",
-
     "deltaR_ak4_ele": "#Delta R(leading AK4 jet, e)",
     "deltaPhi_ak4_ele": "#Delta #phi(leading AK4 jet, e)",
-
     "deltaR_ak4_mu": "#Delta R(leading AK4 jet, #mu)",
     "deltaPhi_ak4_mu": "#Delta #phi(leading AK4 jet, #mu)",
-
-    "deltaPhi_met_ak4lead": "#Delta #phi(MET, leading AK4 jet)",
 
     "deltaR_httvis_ak4lead": "#Delta R(H_{#tau#tau}^{vis}, leading AK4 jet)",
     "deltaPhi_httvis_ak4lead": "#Delta #phi(H_{#tau#tau}^{vis}, leading AK4 jet)",
 
-
-
+    "pt_balance_hbb_htt_abs": "abs(p_{T} balance between Hbb and HTT)",
+    "pt_balance_hbb_htt_signed": "p_{T} balance between Hbb and HTT"            
 }
 
 variableFileNameDictionary = {
@@ -442,8 +440,8 @@ variableFileNameDictionary = {
     "deltaPhi_httvis_ak4lead": "delphi_httvis_ak4lead",
 
 
-    "pt_balance_hbb_htt": "pt_balance_hbb_htt",
-
+    "pt_balance_hbb_htt_abs": "pt_balance_hbb_htt_abs",
+    "pt_balance_hbb_htt_signed": "pt_balance_hbb_htt_signed"        
 }
 
 variableSettingDictionary = {
@@ -591,12 +589,22 @@ variableSettingDictionary = {
     "HTT_boosted_Mu_m": "50,0.0,250.0",
     "HTT_boosted_Mu_eta": "64,-3.2,3.2",
     "HTT_boosted_Mu_phi": "64,-3.2,3.2",
+    
+    
+
+
+    "deltaPhi_tau_ele": "64,0,3.2",
+    "deltaPhi_tau_mu": "64,0,3.2",
+    "deltaPhi_tau1_tau2": "64,0,3.2",
     "deltaR_tau_ele": "60,0,6.0",
     "deltaR_tau_mu": "60,0,6.0",
     "deltaR_tau1_tau2": "60,0,6.0",
 
-    "deltaPhi_hbb_httvis": "64,0,3.2",
+    "deltaR_hbb_htt": "60,0,6.0",
     "deltaPhi_hbb_htt": "64,0,3.2",
+    "deltaR_hbb_httvis":"60,0,6.0",
+    "deltaPhi_hbb_httvis": "64,0,3.2",
+
     "deltaPhi_hbb_leadingtau": "64,0,3.2",
     "deltaPhi_hbb_subleadingtau": "64,0,3.2",
     "deltaPhi_hbb_leadingele": "64,0,3.2",
@@ -608,17 +616,18 @@ variableSettingDictionary = {
     "deltaPhi_met_subleadingtau": "64,0,3.2",
     "deltaPhi_met_leadingele": "64,0,3.2",
     "deltaPhi_met_leadingmu": "64,0,3.2",
+    "deltaPhi_met_ak4lead": "64,0,3.2",
+    
+    "fatjet_tau21": "100,0,1.0",
+    "fatjet_tau32": "100,0,1.0",
 
-        "fatjet_tau21": "50,0,1.0",
-    "fatjet_tau32": "50,0,1.0",
+    "deltaR_subjets": "80,0,0.8",
+    "deltaPhi_subjets": "100,0,1.0",
 
-    "deltaR_subjets": "60,0,6.0",
-    "deltaPhi_subjets": "64,0,3.2",
-
-    "subjet1_tau21": "50,0,1.0",
-    "subjet1_tau32": "50,0,1.0",
-    "subjet2_tau21": "50,0,1.0",
-    "subjet2_tau32": "50,0,1.0",
+    "subjet1_tau21": "100,0,1.0",
+    "subjet1_tau32": "100,0,1.0",
+    "subjet2_tau21": "100,0,1.0",
+    "subjet2_tau32": "100,0,1.0",
 
     "deltaR_subjet1_leadtau": "60,0,6.0",
     "deltaPhi_subjet1_leadtau": "64,0,3.2",
@@ -638,10 +647,11 @@ variableSettingDictionary = {
     "deltaR_subjet2_mu": "60,0,6.0",
     "deltaPhi_subjet2_mu": "64,0,3.2",
 
-    "Tau_rawDeepTauVSjet_logit": "40,-10,10",
-    "boostedTau_rawDeepTauVSjet_logit": "40,-10,10",
+    "Tau_rawDeepTauVSjet_logit": "150,-5,10",
+    "boostedTau_rawDeepTauVSjet_logit": "150,-5,10",
 
-    "pt_balance_hbb_htt": "50,0,2.0",
+    "pt_balance_hbb_htt_abs": "200,-1.0,1.0",
+    "pt_balance_hbb_htt_signed": "200,-1.0,1.0",
 
     "deltaR_hbb_ak4lead": "60,0,6.0",
     "deltaPhi_hbb_ak4lead": "64,0,3.2",
@@ -656,8 +666,6 @@ variableSettingDictionary = {
 
     "deltaR_ak4_mu": "60,0,6.0",
     "deltaPhi_ak4_mu": "64,0,3.2",
-
-    "deltaPhi_met_ak4lead": "64,0,3.2",
 
     "deltaR_httvis_ak4lead": "60,0,6.0",
     "deltaPhi_httvis_ak4lead": "64,0,3.2",

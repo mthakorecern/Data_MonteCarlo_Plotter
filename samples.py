@@ -1,4 +1,4 @@
-redirector_MC = "/hdfs/store/user/mithakor/Default_variables_2024/MC/Hadded_combined_old_New"
+redirector_MC = "/hdfs/store/user/mithakor/Default_variables_2024/MC/Hadded_MET_180_NewVariables_26Nov25"
 
 Signals = {
             "GluGlutoRadiontoHHto2B2Tau_M-1000": {

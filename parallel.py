@@ -42,13 +42,14 @@ MAX_JOBS = 40
 # }
 
 #&& (HTTvis_deltaR > 3 && HTTvis_deltaR < 3.2) && 
+## && (FatJet_eta[index_gFatJets[0]] > 1.2 && FatJet_eta[index_gFatJets[0]] < 1.4)
 
 cuts = {
-    "tt": "((channel==0) && (FatJet_pt[index_gFatJets] > 250) && (FatJet_jetId[index_gFatJets] & 4) && PuppiMET_pt > 180 && (boost==1) && (Flag_JetVetoed==0) && (Flag_FatJetVetoed==0))",
+    "tt": "((channel==0) && PuppiMET_pt > 180 && (boost==1) && (Flag_JetVetoed==0) && (Flag_FatJetVetoed==0))",
     
-    "et": "((channel==1) && (FatJet_pt[index_gFatJets] > 250) && (FatJet_jetId[index_gFatJets] & 4) && PuppiMET_pt > 180 && (boost==1) && (Flag_JetVetoed==0) && (Flag_FatJetVetoed==0))",
+    "et": "((channel==1) && PuppiMET_pt > 180 && (boost==1) && (Flag_JetVetoed==0) && (Flag_FatJetVetoed==0))",
     
-    "mt": "((channel==2) && (FatJet_pt[index_gFatJets] > 250) && (FatJet_jetId[index_gFatJets] & 4) && PuppiMET_pt > 180 && (boost==1) && (Flag_JetVetoed==0) && (Flag_FatJetVetoed==0))",
+    "mt": "((channel==2) && PuppiMET_pt > 180 && (boost==1) && (Flag_JetVetoed==0) && (Flag_FatJetVetoed==0))",
 }
 #"((channel==0) && PuppiMET_pt > 180 && (boost==1) && (Flag_JetVetoed==0) && (Flag_FatJetVetoed==0))"
 
@@ -162,7 +163,13 @@ variables_linear = [
 
     "deltaR_tau_ele",
     "deltaR_tau_mu",
+    "deltaPhi_tau_ele",
+    "deltaPhi_tau_mu",
+    "deltaPhi_tau1_tau2",
+    "deltaR_tau1_tau2",
     
+    "deltaR_hbb_httvis",
+    "deltaR_hbb_htt",
     "deltaPhi_hbb_httvis",
     "deltaPhi_hbb_htt",
     "deltaPhi_hbb_leadingtau",
@@ -170,15 +177,64 @@ variables_linear = [
     "deltaPhi_hbb_leadingele",
     "deltaPhi_hbb_leadingmu",
     
-    "deltaPhi_tau1_tau2",
-    "deltaR_tau1_tau2",
-    
     "deltaPhi_met_tautau",
     "deltaPhi_met_leadingtau",
     "deltaPhi_met_subleadingtau",
     "deltaPhi_met_leadingele",
-    "deltaPhi_met_leadingmu"
+    "deltaPhi_met_leadingmu",
 
+    "fatjet_tau21",
+    "fatjet_tau32",
+
+    "deltaR_subjets",
+    "deltaPhi_subjets",
+
+
+    "subjet1_tau21",
+    "subjet1_tau32",
+    "subjet2_tau21",
+    "subjet2_tau32",
+
+    "deltaR_subjet1_leadtau",
+    "deltaPhi_subjet1_leadtau",
+    "deltaR_subjet1_subtau",
+    "deltaPhi_subjet1_subtau",
+    "deltaR_subjet1_ele",
+    "deltaPhi_subjet1_ele",
+    "deltaR_subjet1_mu",
+    "deltaPhi_subjet1_mu",
+
+    "deltaR_subjet2_leadtau",
+    "deltaPhi_subjet2_leadtau",
+    "deltaR_subjet2_subtau",
+    "deltaPhi_subjet2_subtau",
+    "deltaR_subjet2_ele",
+    "deltaPhi_subjet2_ele",
+    "deltaR_subjet2_mu",
+    "deltaPhi_subjet2_mu",
+
+    "Tau_rawDeepTauVSjet_logit",
+    "boostedTau_rawDeepTauVSjet_logit",
+
+    "pt_balance_hbb_htt",
+    "deltaR_hbb_ak4lead",
+    "deltaPhi_hbb_ak4lead",
+
+    "deltaR_ak4_leadtau",
+    "deltaPhi_ak4_leadtau",
+    "deltaR_ak4_subtau",
+    "deltaPhi_ak4_subtau",
+
+    "deltaR_ak4_ele",
+    "deltaPhi_ak4_ele",
+
+    "deltaR_ak4_mu",
+    "deltaPhi_ak4_mu",
+
+    "deltaPhi_met_ak4lead",
+
+    "deltaR_httvis_ak4lead",
+    "deltaPhi_httvis_ak4lead"
 ]
 
 print_lock = threading.Lock()
