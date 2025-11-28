@@ -42,7 +42,7 @@ def group_key_from_name(name: str) -> str:
 
     if any(s in name_clean for s in ["WW", "WZ", "ZZ"]):
         return "DiBoson"
-    if any(s in name_clean for s in ["TWminus", "TbarWplus", "TbarBQ", "TBbarQ"]):
+    if any(s in name_clean for s in ["TbarBQ", "TbarB", "TbarWplus", "TBbarQ", "TBbar", "TWminus"]):
         return "STop"
     if "TTto2L2Nu" in name_clean:
         return "TTto2L2Nu"
@@ -112,7 +112,7 @@ if __name__ == "__main__":
     additional_cuts_o = args.additional_cuts
     log_scale = args.log_scale
     
-    for dirname in ["SignalandBackground", "Signal_only", "DataMC"]:
+    for dirname in ["SignalandBackground", "Signal_only", "TTbarresolved_DataMC"]:
         os.makedirs(dirname, exist_ok=True)
 
     bins = variableSettingDictionary.get(variable, "21,0,1000")  
@@ -565,10 +565,10 @@ if __name__ == "__main__":
         max_bkg = max(h.GetMaximum() for _, h in hists.items())
         max_sig = max(signal_1.GetMaximum(), signal_2.GetMaximum(),
                             signal_3.GetMaximum(), signal_4.GetMaximum())
-        max_data = data.GetMaximum() if data.GetMaximum() > 0 else 0
+        max_data = data.GetMaximum()
 
         pad1.cd()
-        hist_stack.SetMaximum(max(max_bkg, max_sig, max_data) * 1.8)
+        hist_stack.SetMaximum(max(max_bkg, max_sig, max_data) * 1.4)
         hist_stack.Draw("hist")
         hist_stack.GetXaxis().SetTitle("")
         hist_stack.GetXaxis().SetLabelSize(0)
@@ -649,13 +649,32 @@ if __name__ == "__main__":
         ratio.GetYaxis().SetRangeUser(0, 2)
         ratio.Draw("ep")
 
+        ratio_band = ROOT.TGraphAsymmErrors()
+        for b in range(1, total_bkg_hist.GetNbinsX() + 1):
+            mc_val = total_bkg_hist.GetBinContent(b)
+            mc_err = total_bkg_hist.GetBinError(b)
+            x = total_bkg_hist.GetBinCenter(b)
+            w = total_bkg_hist.GetBinWidth(b) / 2
+
+            err_up = mc_err/mc_val if mc_val > 0 else 0
+            err_dn = mc_err/mc_val if mc_val > 0 else 0
+
+            ratio_band.SetPoint(b-1, x, 1.0)
+            ratio_band.SetPointError(b-1, w, w, err_dn, err_up)
+
+        ratio_band.SetFillColorAlpha(ROOT.kGray+1, 0.35)  
+        ratio_band.SetFillStyle(1001)
+        ratio_band.SetLineWidth(0)
+
+        ratio_band.Draw("E2 SAME")
+
         line = ROOT.TLine(bin_values[1], 1.0, bin_values[2], 1.0)
         line.SetLineColor(ROOT.kRed)
         line.SetLineStyle(2)
         line.SetLineWidth(2)
         line.Draw("same")
 
-        canvas_dataMC.SaveAs(os.path.join("DataMC", f"{args.year}_{args.Channel}_{variable}_DataMC.png"))
+        canvas_dataMC.SaveAs(os.path.join("TTbarresolved_DataMC", f"{args.year}_{args.Channel}_{variable}_DataMC.png"))
 
         data_val, data_err = get_integral_with_error(data)
         mc_val, mc_err     = get_integral_with_error(total_bkg_hist)
