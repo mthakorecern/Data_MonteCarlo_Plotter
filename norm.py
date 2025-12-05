@@ -7,9 +7,7 @@ import argparse
 import os
 import glob
 from samples import redirector_MC, Signals, Backgrounds
-from observed import observed
-# from observed_new import observed
-
+from muon_observed import observed
 
 from variable_dictionaries import variableAxisTitleDictionary, variableFileNameDictionary, variableSettingDictionary
 import time
@@ -571,7 +569,7 @@ if __name__ == "__main__":
 
         pad1.cd()
         hist_stack.SetMaximum(max(max_bkg, max_sig, max_data) * 1.4)
-        hist_stack.Draw("hist")
+        #hist_stack.Draw("hist")
         hist_stack.GetXaxis().SetTitle("")
         hist_stack.GetXaxis().SetLabelSize(0)
         hist_stack.GetYaxis().SetTitle("Events")
@@ -579,7 +577,7 @@ if __name__ == "__main__":
         hist_stack.GetYaxis().SetLabelSize(0.04)
         hist_stack.GetYaxis().SetTitleOffset(0.8)
         #pad1.Update()
-        hist_stack.Draw("hist same")  
+        #hist_stack.Draw("hist same")  
 
         if log_scale:
             pad1.SetLogy()
@@ -596,14 +594,14 @@ if __name__ == "__main__":
 
         pad1.RedrawAxis()
 
-        theLegend.AddEntry(hists["DiBoson"], "DiBoson", "f")
-        theLegend.AddEntry(hists["STop"], "STop", "f")
-        theLegend.AddEntry(hists["TTto2L2Nu"], "TTto2L2Nu", "f")
-        theLegend.AddEntry(hists["TTto4Q"], "TTto4Q", "f")
-        theLegend.AddEntry(hists["TTtoLNu2Q"], "TTtoLNu2Q", "f")
-        theLegend.AddEntry(hists["QCD"], "QCD", "f")
-        theLegend.AddEntry(hists["WJets"], "WJets", "f")
-        theLegend.AddEntry(hists["Drell-Yan"], "Drell-Yan", "f")
+        # theLegend.AddEntry(hists["DiBoson"], "DiBoson", "f")
+        # theLegend.AddEntry(hists["STop"], "STop", "f")
+        # theLegend.AddEntry(hists["TTto2L2Nu"], "TTto2L2Nu", "f")
+        # theLegend.AddEntry(hists["TTto4Q"], "TTto4Q", "f")
+        # theLegend.AddEntry(hists["TTtoLNu2Q"], "TTtoLNu2Q", "f")
+        # theLegend.AddEntry(hists["QCD"], "QCD", "f")
+        # theLegend.AddEntry(hists["WJets"], "WJets", "f")
+        # theLegend.AddEntry(hists["Drell-Yan"], "Drell-Yan", "f")
         # theLegend.AddEntry(signal_1, '1TeV (1pb x 0.073 (bbtt BR))', "f")
         # theLegend.AddEntry(signal_2, '2TeV (1pb x 0.073 (bbtt BR))', "f")
         # theLegend.AddEntry(signal_3, '3TeV (1pb x 0.073 (bbtt BR))', "f")
