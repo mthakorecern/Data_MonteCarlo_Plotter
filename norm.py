@@ -102,6 +102,8 @@ if __name__ == "__main__":
     parser.add_argument('--Channel',choices=["tt","et","mt","all","lt"], required=True)
     parser.add_argument("--signals_only", action="store_true", help="Plot signals only (skip backgrounds, stack, and error band).")
     parser.add_argument("--dataMC",action="store_true", help="Overlay observed data and draw Data/MC ratio")
+    parser.add_argument("--data_only", action="store_true", help="Plot only observed data (no MC, no signals)")
+
 
 
     start = time.time()
@@ -112,7 +114,7 @@ if __name__ == "__main__":
     additional_cuts_o = args.additional_cuts
     log_scale = args.log_scale
     
-    for dirname in ["SignalandBackground", "Signal_only", "TTbarresolved_DataMC"]:
+    for dirname in ["SignalandBackground", "Signal_only", "TTbarresolved_DataMC", "TTbarresolved_Dataonly"]:
         os.makedirs(dirname, exist_ok=True)
 
     bins = variableSettingDictionary.get(variable, "21,0,1000")  
@@ -431,6 +433,95 @@ if __name__ == "__main__":
 
         canvas_sig.SaveAs(os.path.join("Signal_only", f"{args.year}_{args.Channel}_{variable}_signals_only.png"))
 
+    elif args.data_only:
+        print("DATA-ONLY MODE ENABLED")
+        import re
+
+        def _sanitize(name: str) -> str:
+            return re.sub(r'[^A-Za-z0-9_]', '_', name)
+
+        cut_data = create_cut_string("", base_cut, additional_cuts_o, is_observed=True)
+        print(f"cut-data string is {cut_data}")
+
+        data = ROOT.TH1F("Observed_Data", "", int(bin_values[0]), bin_values[1], bin_values[2])
+        data.Sumw2()
+        data.SetDirectory(0)
+
+        prev_adddir = ROOT.TH1.AddDirectoryStatus()   
+        data_hists = []
+
+        for category, sample_type in observed.items():
+            for path in sample_type["files"]:
+                f = ROOT.TFile.Open(path, "READ")
+                if not f or f.IsZombie():
+                    print(f"Could not open {path}")
+                    continue
+                tree = f.Get("Events")
+                if not tree:
+                    print(f"No Events tree in {path}")
+                    f.Close()
+                    continue
+
+                raw_name  = f"{os.path.basename(path).replace('.root','')}_{variable}"
+                safe_name = _sanitize(raw_name)
+
+                ROOT.TH1.AddDirectory(True)
+                ROOT.gROOT.cd()
+                ROOT.gDirectory.Delete(f"{safe_name};*")
+
+                expr = f"{variable} >> {safe_name}({int(bin_values[0])},{bin_values[1]},{bin_values[2]})"
+                nsel = tree.Draw(expr, cut_data, "goff")
+
+                htemp = ROOT.gDirectory.Get(safe_name)
+                ROOT.TH1.AddDirectory(prev_adddir)
+
+                if nsel < 0:
+                    print(f"Draw failed for {path}. expr={expr}")
+                    f.Close()
+                    continue
+                if not htemp:
+                    print(f"Histogram {safe_name} not created for {path} (likely 0 selected). Making empty.")
+                    htemp = ROOT.TH1F(safe_name, hist_title, int(bin_values[0]), bin_values[1], bin_values[2])
+                    htemp.Sumw2()
+
+                htemp.SetDirectory(0)
+                data_hists.append(htemp)
+                data.Add(htemp)
+                f.Close()
+        # ----- DRAW -----
+        canvas = ROOT.TCanvas("canvas_data_only", "Data Only", 1600, 900)
+        if log_scale:
+            canvas.SetLogy()
+        canvas.SetLeftMargin(0.12)
+        canvas.SetBottomMargin(0.12)
+        data.SetStats(0)
+        data.SetMarkerStyle(20)
+        data.SetMarkerSize(1.1)
+        data.SetLineColor(ROOT.kBlack)
+        data.GetXaxis().SetTitle(hist_title)
+        data.GetYaxis().SetTitle("Events")
+        data.Draw("ep")
+
+        # CMS label
+        cmsLatex = ROOT.TLatex()
+        cmsLatex.SetNDC(True)
+        cmsLatex.SetTextFont(61)
+        cmsLatex.SetTextSize(0.05)
+        cmsLatex.DrawLatex(0.10, 0.91, "CMS")
+        cmsLatex.SetTextFont(52)
+        cmsLatex.SetTextSize(0.04)
+        cmsLatex.DrawLatex(0.18, 0.91, "Preliminary")
+
+        if args.year == "2024":
+            cmsLatex.DrawLatex(0.75, 0.91, "109.08 fb^{-1}, 13.6 TeV")
+
+        outname = f"{args.year}_{args.Channel}_{variable}_DataOnly.png"
+        canvas.SaveAs(os.path.join("TTbarresolved_Dataonly", outname))
+
+        print("Saved:", outname)
+
+
+
     elif args.dataMC:
 
         canvas_dataMC = ROOT.TCanvas("canvas_dataMC", "Data + MC", 1600, 1000)  
@@ -570,12 +661,12 @@ if __name__ == "__main__":
         pad1.cd()
         hist_stack.SetMaximum(max(max_bkg, max_sig, max_data) * 1.4)
         #hist_stack.Draw("hist")
-        hist_stack.GetXaxis().SetTitle("")
-        hist_stack.GetXaxis().SetLabelSize(0)
-        hist_stack.GetYaxis().SetTitle("Events")
-        hist_stack.GetYaxis().SetTitleSize(0.05)
-        hist_stack.GetYaxis().SetLabelSize(0.04)
-        hist_stack.GetYaxis().SetTitleOffset(0.8)
+        # hist_stack.GetXaxis().SetTitle("")
+        # hist_stack.GetXaxis().SetLabelSize(0)
+        # hist_stack.GetYaxis().SetTitle("Events")
+        # hist_stack.GetYaxis().SetTitleSize(0.05)
+        # hist_stack.GetYaxis().SetLabelSize(0.04)
+        # hist_stack.GetYaxis().SetTitleOffset(0.8)
         #pad1.Update()
         #hist_stack.Draw("hist same")  
 
@@ -585,7 +676,7 @@ if __name__ == "__main__":
 
         pad1.Update()
 
-        bkg_errors.Draw("E2 SAME")
+        # bkg_errors.Draw("E2 SAME")
         # signal_1.Draw("hist SAME")
         # signal_2.Draw("hist SAME")
         # signal_3.Draw("hist SAME")
@@ -647,7 +738,7 @@ if __name__ == "__main__":
         ratio.GetYaxis().SetLabelSize(0.10)
         ratio.GetYaxis().SetNdivisions(505)
         ratio.GetYaxis().SetRangeUser(0, 2)
-        ratio.Draw("ep")
+        # ratio.Draw("ep")
 
         ratio_band = ROOT.TGraphAsymmErrors()
         for b in range(1, total_bkg_hist.GetNbinsX() + 1):
@@ -666,7 +757,7 @@ if __name__ == "__main__":
         ratio_band.SetFillStyle(1001)
         ratio_band.SetLineWidth(0)
 
-        ratio_band.Draw("E2 SAME")
+        # ratio_band.Draw("E2 SAME")
 
         line = ROOT.TLine(bin_values[1], 1.0, bin_values[2], 1.0)
         line.SetLineColor(ROOT.kRed)

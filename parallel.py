@@ -45,9 +45,9 @@ MAX_JOBS = 40
 ## && (FatJet_eta[index_gFatJets[0]] > 1.2 && FatJet_eta[index_gFatJets[0]] < 1.4)
 
 cuts = {
-    "tt": "((channel==0) && (boost==1) && PuppiMET_pt > 180 && (Flag_JetVetoed==0) && (Flag_FatJetVetoed==0))",
+    # "tt": "((channel==0) && (boost==1) && PuppiMET_pt > 180 && (Flag_JetVetoed==0) && (Flag_FatJetVetoed==0))",
     
-    "et": "((channel==1) && (boost==1) && PuppiMET_pt > 180 && (Flag_JetVetoed==0) && (Flag_FatJetVetoed==0))",
+    # "et": "((channel==1) && (boost==1) && PuppiMET_pt > 180 && (Flag_JetVetoed==0) && (Flag_FatJetVetoed==0))",
     
     "mt": "((channel==2) && (boost==1) && PuppiMET_pt > 180 && (Flag_JetVetoed==0) && (Flag_FatJetVetoed==0))",
 }
@@ -261,7 +261,7 @@ def run_job(args):
 
 def generate_commands():
     for var in variables_log:
-        for ch in ["tt", "et", "mt"]:
+        for ch in ["mt"]:#"tt", "et", "mt"]:
             cut_expr = cuts[ch]
             safe_var = (
                 var.replace("[", "")
@@ -278,12 +278,12 @@ def generate_commands():
                 "--weights", "xsWeight",
                 "--log_scale",
                 "--Channel", ch,
-                "--dataMC",
+                "--data_only",
                 log_name,
             ]
 
     for var in variables_linear:
-        for ch in ["tt", "et", "mt"]:
+        for ch in ["mt"]:#["tt", "et", "mt"]:
             cut_expr = cuts[ch]
             safe_var = (
                 var.replace("[", "")
@@ -299,7 +299,7 @@ def generate_commands():
                 "--cuts", cut_expr,
                 "--weights", "xsWeight",
                 "--Channel", ch,
-                "--dataMC",
+                "--data_only",
                 log_name,
             ]
 
