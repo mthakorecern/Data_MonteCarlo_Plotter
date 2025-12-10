@@ -28,22 +28,59 @@ Signals = {
             }
         }
 
-Backgrounds={
-            "Drell-Yan": {
-                "DYto2E-2Jets_Bin-MLL-50_TuneCP5_13p6TeV_amcatnloFXFX-pythia8": {
-                    "files": [
-                        "DYto2E-2Jets_Bin-MLL-50_TuneCP5_13p6TeV_amcatnloFXFX-pythia8.root"
-                    ]
+Backgrounds = {
+            # "Drell-Yan": {
+            #     "DYto2E-2Jets_Bin-MLL-50_TuneCP5_13p6TeV_amcatnloFXFX-pythia8": {
+            #         "files": [
+            #             "DYto2E-2Jets_Bin-MLL-50_TuneCP5_13p6TeV_amcatnloFXFX-pythia8.root"
+            #         ]
+            #     },
+            #     "DYto2Mu-2Jets_Bin-MLL-50_TuneCP5_13p6TeV_amcatnloFXFX-pythia8": {
+            #         "files": [
+            #             "DYto2Mu-2Jets_Bin-MLL-50_TuneCP5_13p6TeV_amcatnloFXFX-pythia8.root"
+            #         ]
+            #     },
+            #     "DYto2Tau-2Jets_Bin-MLL-50_TuneCP5_13p6TeV_amcatnloFXFX-pythia8": {
+            #         "files": [
+            #             "DYto2Tau-2Jets_Bin-MLL-50_TuneCP5_13p6TeV_amcatnloFXFX-pythia8.root"
+            #         ]
+            #     },
+            # },
+            
+
+            "Drell-Yan":{
+                # 1J bins
+                "DYto2L-2Jets_Bin-1J-PTLL-40to100": {
+                    "files": ["DYto2L-2Jets_Bin-1J-MLL-50-PTLL-40to100_TuneCP5_13p6TeV_amcatnloFXFX-pythia8.root"]
                 },
-                "DYto2Mu-2Jets_Bin-MLL-50_TuneCP5_13p6TeV_amcatnloFXFX-pythia8": {
-                    "files": [
-                        "DYto2Mu-2Jets_Bin-MLL-50_TuneCP5_13p6TeV_amcatnloFXFX-pythia8.root"
-                    ]
+                "DYto2L-2Jets_Bin-1J-PTLL-100to200": {
+                    "files": ["DYto2L-2Jets_Bin-1J-MLL-50-PTLL-100to200_TuneCP5_13p6TeV_amcatnloFXFX-pythia8.root"]
                 },
-                "DYto2Tau-2Jets_Bin-MLL-50_TuneCP5_13p6TeV_amcatnloFXFX-pythia8": {
-                    "files": [
-                        "DYto2Tau-2Jets_Bin-MLL-50_TuneCP5_13p6TeV_amcatnloFXFX-pythia8.root"
-                    ]
+                "DYto2L-2Jets_Bin-1J-PTLL-200to400": {
+                    "files": ["DYto2L-2Jets_Bin-1J-MLL-50-PTLL-200to400_TuneCP5_13p6TeV_amcatnloFXFX-pythia8.root"]
+                },
+                "DYto2L-2Jets_Bin-1J-PTLL-400to600": {
+                    "files": ["DYto2L-2Jets_Bin-1J-MLL-50-PTLL-400to600_TuneCP5_13p6TeV_amcatnloFXFX-pythia8.root"]
+                },
+                "DYto2L-2Jets_Bin-1J-PTLL-600": {
+                    "files": ["DYto2L-2Jets_Bin-1J-MLL-50-PTLL-600_TuneCP5_13p6TeV_amcatnloFXFX-pythia8.root"]
+                },
+
+                # 2J bins
+                "DYto2L-2Jets_Bin-2J-PTLL-40to100": {
+                    "files": ["DYto2L-2Jets_Bin-2J-MLL-50-PTLL-40to100_TuneCP5_13p6TeV_amcatnloFXFX-pythia8.root"]
+                },
+                "DYto2L-2Jets_Bin-2J-PTLL-100to200": {
+                    "files": ["DYto2L-2Jets_Bin-2J-MLL-50-PTLL-100to200_TuneCP5_13p6TeV_amcatnloFXFX-pythia8.root"]
+                },
+                "DYto2L-2Jets_Bin-2J-PTLL-200to400": {
+                    "files": ["DYto2L-2Jets_Bin-2J-MLL-50-PTLL-200to400_TuneCP5_13p6TeV_amcatnloFXFX-pythia8.root"]
+                },
+                "DYto2L-2Jets_Bin-2J-PTLL-400to600": {
+                    "files": ["DYto2L-2Jets_Bin-2J-MLL-50-PTLL-400to600_TuneCP5_13p6TeV_amcatnloFXFX-pythia8.root"]
+                },
+                "DYto2L-2Jets_Bin-2J-PTLL-600": {
+                    "files": ["DYto2L-2Jets_Bin-2J-MLL-50-PTLL-600_TuneCP5_13p6TeV_amcatnloFXFX-pythia8.root"]
                 },
             },
 
@@ -256,20 +293,62 @@ Backgrounds={
                 # }
             },
             "WJets": {
-                "WtoENu-2Jets_TuneCP5_13p6TeV_amcatnloFXFX-pythia8": {
-                    "files": [
-                        "WtoENu-2Jets_TuneCP5_13p6TeV_amcatnloFXFX-pythia8.root"
-                    ]
-                },
-                "WtoMuNu-2Jets_TuneCP5_13p6TeV_amcatnloFXFX-pythia8": {
-                    "files": [
-                        "WtoMuNu-2Jets_TuneCP5_13p6TeV_amcatnloFXFX-pythia8.root"
-                    ]
-                },
-                "WtoTauNu-2Jets_TuneCP5_13p6TeV_amcatnloFXFX-pythia8": {
-                    "files": [
-                        "WtoTauNu-2Jets_TuneCP5_13p6TeV_amcatnloFXFX-pythia8.root"
-                    ]
-                }
-            }
+                # "WtoENu-2Jets_TuneCP5_13p6TeV_amcatnloFXFX-pythia8": {
+                #     "files": [
+                #         "WtoENu-2Jets_TuneCP5_13p6TeV_amcatnloFXFX-pythia8.root"
+                #     ]
+                # },
+                # "WtoMuNu-2Jets_TuneCP5_13p6TeV_amcatnloFXFX-pythia8": {
+                #     "files": [
+                #         "WtoMuNu-2Jets_TuneCP5_13p6TeV_amcatnloFXFX-pythia8.root"
+                #     ]
+                # },
+                # "WtoTauNu-2Jets_TuneCP5_13p6TeV_amcatnloFXFX-pythia8": {
+                #     "files": [
+                #         "WtoTauNu-2Jets_TuneCP5_13p6TeV_amcatnloFXFX-pythia8.root"
+                #     ]
+                # }
+
+                        # 1J bins
+            "WtoLNu-2Jets_Bin-1J-PTLNu-40to100": {
+                "files": ["WtoLNu-2Jets_Bin-1J-PTLNu-40to100_TuneCP5_13p6TeV_amcatnloFXFX-pythia8.root"]
+            },
+            "WtoLNu-2Jets_Bin-1J-PTLNu-100to200": {
+                "files": ["WtoLNu-2Jets_Bin-1J-PTLNu-100to200_TuneCP5_13p6TeV_amcatnloFXFX-pythia8.root"]
+            },
+            "WtoLNu-2Jets_Bin-1J-PTLNu-200to400": {
+                "files": ["WtoLNu-2Jets_Bin-1J-PTLNu-200to400_TuneCP5_13p6TeV_amcatnloFXFX-pythia8.root"]
+            },
+            "WtoLNu-2Jets_Bin-1J-PTLNu-400to600": {
+                "files": ["WtoLNu-2Jets_Bin-1J-PTLNu-400to600_TuneCP5_13p6TeV_amcatnloFXFX-pythia8.root"]
+            },
+            "WtoLNu-2Jets_Bin-1J-PTLNu-600": {
+                "files": ["WtoLNu-2Jets_Bin-1J-PTLNu-600_TuneCP5_13p6TeV_amcatnloFXFX-pythia8.root"]
+            },
+
+            # 2J bins
+            "WtoLNu-2Jets_Bin-2J-PTLNu-100to200": {
+                "files": ["WtoLNu-2Jets_Bin-2J-PTLNu-100to200_TuneCP5_13p6TeV_amcatnloFXFX-pythia8.root"]
+            },
+
+            "WtoLNu-2Jets_Bin-2J-PTLNu-200to400": {
+                "files": [
+                    "WtoLNu-2Jets_Bin-2J-PTLNu-200to400_TuneCP5_13p6TeV_amcatnloFXFX-pythia8_0.root",
+                    "WtoLNu-2Jets_Bin-2J-PTLNu-200to400_TuneCP5_13p6TeV_amcatnloFXFX-pythia8_1.root",
+                    "WtoLNu-2Jets_Bin-2J-PTLNu-200to400_TuneCP5_13p6TeV_amcatnloFXFX-pythia8_2.root",
+                    "WtoLNu-2Jets_Bin-2J-PTLNu-200to400_TuneCP5_13p6TeV_amcatnloFXFX-pythia8_3.root",
+                    "WtoLNu-2Jets_Bin-2J-PTLNu-200to400_TuneCP5_13p6TeV_amcatnloFXFX-pythia8_4.root",
+                ]
+            },
+
+            "WtoLNu-2Jets_Bin-2J-PTLNu-400to600": {
+                "files": ["WtoLNu-2Jets_Bin-2J-PTLNu-400to600_TuneCP5_13p6TeV_amcatnloFXFX-pythia8.root"]
+            },
+            "WtoLNu-2Jets_Bin-2J-PTLNu-40to100": {
+                "files": ["WtoLNu-2Jets_Bin-2J-PTLNu-40to100_TuneCP5_13p6TeV_amcatnloFXFX-pythia8.root"]
+            },
+            "WtoLNu-2Jets_Bin-2J-PTLNu-600": {
+                "files": ["WtoLNu-2Jets_Bin-2J-PTLNu-600_TuneCP5_13p6TeV_amcatnloFXFX-pythia8.root"]
+            },
         }
+    }

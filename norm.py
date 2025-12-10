@@ -114,7 +114,7 @@ if __name__ == "__main__":
     additional_cuts_o = args.additional_cuts
     log_scale = args.log_scale
     
-    for dirname in ["SignalandBackground", "Signal_only", "TTbarresolved_DataMC"]:
+    for dirname in ["SignalandBackground", "Signal_only", "New_DYW_TTbarresolved_DataMC"]:
         os.makedirs(dirname, exist_ok=True)
 
     bins = variableSettingDictionary.get(variable, "21,0,1000")  
@@ -676,7 +676,7 @@ if __name__ == "__main__":
         line.SetLineWidth(2)
         line.Draw("same")
 
-        canvas_dataMC.SaveAs(os.path.join("TTbarresolved_DataMC", f"{args.year}_{args.Channel}_{variable}_DataMC.png"))
+        canvas_dataMC.SaveAs(os.path.join("New_DYW_TTbarresolved_DataMC", f"{args.year}_{args.Channel}_{variable}_DataMC.png"))
 
         data_val, data_err = get_integral_with_error(data)
         mc_val, mc_err     = get_integral_with_error(total_bkg_hist)
