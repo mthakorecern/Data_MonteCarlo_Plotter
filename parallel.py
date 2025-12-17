@@ -45,11 +45,11 @@ MAX_JOBS = 40
 ## && (FatJet_eta[index_gFatJets[0]] > 1.2 && FatJet_eta[index_gFatJets[0]] < 1.4)
 
 cuts = {
-    "tt": "((channel==0) && (boost==1) && PuppiMET_pt > 180 && (Flag_JetVetoed==0) && (Flag_FatJetVetoed==0))",
+    "tt": "((channel==0) && (boost==0) && PuppiMET_pt > 180 && (Flag_JetVetoed==0) && (Flag_FatJetVetoed==0))",
     
-    "et": "((channel==1) && (boost==1) && PuppiMET_pt > 180 && (Flag_JetVetoed==0) && (Flag_FatJetVetoed==0))",
+    "et": "((channel==1) && (boost==0) && PuppiMET_pt > 180 && (Flag_JetVetoed==0) && (Flag_FatJetVetoed==0))",
     
-    "mt": "((channel==2) && (boost==1) && PuppiMET_pt > 180 && (Flag_JetVetoed==0) && (Flag_FatJetVetoed==0))",
+    "mt": "((channel==2) && (boost==0) && PuppiMET_pt > 180 && (Flag_JetVetoed==0) && (Flag_FatJetVetoed==0))",
 }
 #"((channel==0) && PuppiMET_pt > 180 && (boost==1) && (Flag_JetVetoed==0) && (Flag_FatJetVetoed==0))"
 
