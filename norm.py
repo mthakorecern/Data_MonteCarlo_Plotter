@@ -6,11 +6,11 @@ ROOT.TH1.SetDefaultSumw2(True)
 import argparse
 import os
 import glob
-from samples import redirector_MC, Signals, Backgrounds
+# from samples import redirector_MC, Signals, Backgrounds
 from observed import observed
-# from observed_new import observed
-
-
+# from observed_IsoApplied import observed
+from samples_PileUpReweighted import redirector_MC, Signals, Backgrounds
+# from samples_PileUpReweighted_IsoApplied import redirector_MC, Signals, Backgrounds
 from variable_dictionaries import variableAxisTitleDictionary, variableFileNameDictionary, variableSettingDictionary
 import time
 import re
@@ -114,11 +114,14 @@ if __name__ == "__main__":
     additional_cuts_o = args.additional_cuts
     log_scale = args.log_scale
     
-    for dirname in ["SignalandBackground", "Signal_only", "New_DYW_TTbarresolved_DataMC"]:
+    for dirname in ["SignalandBackground", "Signal_only", "Data_MC"]:
         os.makedirs(dirname, exist_ok=True)
 
     bins = variableSettingDictionary.get(variable, "21,0,1000")  
     bin_values = tuple(map(float, bins.split(',')))
+
+    if "logit" in variable.lower():
+        bin_values = (bin_values[0], bin_values[1], min(bin_values[2], 7.0))
 
 
     hists = {}
@@ -214,50 +217,69 @@ if __name__ == "__main__":
         #     print(f"{key:12} : {hist.Integral(0, hist.GetNbinsX()+1):.6f}")
 
         # styling for category-sum histograms
+        # styling for category-sum histograms
         hists["DiBoson"].SetLineColor(ROOT.TColor.GetColor("#9d99bd"))
         hists["DiBoson"].SetFillColor(ROOT.TColor.GetColor("#9d99bd"))
         print("Diboson background Integral is:")
         print(hists["DiBoson"].Integral(0, hists["DiBoson"].GetNbinsX()+1))
+        tmphistint, tmphisterr =  get_integral_with_error(hists["DiBoson"])
+        print(f"In scientific notation:",format_scientific(tmphistint, tmphisterr))
 
         hists["STop"].SetLineColor(ROOT.TColor.GetColor("#a5e7fa"))
         hists["STop"].SetFillColor(ROOT.TColor.GetColor("#a5e7fa"))
         print("STop background Integral is:")
         print(hists["STop"].Integral(0, hists["STop"].GetNbinsX()+1))
-
+        tmphistint, tmphisterr =  get_integral_with_error(hists["STop"])
+        print(f"In scientific notation:",format_scientific(tmphistint, tmphisterr))
+        
         hists["TTto2L2Nu"].SetLineColor(ROOT.TColor.GetColor("#b9ac70"))
         hists["TTto2L2Nu"].SetFillColor(ROOT.TColor.GetColor("#b9ac70"))
         print("TTto2L2Nu background Integral is:")
         print(hists["TTto2L2Nu"].Integral(0, hists["TTto2L2Nu"].GetNbinsX()+1))
+        tmphistint, tmphisterr =  get_integral_with_error(hists["TTto2L2Nu"])
+        print(f"In scientific notation:",format_scientific(tmphistint, tmphisterr))
 
         hists["TTto4Q"].SetLineColor(ROOT.TColor.GetColor("#94a4a2"))
         hists["TTto4Q"].SetFillColor(ROOT.TColor.GetColor("#94a4a2"))
         print("TTto4Q background Integral is:")
         print(hists["TTto4Q"].Integral(0, hists["TTto4Q"].GetNbinsX()+1))
+        tmphistint, tmphisterr =  get_integral_with_error(hists["TTto4Q"])
+        print(f"In scientific notation:",format_scientific(tmphistint, tmphisterr))
 
         hists["TTtoLNu2Q"].SetLineColor(ROOT.TColor.GetColor("#a96b59"))
         hists["TTtoLNu2Q"].SetFillColor(ROOT.TColor.GetColor("#a96b59"))
         print("TTtoLNu2Q background Integral is:")
         print(hists["TTtoLNu2Q"].Integral(0, hists["TTtoLNu2Q"].GetNbinsX()+1))
+        tmphistint, tmphisterr =  get_integral_with_error(hists["TTtoLNu2Q"])
+        print(f"In scientific notation:",format_scientific(tmphistint, tmphisterr))
        
         hists["QCD"].SetLineColor(ROOT.TColor.GetColor("#f29b6f"))
         hists["QCD"].SetFillColor(ROOT.TColor.GetColor("#f29b6f"))
         print("QCD background Integral is:")
         print(hists["QCD"].Integral(0, hists["QCD"].GetNbinsX()+1))
+        tmphistint, tmphisterr =  get_integral_with_error(hists["QCD"])
+        print(f"In scientific notation:",format_scientific(tmphistint, tmphisterr))
 
         hists["WJets"].SetLineColor(ROOT.TColor.GetColor("#fcd068"))
         hists["WJets"].SetFillColor(ROOT.TColor.GetColor("#fcd068"))
         print("WJets background Integral is:")  
         print(hists["WJets"].Integral(0, hists["WJets"].GetNbinsX()+1))
+        tmphistint, tmphisterr =  get_integral_with_error(hists["WJets"])
+        print(f"In scientific notation:",format_scientific(tmphistint, tmphisterr))
 
         hists["Drell-Yan"].SetLineColor(ROOT.TColor.GetColor("#d8ed79"))
         hists["Drell-Yan"].SetFillColor(ROOT.TColor.GetColor("#d8ed79"))
         print("Drell-Yan background Integral is:")  
         print(hists["Drell-Yan"].Integral(0, hists["Drell-Yan"].GetNbinsX()+1))
+        tmphistint, tmphisterr =  get_integral_with_error(hists["Drell-Yan"])
+        print(f"In scientific notation:",format_scientific(tmphistint, tmphisterr))
 
         hists["Other"].SetLineColor(ROOT.TColor.GetColor("#ffff00"))
         hists["Other"].SetFillColor(ROOT.TColor.GetColor("#ffff00"))
         print("Other background Integral is:")  
         print(hists["Other"].Integral(0, hists["Other"].GetNbinsX()+1))
+        tmphistint, tmphisterr =  get_integral_with_error(hists["Other"])
+        print(f"In scientific notation:",format_scientific(tmphistint, tmphisterr))
 
         backgrounds_sum = (
             hists["DiBoson"].Integral(0, hists["DiBoson"].GetNbinsX()+1)
@@ -284,74 +306,74 @@ if __name__ == "__main__":
     
     ## Signals are there in all the plots, we are adding them outside any if loops
 
-    cut_sig = create_cut_string(weights, base_cut, additional_cuts_o, is_observed=False)
+    # cut_sig = create_cut_string(weights, base_cut, additional_cuts_o, is_observed=False)
 
-    # Signal 1
-    sig_info = Signals["GluGlutoRadiontoHHto2B2Tau_M-1000"]
-    sig_file = sig_info["files"][0]
-    hist_name_1 = f"{os.path.basename(sig_file.replace('.root', ''))}_{variable}"
-    root_file_1 = ROOT.TFile.Open(os.path.join(redirector_MC, sig_file), 'READ')
-    tree_1 = root_file_1.Get("Events")
-    signal_1 = ROOT.TH1F(hist_name_1, hist_title, int(bin_values[0]), bin_values[1], bin_values[2])
+    # # Signal 1
+    # sig_info = Signals["GluGlutoRadiontoHHto2B2Tau_M-1000"]
+    # sig_file = sig_info["files"][0]
+    # hist_name_1 = f"{os.path.basename(sig_file.replace('.root', ''))}_{variable}"
+    # root_file_1 = ROOT.TFile.Open(os.path.join(redirector_MC, sig_file), 'READ')
+    # tree_1 = root_file_1.Get("Events")
+    # signal_1 = ROOT.TH1F(hist_name_1, hist_title, int(bin_values[0]), bin_values[1], bin_values[2])
     
-    ROOT.gDirectory.Delete(f"{hist_name_1};*")   
-    signal_1.SetDirectory(ROOT.gDirectory)
-    tree_1.Draw(f"{variable} >> {hist_name_1}", cut_sig)
-    signal_1.SetDirectory(0)
-    print(f"Integral of {hist_name_1} is {signal_1.Integral(0, signal_1.GetNbinsX()+1)}")
-    print(f" - Entries: {signal_1.GetEntries()} | Mean: {signal_1.GetMean():.4f} | Std Dev: {signal_1.GetStdDev():.4f}")
-    root_file_1.Close()
+    # ROOT.gDirectory.Delete(f"{hist_name_1};*")   
+    # signal_1.SetDirectory(ROOT.gDirectory)
+    # tree_1.Draw(f"{variable} >> {hist_name_1}", cut_sig)
+    # signal_1.SetDirectory(0)
+    # print(f"Integral of {hist_name_1} is {signal_1.Integral(0, signal_1.GetNbinsX()+1)}")
+    # print(f" - Entries: {signal_1.GetEntries()} | Mean: {signal_1.GetMean():.4f} | Std Dev: {signal_1.GetStdDev():.4f}")
+    # root_file_1.Close()
 
-    # Signal 2
-    sig_info = Signals["GluGlutoRadiontoHHto2B2Tau_M-2000"]
-    sig_file = sig_info["files"][0]
-    hist_name_2 = f"{os.path.basename(sig_file.replace('.root', ''))}_{variable}"
-    root_file_2 = ROOT.TFile.Open(os.path.join(redirector_MC, sig_file), 'READ')
-    tree_2 = root_file_2.Get("Events")
-    signal_2 = ROOT.TH1F(hist_name_2, hist_title, int(bin_values[0]), bin_values[1], bin_values[2])
-    ROOT.gDirectory.Delete(f"{hist_name_2};*")
-    signal_2.SetDirectory(ROOT.gDirectory)
-    tree_2.Draw(f"{variable} >> {hist_name_2}", cut_sig)
-    signal_2.SetDirectory(0)
-    print(f"Integral of {hist_name_2} is {signal_2.Integral(0, signal_2.GetNbinsX()+1)}")
-    print(f" - Entries: {signal_2.GetEntries()} | Mean: {signal_2.GetMean():.4f} | Std Dev: {signal_2.GetStdDev():.4f}")
-    root_file_2.Close()
+    # # Signal 2
+    # sig_info = Signals["GluGlutoRadiontoHHto2B2Tau_M-2000"]
+    # sig_file = sig_info["files"][0]
+    # hist_name_2 = f"{os.path.basename(sig_file.replace('.root', ''))}_{variable}"
+    # root_file_2 = ROOT.TFile.Open(os.path.join(redirector_MC, sig_file), 'READ')
+    # tree_2 = root_file_2.Get("Events")
+    # signal_2 = ROOT.TH1F(hist_name_2, hist_title, int(bin_values[0]), bin_values[1], bin_values[2])
+    # ROOT.gDirectory.Delete(f"{hist_name_2};*")
+    # signal_2.SetDirectory(ROOT.gDirectory)
+    # tree_2.Draw(f"{variable} >> {hist_name_2}", cut_sig)
+    # signal_2.SetDirectory(0)
+    # print(f"Integral of {hist_name_2} is {signal_2.Integral(0, signal_2.GetNbinsX()+1)}")
+    # print(f" - Entries: {signal_2.GetEntries()} | Mean: {signal_2.GetMean():.4f} | Std Dev: {signal_2.GetStdDev():.4f}")
+    # root_file_2.Close()
 
-    # Signal 3
-    sig_info = Signals["GluGlutoRadiontoHHto2B2Tau_M-3000"]
-    sig_file = sig_info["files"][0]
-    hist_name_3 = f"{os.path.basename(sig_file.replace('.root', ''))}_{variable}"
-    root_file_3 = ROOT.TFile.Open(os.path.join(redirector_MC, sig_file), 'READ')
-    tree_3 = root_file_3.Get("Events")
-    signal_3 = ROOT.TH1F(hist_name_3, hist_title, int(bin_values[0]), bin_values[1], bin_values[2])
-    ROOT.gDirectory.Delete(f"{hist_name_3};*")
-    signal_3.SetDirectory(ROOT.gDirectory)
-    tree_3.Draw(f"{variable} >> {hist_name_3}", cut_sig)
-    signal_3.SetDirectory(0)
-    print(f"Integral of {hist_name_3} is {signal_3.Integral(0, signal_3.GetNbinsX()+1)}")
-    print(f" - Entries: {signal_3.GetEntries()} | Mean: {signal_3.GetMean():.4f} | Std Dev: {signal_3.GetStdDev():.4f}")
-    root_file_3.Close()
+    # # Signal 3
+    # sig_info = Signals["GluGlutoRadiontoHHto2B2Tau_M-3000"]
+    # sig_file = sig_info["files"][0]
+    # hist_name_3 = f"{os.path.basename(sig_file.replace('.root', ''))}_{variable}"
+    # root_file_3 = ROOT.TFile.Open(os.path.join(redirector_MC, sig_file), 'READ')
+    # tree_3 = root_file_3.Get("Events")
+    # signal_3 = ROOT.TH1F(hist_name_3, hist_title, int(bin_values[0]), bin_values[1], bin_values[2])
+    # ROOT.gDirectory.Delete(f"{hist_name_3};*")
+    # signal_3.SetDirectory(ROOT.gDirectory)
+    # tree_3.Draw(f"{variable} >> {hist_name_3}", cut_sig)
+    # signal_3.SetDirectory(0)
+    # print(f"Integral of {hist_name_3} is {signal_3.Integral(0, signal_3.GetNbinsX()+1)}")
+    # print(f" - Entries: {signal_3.GetEntries()} | Mean: {signal_3.GetMean():.4f} | Std Dev: {signal_3.GetStdDev():.4f}")
+    # root_file_3.Close()
 
-    # Signal 4
-    sig_info = Signals["GluGlutoRadiontoHHto2B2Tau_M-4000"]
-    sig_file = sig_info["files"][0]
-    hist_name_4 = f"{os.path.basename(sig_file.replace('.root', ''))}_{variable}"
-    root_file_4 = ROOT.TFile.Open(os.path.join(redirector_MC, sig_file), 'READ')
-    tree_4 = root_file_4.Get("Events")
-    signal_4 = ROOT.TH1F(hist_name_4, hist_title, int(bin_values[0]), bin_values[1], bin_values[2])
-    ROOT.gDirectory.Delete(f"{hist_name_4};*")
-    signal_4.SetDirectory(ROOT.gDirectory)
-    tree_4.Draw(f"{variable} >> {hist_name_4}", cut_sig)
-    signal_4.SetDirectory(0)
-    print(f"Integral of {hist_name_4} is {signal_4.Integral(0, signal_4.GetNbinsX()+1)}")
-    print(f" - Entries: {signal_4.GetEntries()} | Mean: {signal_4.GetMean():.4f} | Std Dev: {signal_4.GetStdDev():.4f}")
-    root_file_4.Close()
+    # # Signal 4
+    # sig_info = Signals["GluGlutoRadiontoHHto2B2Tau_M-4000"]
+    # sig_file = sig_info["files"][0]
+    # hist_name_4 = f"{os.path.basename(sig_file.replace('.root', ''))}_{variable}"
+    # root_file_4 = ROOT.TFile.Open(os.path.join(redirector_MC, sig_file), 'READ')
+    # tree_4 = root_file_4.Get("Events")
+    # signal_4 = ROOT.TH1F(hist_name_4, hist_title, int(bin_values[0]), bin_values[1], bin_values[2])
+    # ROOT.gDirectory.Delete(f"{hist_name_4};*")
+    # signal_4.SetDirectory(ROOT.gDirectory)
+    # tree_4.Draw(f"{variable} >> {hist_name_4}", cut_sig)
+    # signal_4.SetDirectory(0)
+    # print(f"Integral of {hist_name_4} is {signal_4.Integral(0, signal_4.GetNbinsX()+1)}")
+    # print(f" - Entries: {signal_4.GetEntries()} | Mean: {signal_4.GetMean():.4f} | Std Dev: {signal_4.GetStdDev():.4f}")
+    # root_file_4.Close()
 
     ## Signals Only Plotting
 
     if args.signals_only:
         canvas_sig = ROOT.TCanvas("canvas_sig", "Signal Only", 1600, 900)
-        canvas_sig.SetRightMargin(0.28)
+        canvas_sig.SetRightMargin(0.1)
         canvas_sig.SetLeftMargin(0.1)
         canvas_sig.SetBottomMargin(0.1)
 
@@ -391,7 +413,7 @@ if __name__ == "__main__":
         signal_3.Draw("hist SAME")
         signal_4.Draw("hist SAME")
 
-        theLegend = ROOT.TLegend(0.73, 0.20, 0.96, 0.90, "", "brNDC")
+        theLegend = ROOT.TLegend(0.80, 0.20, 0.99, 0.90, "", "brNDC")
         if (args.Channel == "tt"):
             theLegend.SetHeader("#tau-#tau Channel","C")
         elif (args.Channel == "et"):
@@ -492,15 +514,15 @@ if __name__ == "__main__":
         val, err = get_integral_with_error(total_bkg_hist)
         print(f"Total background integral = {format_scientific(val, err)}")
 
-        # Signals
-        signal_1.SetLineColor(ROOT.kRed)
-        signal_1.SetLineWidth(2)
-        signal_2.SetLineColor(ROOT.kBlue+2)
-        signal_2.SetLineWidth(2)
-        signal_3.SetLineColor(ROOT.kViolet+3)
-        signal_3.SetLineWidth(2)
-        signal_4.SetLineColor(ROOT.kCyan+4)
-        signal_4.SetLineWidth(2)
+        # # Signals
+        # signal_1.SetLineColor(ROOT.kRed)
+        # signal_1.SetLineWidth(2)
+        # signal_2.SetLineColor(ROOT.kBlue+2)
+        # signal_2.SetLineWidth(2)
+        # signal_3.SetLineColor(ROOT.kViolet+3)
+        # signal_3.SetLineWidth(2)
+        # signal_4.SetLineColor(ROOT.kCyan+4)
+        # signal_4.SetLineWidth(2)
 
 
         # Data
@@ -565,12 +587,12 @@ if __name__ == "__main__":
         print(f"Total Data integral = {format_scientific(val, err)}")
         
         max_bkg = max(h.GetMaximum() for _, h in hists.items())
-        max_sig = max(signal_1.GetMaximum(), signal_2.GetMaximum(),
-                            signal_3.GetMaximum(), signal_4.GetMaximum())
+        # max_sig = max(signal_1.GetMaximum(), signal_2.GetMaximum(),
+        #                     signal_3.GetMaximum(), signal_4.GetMaximum())
         max_data = data.GetMaximum()
 
         pad1.cd()
-        hist_stack.SetMaximum(max(max_bkg, max_sig, max_data) * 1.4)
+        hist_stack.SetMaximum(max(max_bkg, max_data) * 1.4)
         hist_stack.Draw("hist")
         hist_stack.GetXaxis().SetTitle("")
         hist_stack.GetXaxis().SetLabelSize(0)
@@ -676,7 +698,7 @@ if __name__ == "__main__":
         line.SetLineWidth(2)
         line.Draw("same")
 
-        canvas_dataMC.SaveAs(os.path.join("New_DYW_TTbarresolved_DataMC", f"{args.year}_{args.Channel}_{variable}_DataMC.png"))
+        canvas_dataMC.SaveAs(os.path.join("Data_MC", f"{args.year}_{args.Channel}_{variable}_DataMC.png"))
 
         data_val, data_err = get_integral_with_error(data)
         mc_val, mc_err     = get_integral_with_error(total_bkg_hist)
@@ -693,117 +715,106 @@ if __name__ == "__main__":
         print(f"MC Integral   : {format_scientific(mc_val, mc_err)}")
         print(f"Data/MC Ratio : {format_scientific(ratio_val, ratio_err)}")
     
-    else:  
-        ## Signal & Backgrounds both
 
-        canvas_sb = ROOT.TCanvas("canvas_sb", "Signal + Backgrounds", 1600, 800)  
+
+
+
+
+    if (not args.dataMC) and (not args.signals_only):
+        canvas_sb = ROOT.TCanvas("canvas_sb", "Signal + Background", 1600, 1000)
         canvas_sb.SetRightMargin(0.30)
+        canvas_sb.SetLeftMargin(0.10)
+        canvas_sb.SetBottomMargin(0.16)
 
-        theLegend = ROOT.TLegend(0.80, 0.20, 0.98, 0.90, "", "brNDC")
-
+        legSB = ROOT.TLegend(0.74, 0.25, 0.98, 0.93, "", "brNDC")
         if (args.Channel == "tt"):
-            theLegend.SetHeader("#tau-#tau Channel","C")
+            legSB.SetHeader("#tau-#tau Channel","C")
         elif (args.Channel == "et"):
-            theLegend.SetHeader("e-#tau Channel","C")
+            legSB.SetHeader("e-#tau Channel","C")
         elif (args.Channel == "mt"):
-            theLegend.SetHeader("#mu-#tau Channel","C")
+            legSB.SetHeader("#mu-#tau Channel","C")
         elif (args.Channel == "lt"):
-            theLegend.SetHeader("l-#tau Channel","C")
+            legSB.SetHeader("l-#tau Channel","C")
         elif (args.Channel == "all"):
-            theLegend.SetHeader("all Channels","C")
-        else:
-            print ("Enter a valid channel")
+            legSB.SetHeader("all Channels","C")
+        legSB.SetNColumns(1)
+        legSB.SetLineWidth(0)
+        legSB.SetLineStyle(1)
+        legSB.SetFillStyle(1001)
+        legSB.SetFillColor(0)
+        legSB.SetMargin(0.15)
+        legSB.SetTextSize(0.037)  
+        legSB.SetBorderSize(0)
+        legSB.SetTextFont(42)
 
-        theLegend.SetTextSize(0.035)
-        theLegend.SetBorderSize(0)
-        theLegend.SetFillStyle(0)
-        theLegend.SetTextFont(42)
-
-        signal_1.SetLineColor(ROOT.kRed)
-        signal_1.SetLineWidth(2)
-        signal_2.SetLineColor(ROOT.kBlue+2)
-        signal_2.SetLineWidth(2)
-        signal_3.SetLineColor(ROOT.kViolet+3)
-        signal_3.SetLineWidth(2)
-        signal_4.SetLineColor(ROOT.kCyan+4)
-        signal_4.SetLineWidth(2)
-        
-        total_bkg_hist = hists["DiBoson"].Clone("total_bkg")
+        # total background for y-range
+        total_bkg_hist = hists["DiBoson"].Clone("total_bkg_sb")
         total_bkg_hist.Add(hists["STop"])
-        total_bkg_hist.Add(hists["TTbar"])
+        total_bkg_hist.Add(hists["TTto2L2Nu"])
+        total_bkg_hist.Add(hists["TTto4Q"])
+        total_bkg_hist.Add(hists["TTtoLNu2Q"])
         total_bkg_hist.Add(hists["QCD"])
         total_bkg_hist.Add(hists["WJets"])
         total_bkg_hist.Add(hists["Drell-Yan"])
-        bkg_errors = ROOT.TGraphAsymmErrors(total_bkg_hist)
-        for b in range(1, total_bkg_hist.GetNbinsX() + 1):
-            bin_content = total_bkg_hist.GetBinContent(b)
-            bin_error = total_bkg_hist.GetBinError(b)
-            bkg_errors.SetPoint(b - 1, total_bkg_hist.GetBinCenter(b), bin_content)
-            bkg_errors.SetPointError(b - 1, total_bkg_hist.GetBinWidth(b)/2,
-                                    total_bkg_hist.GetBinWidth(b)/2,
-                                    bin_error, bin_error)
-        bkg_errors.SetLineColor(0)
-        bkg_errors.SetFillStyle(3008)
-        bkg_errors.SetFillColor(ROOT.TColor.GetColor("#545252"))
-        bkg_errors.SetMarkerStyle(0)
-        bkg_errors.SetLineWidth(0)
-        
-        pad1.cd()
-        hist_stack.GetHistogram().SetMaximum(1.2 * max(max_bkg, max_sig))
+
+        max_bkg = total_bkg_hist.GetMaximum()
+        max_sig = 0.0
+        # for _, hs in signal_hists.items():
+        #     max_sig = max(max_sig, hs.GetMaximum())
+
+        y_max = max(max_bkg, max_sig) * 1.4 if max(max_bkg, max_sig) > 0 else 1.0
+
+        hist_stack.SetMaximum(y_max)
         hist_stack.Draw("hist")
-        pad1.Update()
-        hist_stack.Draw("hist same")
+        frame = hist_stack.GetHistogram()  # this owns the drawn axes
+        frame.GetXaxis().SetTitle(hist_title)
+        frame.GetXaxis().SetTitleSize(0.05)
+        frame.GetXaxis().SetTitleOffset(1.1)
+        frame.GetXaxis().SetLabelSize(0.04)
+
+        frame.GetYaxis().SetTitle("Events")
+        frame.GetYaxis().SetTitleSize(0.05)
+        frame.GetYaxis().SetTitleOffset(0.9)
+        frame.GetYaxis().SetLabelSize(0.04)
+
         if log_scale:
-            pad1.SetLogy()
+            canvas_sb.SetLogy()
             hist_stack.SetMinimum(1e-1)
-        pad1.Update()
 
-        signal_1.Draw("hist SAME")
-        signal_2.Draw("hist SAME")
-        signal_3.Draw("hist SAME")
-        signal_4.Draw("hist SAME")
-        bkg_errors.Draw("E2 SAME")
+        canvas_sb.Modified()
+        canvas_sb.Update()
+        ROOT.gPad.RedrawAxis()
 
-        theLegend.AddEntry(hists["DiBoson"], "DiBoson", "f")
-        theLegend.AddEntry(hists["STop"], "STop", "f")
-        theLegend.AddEntry(hists["TTbar"], "TTbar", "f")
-        theLegend.AddEntry(hists["QCD"], "QCD", "f")
-        theLegend.AddEntry(hists["WJets"], "WJets", "f")
-        theLegend.AddEntry(hists["Drell-Yan"], "Drell-Yan", "f")
+        # Legend backgrounds
+        for key, lab in [
+            ("DiBoson","DiBoson"), ("STop","STop"), ("TTto2L2Nu","TTto2L2Nu"), ("TTto4Q","TTto4Q"),
+            ("TTtoLNu2Q","TTtoLNu2Q"), ("QCD","QCD"), ("WJets","WJets"), ("Drell-Yan","Drell-Yan")
+        ]:
+            legSB.AddEntry(hists[key], lab, "f")
 
-        theLegend.AddEntry(signal_1, '1TeV (1pb x 0.073 (bbtt BR))', "f")
-        theLegend.AddEntry(signal_2, '2TeV (1pb x 0.073 (bbtt BR))', "f")
-        theLegend.AddEntry(signal_3, '3TeV (1pb x 0.073 (bbtt BR))', "f")
-        theLegend.AddEntry(signal_4, '4TeV (1pb x 0.073 (bbtt BR))', "f")
+        # # Overlay signals
+        # for proc_name, hs in signal_hists.items():
+        #     if hs.Integral(0, hs.GetNbinsX()+1) <= 0:
+        #         continue
+        #     hs.Draw("hist SAME")
+        #     legSB.AddEntry(hs, proc_name, "l")
 
+        legSB.Draw()
 
+        # CMS label
         cmsLatex = ROOT.TLatex()
         cmsLatex.SetNDC(True)
         cmsLatex.SetTextFont(61)
         cmsLatex.SetTextSize(0.05)
-        cmsLatex.DrawLatex(0.10, 0.92, "CMS")
+        cmsLatex.DrawLatex(0.10, 0.91, "CMS")
         cmsLatex.SetTextFont(52)
         cmsLatex.SetTextSize(0.04)
-        cmsLatex.DrawLatex(0.18, 0.92, "Preliminary")
-
+        cmsLatex.DrawLatex(0.17, 0.91, "Preliminary")
         cmsLatex.SetTextAlign(31)
         cmsLatex.SetTextFont(42)
-        if args.year == '2024':
-            lumiText = '109.08 fb^{-1}, 13.6 TeV (2024)'
-        cmsLatex.DrawLatex(0.700,0.91,lumiText)
+        cmsLatex.DrawLatex(0.72, 0.91, "109.08 fb^{-1}, 13.6 TeV (2024)")
 
-        theLegend.SetNColumns(1)
-        theLegend.SetLineWidth(0)
-        theLegend.SetLineStyle(1)
-        theLegend.SetFillStyle(1001)
-        theLegend.SetFillColor(0)
-        theLegend.SetMargin(0.2)
-        theLegend.SetTextSize(0.035)  
-        theLegend.SetBorderSize(0)
-        theLegend.SetTextFont(42)
-        theLegend.Draw()
-    
-        canvas_sb.SaveAs(os.path.join("SignalandBackground", f"{args.year}_{args.Channel}_{variable}_SignalandBackground.png"))
+        canvas_sb.SaveAs(os.path.join("SignalandBackground", f"{args.year}_{args.Channel}_{variable}_SplusB.png"))
 
     end = time.time()
     print(f"Execution time: {end - start:.2f} seconds")

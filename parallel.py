@@ -40,30 +40,32 @@ MAX_JOBS = 40
 #     "et": "((channel==1))",
 #     "mt": "((channel==2))",
 # }
-
-#&& (HTTvis_deltaR > 3 && HTTvis_deltaR < 3.2) && 
-## && (FatJet_eta[index_gFatJets[0]] > 1.2 && FatJet_eta[index_gFatJets[0]] < 1.4)
-
+##&& (FatJet_eta[index_gFatJets[0]] < 1.2 || FatJet_eta[index_gFatJets[0]] > 1.5)
+# && (FatJet_eta[index_gFatJets[0]] < 1.2 || FatJet_eta[index_gFatJets[0]] > 1.5) 
+# && FatJet_pt[index_gFatJets[0]] >=200 && (HTTvis_deltaR<1.5) && (abs(Hbb_met_phi)>1) && (HTTvis_m>20) && (FatJet_msoftdrop[index_gFatJets[0]]>=30) && (X_m>750) && (X_m<5500)
+# && (boostedTau_rawBoostedDeepTauRunIIv2p0VSjet[index_gboostedTaus]>=0.99)
 cuts = {
-    "tt": "((channel==0) && (boost==0) && PuppiMET_pt > 180 && (Flag_JetVetoed==0) && (Flag_FatJetVetoed==0))",
-    
-    "et": "((channel==1) && (boost==0) && PuppiMET_pt > 180 && (Flag_JetVetoed==0) && (Flag_FatJetVetoed==0))",
-    
-    "mt": "((channel==2) && (boost==0) && PuppiMET_pt > 180 && (Flag_JetVetoed==0) && (Flag_FatJetVetoed==0))",
-}
-#"((channel==0) && PuppiMET_pt > 180 && (boost==1) && (Flag_JetVetoed==0) && (Flag_FatJetVetoed==0))"
+    "tt": "((channel==0) && (FatJet_pt[index_gFatJets[0]] >=200) && (HTTvis_deltaR<1.5) && (abs(Hbb_met_phi)>1) && (HTTvis_m>20) && (FatJet_msoftdrop[index_gFatJets[0]]>=30) && ((X_m>750) && (X_m<5500)) && ((FatJet_eta[index_gFatJets[0]] < 1.2) || (FatJet_eta[index_gFatJets[0]] > 1.5)) && (boost==1) && (PuppiMET_pt > 200) && (Flag_JetVetoed==0) && (Flag_FatJetVetoed==0))",
 
+    "et": "((channel==1) && (FatJet_pt[index_gFatJets[0]] >=200) && (HTTvis_deltaR<1.5) && (abs(Hbb_met_phi)>1) && (HTTvis_m>20) && (FatJet_msoftdrop[index_gFatJets[0]]>=30) && ((X_m>750) && (X_m<5500)) && ((FatJet_eta[index_gFatJets[0]] < 1.2) || (FatJet_eta[index_gFatJets[0]] > 1.5)) && (boost==1) && (PuppiMET_pt > 200) && (Flag_JetVetoed==0) && (Flag_FatJetVetoed==0))",
+    
+    "mt": "((channel==2) && (FatJet_pt[index_gFatJets[0]] >=200) && (HTTvis_deltaR<1.5) && (abs(Hbb_met_phi)>1) && (HTTvis_m>20) && (FatJet_msoftdrop[index_gFatJets[0]]>=30) && ((X_m>750) && (X_m<5500)) && ((FatJet_eta[index_gFatJets[0]] < 1.2) || (FatJet_eta[index_gFatJets[0]] > 1.5)) && (boost==1) && (PuppiMET_pt > 200) && (Flag_JetVetoed==0) && (Flag_FatJetVetoed==0))"
+}
 
 variables_log = [
     "FatJet_pt[index_gFatJets[0]]",
+    "X_m",
+    "Xvis_m",
+    "X_pt",
+    "Xvis_pt",
     "PuppiMET_pt",
-    "Tau_rawDeepTau2018v2p5VSjet[index_gTaus]",
-    "boostedTau_rawBoostedDeepTauRunIIv2p0VSjet[index_gboostedTaus]"
+
+    # "Tau_rawDeepTau2018v2p5VSjet[index_gTaus]",
+    # "boostedTau_rawBoostedDeepTauRunIIv2p0VSjet[index_gboostedTaus]"
 
 ]
 
 variables_linear = [
-
     "FatJet_mass[index_gFatJets[0]]",
     "FatJet_msoftdrop[index_gFatJets[0]]",
     "FatJet_particleNetLegacy_mass[index_gFatJets[0]]",
@@ -73,17 +75,17 @@ variables_linear = [
     "PV_npvsGood",
     "PV_npvs",
 
-    "Tau_pt[index_gTaus]",
-    "Tau_eta[index_gTaus]",
-    "Tau_phi[index_gTaus]",
+    # # "Tau_pt[index_gTaus]",
+    # # "Tau_eta[index_gTaus]",
+    # # "Tau_phi[index_gTaus]",
 
-    "Tau_pt[index_gTaus[0]]",
-    "Tau_eta[index_gTaus[0]]",
-    "Tau_phi[index_gTaus[0]]",
+    # # "Tau_pt[index_gTaus[0]]",
+    # # "Tau_eta[index_gTaus[0]]",
+    # # "Tau_phi[index_gTaus[0]]",
     
-    "Tau_pt[index_gTaus[1]]",
-    "Tau_eta[index_gTaus[1]]",
-    "Tau_phi[index_gTaus[1]]",
+    # # "Tau_pt[index_gTaus[1]]",
+    # # "Tau_eta[index_gTaus[1]]",
+    # # "Tau_phi[index_gTaus[1]]",
 
     "boostedTau_pt[index_gboostedTaus]",
     "boostedTau_eta[index_gboostedTaus]",
@@ -112,13 +114,17 @@ variables_linear = [
     "Jet_phi[index_gJets[0]]",
 
     "HTTvis_deltaR",
+    "HTTvis_m",
+    "HTTvis_eta",
+    "HTTvis_phi",
+    "HTTvis_pt",
+
     "ngood_Jets",
     "ngood_LooseJets",
     "ngood_MediumJets",
     "ngood_TightJets",
 
     "HTT_m",
-    "HTTvis_m",
     "HTT_pt",
     "HTT_phi",
     "HTT_eta",
@@ -126,37 +132,37 @@ variables_linear = [
     "Hbb_met_phi",
 
     "allTaus_decayMode",
-    "HTTvis_HPS_m",
-    "HTTvis_HPS_eta",
-    "HTTvis_HPS_phi",
+    # "HTTvis_HPS_m",
+    # "HTTvis_HPS_eta",
+    # "HTTvis_HPS_phi",
     
-    "HTTvis_boosted_m",
-    "HTTvis_boosted_eta",
-    "HTTvis_boosted_phi",
+    # "HTTvis_boosted_m",
+    # "HTTvis_boosted_eta",
+    # "HTTvis_boosted_phi",
 
-    "HTT_HPS_m",
-    "HTT_HPS_eta",
-    "HTT_HPS_phi",
+    # "HTT_HPS_m",
+    # "HTT_HPS_eta",
+    # "HTT_HPS_phi",
 
-    "HTT_boosted_m",
-    "HTT_boosted_eta",
-    "HTT_boosted_phi",
+    # "HTT_boosted_m",
+    # "HTT_boosted_eta",
+    # "HTT_boosted_phi",
 
-    "HTT_HPS_Ele_m",
-    "HTT_HPS_Ele_eta",
-    "HTT_HPS_Ele_phi",
+    # "HTT_HPS_Ele_m",
+    # "HTT_HPS_Ele_eta",
+    # "HTT_HPS_Ele_phi",
 
-    "HTT_HPS_Mu_m",
-    "HTT_HPS_Mu_eta",
-    "HTT_HPS_Mu_phi",
+    # "HTT_HPS_Mu_m",
+    # "HTT_HPS_Mu_eta",
+    # "HTT_HPS_Mu_phi",
     
-    "HTT_boosted_Ele_m",
-    "HTT_boosted_Ele_eta",
-    "HTT_boosted_Ele_phi",
+    # "HTT_boosted_Ele_m",
+    # "HTT_boosted_Ele_eta",
+    # "HTT_boosted_Ele_phi",
     
-    "HTT_boosted_Mu_m",
-    "HTT_boosted_Mu_eta",
-    "HTT_boosted_Mu_phi",
+    # "HTT_boosted_Mu_m",
+    # "HTT_boosted_Mu_eta",
+    # "HTT_boosted_Mu_phi",
 
     "Hbb_lep1_deltaR",
     "Hbb_lep2_deltaR",
@@ -177,46 +183,46 @@ variables_linear = [
     "deltaPhi_hbb_leadingele",
     "deltaPhi_hbb_leadingmu",
     
-    "deltaPhi_met_tautau",
-    "deltaPhi_met_leadingtau",
-    "deltaPhi_met_subleadingtau",
-    "deltaPhi_met_leadingele",
-    "deltaPhi_met_leadingmu",
+    # "deltaPhi_met_tautau",
+    # "deltaPhi_met_leadingtau",
+    # "deltaPhi_met_subleadingtau",
+    # "deltaPhi_met_leadingele",
+    # "deltaPhi_met_leadingmu",
 
-    "fatjet_tau21",
-    "fatjet_tau32",
+    # "fatjet_tau21",
+    # "fatjet_tau32",
 
-    "deltaR_subjets",
-    "deltaPhi_subjets",
+    # "deltaR_subjets",
+    # "deltaPhi_subjets",
 
 
-    "subjet1_tau21",
-    "subjet1_tau32",
-    "subjet2_tau21",
-    "subjet2_tau32",
+    # "subjet1_tau21",
+    # "subjet1_tau32",
+    # "subjet2_tau21",
+    # "subjet2_tau32",
 
-    "deltaR_subjet1_leadtau",
-    "deltaPhi_subjet1_leadtau",
-    "deltaR_subjet1_subtau",
-    "deltaPhi_subjet1_subtau",
-    "deltaR_subjet1_ele",
-    "deltaPhi_subjet1_ele",
-    "deltaR_subjet1_mu",
-    "deltaPhi_subjet1_mu",
+    # "deltaR_subjet1_leadtau",
+    # "deltaPhi_subjet1_leadtau",
+    # "deltaR_subjet1_subtau",
+    # "deltaPhi_subjet1_subtau",
+    # "deltaR_subjet1_ele",
+    # "deltaPhi_subjet1_ele",
+    # "deltaR_subjet1_mu",
+    # "deltaPhi_subjet1_mu",
 
-    "deltaR_subjet2_leadtau",
-    "deltaPhi_subjet2_leadtau",
-    "deltaR_subjet2_subtau",
-    "deltaPhi_subjet2_subtau",
-    "deltaR_subjet2_ele",
-    "deltaPhi_subjet2_ele",
-    "deltaR_subjet2_mu",
-    "deltaPhi_subjet2_mu",
+    # "deltaR_subjet2_leadtau",
+    # "deltaPhi_subjet2_leadtau",
+    # "deltaR_subjet2_subtau",
+    # "deltaPhi_subjet2_subtau",
+    # "deltaR_subjet2_ele",
+    # "deltaPhi_subjet2_ele",
+    # "deltaR_subjet2_mu",
+    # "deltaPhi_subjet2_mu",
 
-    "Tau_rawDeepTauVSjet_logit",
+    # "Tau_rawDeepTauVSjet_logit",
     "boostedTau_rawDeepTauVSjet_logit",
 
-    "pt_balance_hbb_htt",
+    # "pt_balance_hbb_htt",
     "deltaR_hbb_ak4lead",
     "deltaPhi_hbb_ak4lead",
 
@@ -231,11 +237,29 @@ variables_linear = [
     "deltaR_ak4_mu",
     "deltaPhi_ak4_mu",
 
-    "deltaPhi_met_ak4lead",
+    # "deltaPhi_met_ak4lead",
 
     "deltaR_httvis_ak4lead",
-    "deltaPhi_httvis_ak4lead"
+    "deltaPhi_httvis_ak4lead",
+    
+    "X_phi",
+    "X_eta",
+
+    "Xvis_eta",
+    "Xvis_phi", 
 ]
+
+# signal_background=[
+#     "Pileup_gpudensity",
+#     "Pileup_nPU",
+#     "Pileup_nTrueInt",
+#     # "Pileup_pthatmax",
+#     "Pileup_pudensity",
+#     "Pileup_sumEOOT",
+#     "Pileup_sumLOOT",
+
+# ]
+
 
 print_lock = threading.Lock()
 progress_bar = None
@@ -275,7 +299,7 @@ def generate_commands():
                 "--year", "2024",
                 "--variables", var,
                 "--cuts", cut_expr,
-                "--weights", "xsWeight",
+                "--weights", "xsWeight*pileupcorrWeight",
                 "--log_scale",
                 "--Channel", ch,
                 "--dataMC",
@@ -297,11 +321,32 @@ def generate_commands():
                 "--year", "2024",
                 "--variables", var,
                 "--cuts", cut_expr,
-                "--weights", "xsWeight",
+                "--weights", "xsWeight*pileupcorrWeight",
                 "--Channel", ch,
                 "--dataMC",
                 log_name,
             ]
+
+    # for var in signal_background:
+    #     for ch in ["tt", "et", "mt"]:
+    #         cut_expr = cuts[ch]
+    #         safe_var = (
+    #             var.replace("[", "")
+    #             .replace("]", "")
+    #             .replace("(", "")
+    #             .replace(")", "")
+    #             .replace("/", "_")
+    #         )
+    #         log_name = f"logs/log_{ch}_{safe_var}_SB.txt"
+    #         yield [
+    #             "--year", "2024",
+    #             "--variables", var,
+    #             "--cuts", cut_expr,
+    #             "--weights", "xsWeight*pileupcorrWeight",
+    #             # "--log_scale",
+    #             "--Channel", ch,
+    #             log_name,
+    #         ]
 
 
 if __name__ == "__main__":

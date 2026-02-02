@@ -94,7 +94,11 @@ variableAxisTitleDictionary = {
     "HTTvis_deltaR":"#Delta R(lep1, lep2)",
     "HTTvis_deltaR_HPS":"#Delta R(lep1, lep2) HPS",
     "HTTvis_deltaR_Boosted":"#Delta R(lep1, lep2) Boosted",
+    
     "HTTvis_m":"Visible Mass of H#rightarrow#tau#tau",
+    "HTTvis_eta":"Visible #eta of H#rightarrow#tau#tau",
+    "HTTvis_phi":"Visible #phi of H#rightarrow#tau#tau",
+    "HTTvis_pt":"Visible Pt of H#rightarrow#tau#tau",
     
     "HTTvis_HPS_m": "Visible Mass of H#rightarrow#tau#tau (HPS)",
     "HTTvis_HPS_eta": "Visible H#rightarrow#tau#tau #eta (HPS)",
@@ -155,6 +159,12 @@ variableAxisTitleDictionary = {
     "X_m":"Resonance(X) Mass (GeV)",
     "X_phi":"Resonance(X) Phi",
     "X_eta":"Resonance(X) Eta",
+
+    "Xvis_pt":"Resonance(X) Visible Pt (GeV)",
+    "Xvis_m":"Resonance(X) Visible Mass (GeV)",
+    "Xvis_phi":"Resonance(X) Visible Phi",
+    "Xvis_eta":"Resonance(X) Visible Eta",
+
     "HT":"HT",
     "MT":"MT",
     #"Hbb_met_phi":"DeltaPhi(ak8, met)",
@@ -253,7 +263,20 @@ variableAxisTitleDictionary = {
     "deltaPhi_httvis_ak4lead": "#Delta #phi(H_{#tau#tau}^{vis}, leading AK4 jet)",
 
     "pt_balance_hbb_htt_abs": "abs(p_{T} balance between Hbb and HTT)",
-    "pt_balance_hbb_htt_signed": "p_{T} balance between Hbb and HTT"            
+    "pt_balance_hbb_htt_signed": "p_{T} balance between Hbb and HTT",
+
+
+    ## Pile up variables
+    "Pileup_gpudensity": "Generator-level PU vertices / mm",
+    "Pileup_nPU":        "Number of pileup interactions (in-time BX)",
+    "Pileup_nTrueInt":   "True mean PU interactions (Poisson mean)",
+    "Pileup_pthatmax":   "Maximum #hat{p}_{T} (GeV)",
+    "Pileup_pudensity":  "PU vertices / mm",
+    "Pileup_sumEOOT":    "Early out-of-time pileup interactions",
+    "Pileup_sumLOOT":    "Late out-of-time pileup interactions",
+
+
+
 }
 
 variableFileNameDictionary = {
@@ -318,7 +341,12 @@ variableFileNameDictionary = {
     "Hbb_lep2_deltaR_Boosted":"fatjet_lep2_delr_boosted",
     "Hbb_met_phi_HPS":"fatjet_met_delphi_hps",
     "Hbb_met_phi_Boosted":"fatjet_met_delphi_boosted",
-    "HTTvis_m":"vishtt_mass",
+    "HTTvis_m":"vishtt_mass",   
+    "HTTvis_eta":"vishtt_eta",
+    "HTTvis_phi":"vishtt_phi",
+    "HTTvis_pt":"vishtt_pt",
+
+
     "HTT_pt":"fastmtt_pt",
     "HTT_m":"fastmtt_mass",
     "HTT_phi":"fastmtt_phi",
@@ -327,6 +355,11 @@ variableFileNameDictionary = {
     "X_m":"x_mass",
     "X_phi":"x_phi",
     "X_eta":"x_eta",
+    "Xvis_pt":"Xvis_pt",
+    "Xvis_m":"Xvis_m",
+    "Xvis_phi":"Xvis_phi",
+    "Xvis_eta":"Xvis_eta",
+
     "HT":"HT",
     "MT":"MT",
     "Tau_rawDeepTau2018v2p5VSjet[index_gTaus]":"deeptau_raw",
@@ -441,24 +474,33 @@ variableFileNameDictionary = {
 
 
     "pt_balance_hbb_htt_abs": "pt_balance_hbb_htt_abs",
-    "pt_balance_hbb_htt_signed": "pt_balance_hbb_htt_signed"        
+    "pt_balance_hbb_htt_signed": "pt_balance_hbb_htt_signed",
+
+    "Pileup_gpudensity": "pileup_gpudensity",
+    "Pileup_nPU":        "pileup_nPU",
+    "Pileup_nTrueInt":   "pileup_nTrueInt",
+    "Pileup_pthatmax":   "pileup_pthatmax",
+    "Pileup_pudensity":  "pileup_pudensity",
+    "Pileup_sumEOOT":    "pileup_sumEOOT",
+    "Pileup_sumLOOT":    "pileup_sumLOOT",
+
 }
 
 variableSettingDictionary = {
     "PV_npvs":"50,0,100",
     "PV_npvsGood":"50,0,100",  
     
-    "Tau_pt[index_gTaus[0]]":"20,0.0,400.0",
+    "Tau_pt[index_gTaus[0]]":"40,0.0,400.0",
     "Tau_eta[index_gTaus[0]]":"64,-3.20,3.20",
     "Tau_phi[index_gTaus[0]]":"64,-3.20,3.20",
-    "Tau_pt[index_gTaus[1]]":"20,0.0,400.0",
+    "Tau_pt[index_gTaus[1]]":"40,0.0,400.0",
     "Tau_eta[index_gTaus[1]]":"64,-3.20,3.20",
     "Tau_phi[index_gTaus[1]]":"64,-3.20,3.20",
     
-    "boostedTau_pt[index_gboostedTaus[0]]":"20,0.0,400.0",
+    "boostedTau_pt[index_gboostedTaus[0]]":"40,0.0,400.0",
     "boostedTau_eta[index_gboostedTaus[0]]":"64,-3.20,3.20",
     "boostedTau_phi[index_gboostedTaus[0]]":"64,-3.20,3.20",
-    "boostedTau_pt[index_gboostedTaus[1]]":"20,0.0,400.0",
+    "boostedTau_pt[index_gboostedTaus[1]]":"40,0.0,400.0",
     "boostedTau_eta[index_gboostedTaus[1]]":"64,-3.20,3.20",
     "boostedTau_phi[index_gboostedTaus[1]]":"64,-3.20,3.20",
     
@@ -466,7 +508,7 @@ variableSettingDictionary = {
     "Tau_eta[index_gTaus]":"64,-3.20,3.20",
     "Tau_phi[index_gTaus]":"64,-3.20,3.20",
     
-    "boostedTau_pt[index_gboostedTaus]":"20,0.0,400.0",
+    "boostedTau_pt[index_gboostedTaus]":"40,0.0,400.0",
     "boostedTau_eta[index_gboostedTaus]":"64,-3.20,3.20",
     "boostedTau_phi[index_gboostedTaus]":"64,-3.20,3.20",
     
@@ -474,7 +516,7 @@ variableSettingDictionary = {
     "HT":"30,0,3000",
     
     "FatJet_pt_nom[index_gFatJets[0]]":"37,180,2050",
-    "FatJet_pt[index_gFatJets[0]]": "75,175,2050", #"37, 180, 2030",
+    "FatJet_pt[index_gFatJets[0]]": "74,200,2050", #"37, 180, 2030",
     "FatJet_eta[index_gFatJets[0]]":"64,-3.20,3.20",
     "FatJet_phi[index_gFatJets[0]]":"64,-3.20,3.20",
     "FatJet_eta":"50,-2.5,2.5",
@@ -507,23 +549,36 @@ variableSettingDictionary = {
     "allTaus_pt[1]":"20,0.0,400.0",
     "allTaus_eta[1]":"64,-3.20,3.20",
     "allTaus_phi[1]":"64,-3.20,3.20",
-    "HTT_pt":"41,0,2050",
+    "HTT_pt":"50,0,1000",
 #    "HTT_m":"25,0.0,250.0",
     "HTT_m":"50,0.0,250.0", # temp
 
-    "HTT_phi":"32,-3.20,3.20",
+    "HTT_phi":"64,-3.20,3.20",
     "HTT_eta":"64,-3.20,3.20",
+    
     "X_pt":"40,50,2050",
     "X_m":"55,0,5500",
-    "X_phi":"16,-3.20,3.20",
+    "X_phi":"64,-3.20,3.20",
     "X_eta":"64,-3.20,3.20",
+         
+    "Xvis_pt":"40,50,2050",
+    "Xvis_m":"55,0,5500",
+    "Xvis_phi":"64,-3.20,3.20",
+    "Xvis_eta":"64,-3.20,3.20",
+
     "Muon_pt[index_gMuons[0]]":"40,0.0,400.0",
     "Muon_eta[index_gMuons[0]]":"64,-3.20,3.20",
     "Muon_phi[index_gMuons[0]]":"64,-3.20,3.20",
     "Electron_pt[index_gElectrons[0]]":"40,0.0,400.0",
     "Electron_eta[index_gElectrons[0]]":"64,-3.20,3.20",
     "Electron_phi[index_gElectrons[0]]":"64,-3.20,3.20",
-    "HTTvis_deltaR":"60,0,6.0",
+    "HTTvis_deltaR":"30,0,1.5",
+    "HTTvis_pt":"50,0,1000",
+    "HTTvis_phi":"64,-3.20,3.20",
+    "HTTvis_eta":"64,-3.20,3.20",
+
+
+
     "Hbb_lep1_deltaR":"60,0.0,6.0",
     "Hbb_lep2_deltaR":"60,0.0,6.0",
     "Hbb_met_phi":"32, 0, 3.2",
@@ -549,7 +604,7 @@ variableSettingDictionary = {
     "Jet_eta":"64,-3.20,3.20",
     "Jet_phi":"64,-3.20,3.20",
     
-    "boostedTau_rawBoostedDeepTauRunIIv2p0VSjet[index_gboostedTaus]":"30,0.85,1.0",
+    "boostedTau_rawBoostedDeepTauRunIIv2p0VSjet[index_gboostedTaus]":"15,0.85,1.00",
     "Tau_rawDeepTau2018v2p5VSjet[index_gTaus]":"40,0.92,1.00",
     #"Fatjet_pnet_bbvsqcd":"40,0.0,1.0"
     "Fatjet_pnet_bbvsqcd":"24,0.70,1.0",
@@ -595,10 +650,10 @@ variableSettingDictionary = {
 
     "deltaPhi_tau_ele": "64,0,3.2",
     "deltaPhi_tau_mu": "64,0,3.2",
-    "deltaPhi_tau1_tau2": "64,0,3.2",
+    "deltaPhi_tau1_tau2": "30,0,1.5",
     "deltaR_tau_ele": "60,0,6.0",
     "deltaR_tau_mu": "60,0,6.0",
-    "deltaR_tau1_tau2": "60,0,6.0",
+    "deltaR_tau1_tau2": "30,0,1.5",
 
     "deltaR_hbb_htt": "60,0,6.0",
     "deltaPhi_hbb_htt": "64,0,3.2",
@@ -610,7 +665,6 @@ variableSettingDictionary = {
     "deltaPhi_hbb_leadingele": "64,0,3.2",
     "deltaPhi_hbb_leadingmu": "64,0,3.2",
 
-    "deltaPhi_tau1_tau2": "64,0,3.2",
     "deltaPhi_met_tautau": "64,0,3.2",
     "deltaPhi_met_leadingtau": "64,0,3.2",
     "deltaPhi_met_subleadingtau": "64,0,3.2",
@@ -647,8 +701,8 @@ variableSettingDictionary = {
     "deltaR_subjet2_mu": "60,0,6.0",
     "deltaPhi_subjet2_mu": "64,0,3.2",
 
-    "Tau_rawDeepTauVSjet_logit": "150,-5,10",
-    "boostedTau_rawDeepTauVSjet_logit": "150,-5,10",
+    "Tau_rawDeepTauVSjet_logit": "150,-2,8",
+    "boostedTau_rawDeepTauVSjet_logit": "65,1.5,8",
 
     "pt_balance_hbb_htt_abs": "200,-1.0,1.0",
     "pt_balance_hbb_htt_signed": "200,-1.0,1.0",
@@ -670,6 +724,15 @@ variableSettingDictionary = {
     "deltaR_httvis_ak4lead": "60,0,6.0",
     "deltaPhi_httvis_ak4lead": "64,0,3.2",
 
+    "Pileup_gpudensity": "15,0,1.5",     
+    "Pileup_pudensity":  "60,0,6",     
+
+    "Pileup_nPU":        "100,0,100",    
+    "Pileup_sumEOOT":    "80,0,80",    
+    "Pileup_sumLOOT":    "80,0,80",    
+    "Pileup_nTrueInt":   "80,0,80",
+
+    "Pileup_pthatmax":   "75,0,150"
 
 
 }
